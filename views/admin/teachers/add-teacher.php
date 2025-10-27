@@ -77,6 +77,36 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         
                         <div class="form-col">
                             <div class="form-group">
+                                <label for="password">Password *</label>
+                                <div style="position: relative;">
+                                    <input type="password" id="password" name="password" class="form-control" minlength="6" required>
+                                    <i class="fas fa-eye password-toggle" id="togglePassword" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #666;"></i>
+                                </div>
+                                <small style="color: #666; font-size: 0.85em;">Minimum 6 characters</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password *</label>
+                                <div style="position: relative;">
+                                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" minlength="6" required>
+                                    <i class="fas fa-eye password-toggle" id="toggleConfirmPassword" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #666;"></i>
+                                </div>
+                                <small style="color: #666; font-size: 0.85em;">Re-enter the password</small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-col">
+                            <!-- Empty column for layout balance -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
                                 <label>Gender *</label>
                                 <div class="radio-group">
                                     <div class="radio-option">
@@ -90,6 +120,10 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                                    
                                 </div>
                             </div>
+                        </div>
+                        
+                        <div class="form-col">
+                            <!-- Empty column for layout balance -->
                         </div>
                     </div>
                     
@@ -131,6 +165,6 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
 
     <!-- External JavaScript -->
     <script src="../../../assets/js/arabic-converter.js"></script>
-    <script src="../../../assets/js/add_teacher.js"></script>
+    <script src="../../../assets/js/add_teacher.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

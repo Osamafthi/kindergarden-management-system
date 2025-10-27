@@ -57,9 +57,6 @@ try {
     // Add teacher using the class method
     $result = $teacher->addTeacher($data);
     
-    // Set appropriate HTTP status code
-
-    
     // Return the result
     echo json_encode($result);
     

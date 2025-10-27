@@ -21,7 +21,7 @@ class Database {
             throw new Exception("Configuration file not found. Please copy config.example.php to config.php and update with your database credentials.");
         }
     }
-
+  
     public function connect() {
         $this->conn = null;
         try {

@@ -149,13 +149,16 @@ class Teacher extends User {
     public function addTeacher($data) {
         try {
             // Validate required fields
-          
-            
-            $required_fields = ['full_name', 'phone_number', 'email', 'gender',  'hourly_rate', 'monthly_salary'];
+            $required_fields = ['full_name', 'phone_number', 'email', 'password', 'gender',  'hourly_rate', 'monthly_salary'];
             foreach ($required_fields as $field) {
                 if (empty($data[$field])) {
                     return ['success' => false, 'message' => "Missing required field: $field"];
                 }
+            }
+            
+            // Validate password length
+            if (strlen($data['password']) < 6) {
+                return ['success' => false, 'message' => 'Password must be at least 6 characters long.'];
             }
 
             // Validate email format
@@ -235,14 +238,13 @@ class Teacher extends User {
     // Create a user account for the teacher
     private function createTeacherUserAccount($data, $teacher_id) {
         try {
-            // Generate a username from email
-            
-            
-            // Generate a temporary password
-            $temp_password = bin2hex(random_bytes(4)); // 8-character temporary password
+            // Check if password is provided
+            if (empty($data['password'])) {
+                return ['success' => false, 'message' => 'Password is required for user account.'];
+            }
             
             // Hash the password
-            $hashed_password = password_hash($temp_password, PASSWORD_DEFAULT);
+            $hashed_password = password_hash($data['password'], PASSWORD_DEFAULT);
             
             // Default role for teachers
             $role = 'teacher';
@@ -269,8 +271,7 @@ class Teacher extends User {
                 
                 return [
                     'success' => true,
-                    'user_id' => $user_id,
-                    'temp_password' => $temp_password // For notification purposes
+                    'user_id' => $user_id
                 ];
             } else {
                 return ['success' => false, 'message' => 'Failed to create user account for teacher.'];
@@ -406,9 +407,11 @@ class Teacher extends User {
             $update_fields = ['email = :email'];
             $params = [':email' => $email, ':user_id' => $user_id];
             
-            if ($password) {
+            if ($password && !empty($password)) {
+                // Hash the password before storing
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                 $update_fields[] = 'password = :password';
-                $params[':password'] = $password;
+                $params[':password'] = $hashed_password;
             }
             
             $update_user_sql = "UPDATE users SET " . implode(', ', $update_fields) . ", updated_at = NOW() WHERE id = :user_id";

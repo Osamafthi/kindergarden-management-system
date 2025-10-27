@@ -6,6 +6,46 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitButton = document.getElementById('submitButton');
     const submitSpinner = document.getElementById('submitSpinner');
     
+    // Password visibility toggle functionality
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordField = document.getElementById('password');
+    const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+    const confirmPasswordField = document.getElementById('confirmPassword');
+    
+    // Toggle password visibility
+    if (togglePassword) {
+        togglePassword.addEventListener('click', function() {
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            
+            // Toggle eye icon
+            if (type === 'text') {
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            } else {
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
+        });
+    }
+    
+    // Toggle confirm password visibility
+    if (toggleConfirmPassword) {
+        toggleConfirmPassword.addEventListener('click', function() {
+            const type = confirmPasswordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordField.setAttribute('type', type);
+            
+            // Toggle eye icon
+            if (type === 'text') {
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            } else {
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
+        });
+    }
+    
     teacherForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -19,11 +59,11 @@ document.addEventListener('DOMContentLoaded', function() {
         submitButton.disabled = true;
         
         const formData = {
-full_name: document.getElementById('fullName').value,        // Changed from fullName
-phone_number: document.getElementById('phone').value,       // Changed from phone
+full_name: document.getElementById('fullName').value,
+phone_number: document.getElementById('phone').value,
 email: document.getElementById('email').value,
+password: document.getElementById('password').value,
 gender: document.querySelector('input[name="gender"]:checked').value,
-// Changed from position
 hourly_rate: document.getElementById('hourlyRate').value,
 monthly_salary: document.getElementById('monthlySalary').value
 };
@@ -69,13 +109,39 @@ monthly_salary: document.getElementById('monthlySalary').value
     });
     
     function validateForm() {
+        // Hide any previous error messages
+        alertError.style.display = 'none';
+        
         // Basic validation - you can expand this
         const email = document.getElementById('email').value;
         const phone = document.getElementById('phone').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
         
         // Simple email validation
         if (!/\S+@\S+\.\S+/.test(email)) {
             errorMessage.textContent = 'Please enter a valid email address.';
+            alertError.style.display = 'block';
+            return false;
+        }
+        
+        // Password validation
+        if (password.length < 6) {
+            errorMessage.textContent = 'Password must be at least 6 characters long.';
+            alertError.style.display = 'block';
+            return false;
+        }
+        
+        // Confirm password validation
+        if (confirmPassword.length < 6) {
+            errorMessage.textContent = 'Confirm password must be at least 6 characters long.';
+            alertError.style.display = 'block';
+            return false;
+        }
+        
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            errorMessage.textContent = 'Passwords do not match. Please make sure both passwords are the same.';
             alertError.style.display = 'block';
             return false;
         }
