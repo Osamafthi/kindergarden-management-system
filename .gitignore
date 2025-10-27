@@ -1,0 +1,49 @@
+# Database Configuration
+config.php
+
+# User Uploaded Files
+assets/uploads/
+
+# macOS System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary Files
+*.tmp
+*.bak
+*.log
+
+# PHP Composer
+/vendor/
+composer.phar
+
+# Test Generation Files
+generate_test_*.php
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+

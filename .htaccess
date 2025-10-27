@@ -1,0 +1,19 @@
+# Increase upload limits for homework modules
+# Note: For XAMPP, you may need to edit php.ini directly if .htaccess directives don't work
+
+# Try PHP 8.x syntax first
+<IfModule mod_php.c>
+    php_value upload_max_filesize 90M
+    php_value post_max_size 100M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+    php_value memory_limit 256M
+</IfModule>
+
+# Fallback for different PHP versions
+php_value upload_max_filesize 90M
+php_value post_max_size 100M
+php_value max_execution_time 300
+php_value max_input_time 300
+php_value memory_limit 256M
+
