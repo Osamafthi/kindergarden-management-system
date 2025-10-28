@@ -1,48 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Kindergarten Management System</title>
+    <title>تسجيل الدخول - نظام إدارة الروضة</title>
     <link rel="stylesheet" href="../../assets/css/auth.css">
 </head>
 <body>
     <div class="login-container">
         <div class="login-header">
-            <h1>Welcome Back</h1>
-            <p>Sign in to your account</p>
+            <h1>مرحباً بعودتك</h1>
+            <p>قم بتسجيل الدخول إلى حسابك</p>
         </div>
 
         <div id="alert-container"></div>
 
         <form id="loginForm">
             <div class="form-group">
-                <label for="email">Email Address</label>
+                <label for="email">البريد الإلكتروني</label>
                 <input type="email" id="email" name="email" required>
             </div>
 
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">كلمة المرور</label>
                 <input type="password" id="password" name="password" required>
             </div>
 
             <div class="remember-me">
                 <input type="checkbox" id="remember" name="remember">
-                <label for="remember">Remember me</label>
+                <label for="remember">تذكرني</label>
             </div>
 
             <button type="submit" class="login-btn" id="loginBtn">
-                Sign In
+                تسجيل الدخول
             </button>
         </form>
 
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            Signing in...
+            جاري تسجيل الدخول...
         </div>
 
         <div class="footer">
-            <p>&copy; 2024 Kindergarten Management System</p>
+            <p>&copy; 2024 نظام إدارة الروضة</p>
         </div>
     </div>
 
@@ -79,7 +79,7 @@
 
                 if (data.success) {
                     // Show success message
-                    alertContainer.innerHTML = '<div class="alert alert-success">Login successful! Redirecting...</div>';
+                    alertContainer.innerHTML = '<div class="alert alert-success">تم تسجيل الدخول بنجاح! جاري التوجيه...</div>';
                     
                     // Redirect based on user role
                     setTimeout(() => {
@@ -96,8 +96,8 @@
                     alertContainer.innerHTML = `<div class="alert alert-error">${data.message}</div>`;
                 }
             } catch (error) {
-                console.error('Login error:', error);
-                alertContainer.innerHTML = '<div class="alert alert-error">An error occurred. Please try again.</div>';
+                console.error('خطأ في تسجيل الدخول:', error);
+                alertContainer.innerHTML = '<div class="alert alert-error">حدث خطأ. يرجى المحاولة مرة أخرى.</div>';
             } finally {
                 // Hide loading state
                 loginBtn.disabled = false;

@@ -149,3 +149,18 @@ body {
     color: #666;
     font-size: 0.8rem;
 }
+
+/* RTL Layout Fixes */
+[dir="rtl"] .remember-me {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .remember-me input[type="checkbox"] {
+    margin-right: 0;
+    margin-left: 0.5rem;
+}
+
+[dir="rtl"] .spinner {
+    margin-right: 0;
+    margin-left: 0.5rem;
+}
