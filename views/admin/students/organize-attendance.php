@@ -16,11 +16,11 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organize School Days - Kindergarten Admin System</title>
+    <title>تنظيم أيام الدراسة - نظام إدارة الروضة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../../assets/css/admin-index.css">
     <link rel="stylesheet" href="../../../assets/css/organize-attendance.css">
@@ -29,11 +29,11 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-header">
-            <h2>Kindergarten Admin</h2>
+            <h2>إدارة الروضة</h2>
         </div>
         <nav class="sidebar-menu">
             <ul>
-                <li><a href="../index.php"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                <li><a href="../index.php"><i class="fas fa-tachometer-alt"></i> <span>الصفحة الرئيسية</span></a></li>
                 
                
             </ul>
@@ -49,18 +49,18 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             </div>
             <div class="search-bar">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search for students, teachers...">
+                <input type="text" placeholder="البحث عن طلاب، معلمين...">
             </div>
             <div class="user-info">
                 <img src="https://ui-avatars.com/api/?name=Admin+User&background=4e73df&color=fff" alt="Admin User">
-                <span>Admin User</span>
+                <span>الإدارة</span>
             </div>
         </div>
 
         <!-- Page Content -->
         <div class="dashboard">
-            <h1 class="page-title">Organize School Days</h1>
-            <p class="page-description">Set up school days and holidays for each semester. Unchecked days = School days (default), Checked days = Holidays/Closed days.</p>
+            <h1 class="page-title">تنظيم أيام الدراسة</h1>
+            <p class="page-description">قم بإعداد أيام الدراسة والعطلات لكل فصل دراسي. الأيام غير المحددة = أيام دراسية (افتراضي)، الأيام المحددة = عطلات/أيام مغلقة.</p>
 
             <!-- Alert Messages -->
             <div id="alertContainer"></div>
@@ -68,21 +68,21 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             <!-- Semester Selection -->
             <div class="card">
                 <div class="card-header">
-                    <h2><i class="fas fa-graduation-cap"></i> Select Semester</h2>
+                    <h2><i class="fas fa-graduation-cap"></i> اختيار الفصل الدراسي</h2>
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="academicYearFilter">Academic Year (Optional Filter)</label>
+                        <label for="academicYearFilter">السنة الدراسية (فلتر اختياري)</label>
                         <select id="academicYearFilter" class="form-control">
-                            <option value="">All Academic Years</option>
+                            <option value="">جميع السنوات الدراسية</option>
                             <!-- Academic years will be populated via JavaScript -->
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="semesterSelect">Semester *</label>
+                        <label for="semesterSelect">الفصل الدراسي *</label>
                         <select id="semesterSelect" class="form-control" required>
-                            <option value="">Choose a semester...</option>
+                            <option value="">اختر فصلاً دراسياً...</option>
                             <!-- Semesters will be populated via JavaScript -->
                         </select>
                     </div>
@@ -92,38 +92,38 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             <!-- Weekly Holiday Settings -->
             <div class="card" id="weeklyHolidayCard" style="display: none;">
                 <div class="card-header">
-                    <h2><i class="fas fa-calendar-times"></i> Weekly Recurring Holidays</h2>
+                    <h2><i class="fas fa-calendar-times"></i> العطلات الأسبوعية المتكررة</h2>
                 </div>
                 <div class="card-body">
-                    <p class="form-help">Select days that are ALWAYS holidays (e.g., Friday, Saturday). These days will be automatically marked as closed in the calendar below.</p>
+                    <p class="form-help">اختر الأيام التي تكون دائماً عطلات (مثل: الجمعة، السبت). سيتم وضع علامة تلقائية على هذه الأيام كأيام مغلقة في التقويم أدناه.</p>
                     <div class="weekly-holiday-selector">
                         <div class="day-checkbox">
                             <input type="checkbox" id="sunday" value="0">
-                            <label for="sunday">Sunday</label>
+                            <label for="sunday">الأحد</label>
                         </div>
                         <div class="day-checkbox">
                             <input type="checkbox" id="monday" value="1">
-                            <label for="monday">Monday</label>
+                            <label for="monday">الاثنين</label>
                         </div>
                         <div class="day-checkbox">
                             <input type="checkbox" id="tuesday" value="2">
-                            <label for="tuesday">Tuesday</label>
+                            <label for="tuesday">الثلاثاء</label>
                         </div>
                         <div class="day-checkbox">
                             <input type="checkbox" id="wednesday" value="3">
-                            <label for="wednesday">Wednesday</label>
+                            <label for="wednesday">الأربعاء</label>
                         </div>
                         <div class="day-checkbox">
                             <input type="checkbox" id="thursday" value="4">
-                            <label for="thursday">Thursday</label>
+                            <label for="thursday">الخميس</label>
                         </div>
                         <div class="day-checkbox">
                             <input type="checkbox" id="friday" value="5">
-                            <label for="friday">Friday</label>
+                            <label for="friday">الجمعة</label>
                         </div>
                         <div class="day-checkbox">
                             <input type="checkbox" id="saturday" value="6">
-                            <label for="saturday">Saturday</label>
+                            <label for="saturday">السبت</label>
                         </div>
                     </div>
                 </div>
@@ -132,10 +132,10 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             <!-- Calendar Section -->
             <div class="card" id="calendarCard" style="display: none;">
                 <div class="card-header">
-                    <h2><i class="fas fa-calendar-alt"></i> School Days Calendar</h2>
+                    <h2><i class="fas fa-calendar-alt"></i> تقويم أيام الدراسة</h2>
                     <div class="card-actions">
                         <button class="btn btn-refresh" onclick="generateCalendar()">
-                            <i class="fas fa-sync-alt"></i> Refresh Calendar
+                            <i class="fas fa-sync-alt"></i> تحديث التقويم
                         </button>
                     </div>
                 </div>
@@ -143,15 +143,15 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     <div class="calendar-legend">
                         <div class="legend-item">
                             <div class="legend-color school-day"></div>
-                            <span>School Day (Unchecked)</span>
+                            <span>يوم دراسي (غير محدد)</span>
                         </div>
                         <div class="legend-item">
                             <div class="legend-color holiday-day"></div>
-                            <span>Holiday/Closed (Checked)</span>
+                            <span>عطلة/مغلق (محدد)</span>
                         </div>
                         <div class="legend-item">
                             <div class="legend-color recurring-holiday"></div>
-                            <span>Recurring Holiday (Auto-checked)</span>
+                            <span>عطلة متكررة (محدد تلقائياً)</span>
                         </div>
                     </div>
                     
@@ -162,7 +162,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     <div class="calendar-actions">
                         <button type="button" class="btn btn-primary" id="saveSchoolDaysBtn" onclick="saveSchoolDays()">
                             <i class="fas fa-save"></i>
-                            <span id="saveText">Save School Days</span>
+                            <span id="saveText">حفظ أيام الدراسة</span>
                             <div class="loading-spinner" id="saveLoading" style="display: none;">
                                 <i class="fas fa-spinner fa-spin"></i>
                             </div>
@@ -174,14 +174,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             <!-- Loading State -->
             <div id="loadingContainer" class="loading-container" style="display: none;">
                 <div class="loading-spinner"></div>
-                <p>Loading data...</p>
+                <p>جاري تحميل البيانات...</p>
             </div>
 
             <!-- Empty State -->
             <div id="emptyState" class="empty-state" style="display: none;">
                 <i class="fas fa-calendar-alt"></i>
-                <h3>No Semester Selected</h3>
-                <p>Please select a semester to organize school days.</p>
+                <h3>لم يتم اختيار فصل دراسي</h3>
+                <p>يرجى اختيار فصل دراسي لتنظيم أيام الدراسة.</p>
             </div>
         </div>
     </div>
@@ -190,23 +190,23 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <div id="addAcademicYearModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-calendar-alt"></i> Add Academic Year</h2>
+                <h2><i class="fas fa-calendar-alt"></i> إضافة سنة دراسية</h2>
                 <span class="close" onclick="closeAddAcademicYearModal()">&times;</span>
             </div>
             <div class="modal-body">
                 <form id="addAcademicYearForm">
                     <div class="form-group">
-                        <label for="yearName">Academic Year Name *</label>
-                        <input type="text" id="yearName" name="yearName" class="form-control" placeholder="e.g., 2024-2025" required>
+                        <label for="yearName">اسم السنة الدراسية *</label>
+                        <input type="text" id="yearName" name="yearName" class="form-control" placeholder="مثال: 2024-2025" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="academicStartDate">Start Date *</label>
+                        <label for="academicStartDate">تاريخ البداية *</label>
                         <input type="date" id="academicStartDate" name="startDate" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="academicEndDate">End Date *</label>
+                        <label for="academicEndDate">تاريخ النهاية *</label>
                         <input type="date" id="academicEndDate" name="endDate" class="form-control" required>
                     </div>
                     
@@ -214,14 +214,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         <label class="checkbox-label">
                             <input type="checkbox" id="academicIsCurrent" name="isCurrent">
                             <span class="checkmark"></span>
-                            Set as current academic year
+                            تعيين كسنة دراسية حالية
                         </label>
                     </div>
                     
                     <div class="modal-actions">
-                        <button type="button" class="btn btn-secondary" onclick="closeAddAcademicYearModal()">Cancel</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeAddAcademicYearModal()">إلغاء</button>
                         <button type="submit" class="btn btn-primary" id="submitAcademicYearBtn">
-                            <span id="academicYearSubmitText">Add Academic Year</span>
+                            <span id="academicYearSubmitText">إضافة السنة الدراسية</span>
                             <div class="loading" id="academicYearLoading" style="display: none;"></div>
                         </button>
                     </div>
@@ -234,31 +234,31 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <div id="addSemesterModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-graduation-cap"></i> Add Semester</h2>
+                <h2><i class="fas fa-graduation-cap"></i> إضافة فصل دراسي</h2>
                 <span class="close" onclick="closeAddSemesterModal()">&times;</span>
             </div>
             <div class="modal-body">
                 <form id="addSemesterForm">
                     <div class="form-group">
-                        <label for="academicYearSelect">Academic Year *</label>
+                        <label for="academicYearSelect">السنة الدراسية *</label>
                         <select id="academicYearSelect" name="academicYearId" class="form-control" required>
-                            <option value="">Choose an academic year...</option>
+                            <option value="">اختر سنة دراسية...</option>
                             <!-- Academic years will be populated via JavaScript -->
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="termName">Semester Name *</label>
-                        <input type="text" id="termName" name="termName" class="form-control" placeholder="e.g., Fall 2024, Spring 2025" required>
+                        <label for="termName">اسم الفصل الدراسي *</label>
+                        <input type="text" id="termName" name="termName" class="form-control" placeholder="مثال: خريف 2024، ربيع 2025" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="semesterStartDate">Start Date *</label>
+                        <label for="semesterStartDate">تاريخ البداية *</label>
                         <input type="date" id="semesterStartDate" name="startDate" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="semesterEndDate">End Date *</label>
+                        <label for="semesterEndDate">تاريخ النهاية *</label>
                         <input type="date" id="semesterEndDate" name="endDate" class="form-control" required>
                     </div>
                     
@@ -266,14 +266,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         <label class="checkbox-label">
                             <input type="checkbox" id="semesterIsCurrent" name="isCurrent">
                             <span class="checkmark"></span>
-                            Set as current semester
+                            تعيين كفصل دراسي حالي
                         </label>
                     </div>
                     
                     <div class="modal-actions">
-                        <button type="button" class="btn btn-secondary" onclick="closeAddSemesterModal()">Cancel</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeAddSemesterModal()">إلغاء</button>
                         <button type="submit" class="btn btn-primary" id="submitSemesterBtn">
-                            <span id="semesterSubmitText">Add Semester</span>
+                            <span id="semesterSubmitText">إضافة الفصل الدراسي</span>
                             <div class="loading" id="semesterLoading" style="display: none;"></div>
                         </button>
                     </div>

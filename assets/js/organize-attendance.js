@@ -7,14 +7,14 @@ let schoolDaysData = [];
 
 // Initialize page
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Organize Attendance page loaded');
+    console.log('تم تحميل صفحة تنظيم الحضور');
     
     // Test if elements exist
     const academicYearFilter = document.getElementById('academicYearFilter');
     const semesterSelect = document.getElementById('semesterSelect');
     
     if (!academicYearFilter || !semesterSelect) {
-        console.error('Required elements not found!');
+        console.error('لم يتم العثور على العناصر المطلوبة!');
         return;
     }
     
@@ -117,7 +117,7 @@ async function loadAcademicYears() {
         
         if (data.success) {
             const select = document.getElementById('academicYearFilter');
-            select.innerHTML = '<option value="">All Academic Years</option>';
+            select.innerHTML = '<option value="">جميع السنوات الدراسية</option>';
             
             if (data.academic_years && data.academic_years.length > 0) {
                 data.academic_years.forEach(year => {
@@ -129,16 +129,16 @@ async function loadAcademicYears() {
             } else {
                 const option = document.createElement('option');
                 option.value = '';
-                option.textContent = 'No academic years available';
+                option.textContent = 'لا توجد سنوات دراسية متاحة';
                 select.appendChild(option);
             }
         } else {
-            console.error('API returned error:', data.message);
-            showAlert('Failed to load academic years: ' + data.message, 'error');
+            console.error('خطأ في واجهة برمجة التطبيقات:', data.message);
+            showAlert('فشل في تحميل السنوات الدراسية: ' + data.message, 'error');
         }
     } catch (error) {
-        console.error('Error loading academic years:', error);
-        showAlert('Network error loading academic years: ' + error.message, 'error');
+        console.error('خطأ في تحميل السنوات الدراسية:', error);
+        showAlert('خطأ في الشبكة عند تحميل السنوات الدراسية: ' + error.message, 'error');
     } finally {
         showLoading(false);
     }
@@ -156,7 +156,7 @@ async function loadAcademicYearsForModal() {
         
         if (data.success) {
             const select = document.getElementById('academicYearSelect');
-            select.innerHTML = '<option value="">Choose an academic year...</option>';
+            select.innerHTML = '<option value="">اختر سنة دراسية...</option>';
             
             data.academic_years.forEach(year => {
                 const option = document.createElement('option');
@@ -166,7 +166,7 @@ async function loadAcademicYearsForModal() {
             });
         }
     } catch (error) {
-        console.error('Error loading academic years for modal:', error);
+        console.error('خطأ في تحميل السنوات الدراسية للنافذة المنبثقة:', error);
     }
 }
 
@@ -193,14 +193,14 @@ async function loadSemesters(academicYearId = null) {
         try {
             data = JSON.parse(responseText);
         } catch (parseError) {
-            console.error('JSON parse error:', parseError);
-            console.error('Response text that failed to parse:', responseText);
-            throw new Error('Invalid JSON response from server');
+            console.error('خطأ في تحليل JSON:', parseError);
+            console.error('نص الاستجابة الذي فشل في التحليل:', responseText);
+            throw new Error('استجابة JSON غير صالحة من الخادم');
         }
         
         if (data.success) {
             const select = document.getElementById('semesterSelect');
-            select.innerHTML = '<option value="">Choose a semester...</option>';
+            select.innerHTML = '<option value="">اختر فصلاً دراسياً...</option>';
             
             if (data.semesters && data.semesters.length > 0) {
                 data.semesters.forEach(semester => {
@@ -212,16 +212,16 @@ async function loadSemesters(academicYearId = null) {
             } else {
                 const option = document.createElement('option');
                 option.value = '';
-                option.textContent = 'No semesters available';
+                option.textContent = 'لا توجد فصول دراسية متاحة';
                 select.appendChild(option);
             }
         } else {
-            console.error('API returned error:', data.message);
-            showAlert('Failed to load semesters: ' + data.message, 'error');
+            console.error('خطأ في واجهة برمجة التطبيقات:', data.message);
+            showAlert('فشل في تحميل الفصول الدراسية: ' + data.message, 'error');
         }
     } catch (error) {
-        console.error('Error loading semesters:', error);
-        showAlert('Network error loading semesters: ' + error.message, 'error');
+        console.error('خطأ في تحميل الفصول الدراسية:', error);
+        showAlert('خطأ في الشبكة عند تحميل الفصول الدراسية: ' + error.message, 'error');
     } finally {
         showLoading(false);
     }
@@ -254,7 +254,7 @@ async function selectSemester(semesterId) {
                     year_name: selectedSemester.year_name
                 };
                 
-                console.log('Selected semester:', currentSemester);
+                console.log('الفصل الدراسي المحدد:', currentSemester);
                 
                 // Load existing school days for this semester
                 await loadExistingSchoolDays(semesterId);
@@ -267,15 +267,15 @@ async function selectSemester(semesterId) {
                 // Generate calendar
                 generateCalendar();
             } else {
-                throw new Error('Semester not found');
+                throw new Error('لم يتم العثور على الفصل الدراسي');
             }
         } else {
-            throw new Error('Failed to load semester data');
+            throw new Error('فشل في تحميل بيانات الفصل الدراسي');
         }
         
     } catch (error) {
-        console.error('Error selecting semester:', error);
-        showAlert('Error loading semester data: ' + error.message, 'error');
+        console.error('خطأ في اختيار الفصل الدراسي:', error);
+        showAlert('خطأ في تحميل بيانات الفصل الدراسي: ' + error.message, 'error');
     } finally {
         showLoading(false);
     }
@@ -297,7 +297,7 @@ async function loadExistingSchoolDays(termId) {
             schoolDaysData = [];
         }
     } catch (error) {
-        console.error('Error loading existing school days:', error);
+        console.error('خطأ في تحميل أيام الدراسة الحالية:', error);
         schoolDaysData = [];
     }
 }
@@ -314,17 +314,17 @@ function updateRecurringHolidays() {
 // Generate calendar
 function generateCalendar() {
     if (!currentSemester) {
-        console.error('No semester selected');
+        console.error('لم يتم اختيار فصل دراسي');
         return;
     }
     
-    console.log('Generating calendar for semester:', currentSemester);
+    console.log('إنشاء التقويم للفصل الدراسي:', currentSemester);
     
     // Use actual semester dates from the currentSemester object
     const startDate = new Date(currentSemester.start_date);
     const endDate = new Date(currentSemester.end_date);
     
-    console.log('Calendar date range:', startDate, 'to', endDate);
+    console.log('نطاق تاريخ التقويم:', startDate, 'إلى', endDate);
     
     const container = document.getElementById('calendarContainer');
     container.innerHTML = '';
@@ -340,14 +340,14 @@ function generateCalendar() {
         currentDate.setDate(1);
     }
     
-    console.log('Calendar generated successfully');
+    console.log('تم إنشاء التقويم بنجاح');
     
     // Debug: Check what was actually created
     const allElements = document.querySelectorAll('.calendar-day');
     const emptyElements = document.querySelectorAll('.calendar-day.empty');
     const nonEmptyElements = document.querySelectorAll('.calendar-day:not(.empty)');
     
-        console.log(`Calendar generated: ${nonEmptyElements.length} school days`);
+        console.log(`تم إنشاء التقويم: ${nonEmptyElements.length} يوم دراسي`);
 }
 
 // Generate calendar for a single month
@@ -486,7 +486,7 @@ function hideCalendar() {
 // Save school days
 async function saveSchoolDays() {
     if (!currentSemester) {
-        showAlert('Please select a semester first', 'error');
+        showAlert('يرجى اختيار فصل دراسي أولاً', 'error');
         return;
     }
     
@@ -497,26 +497,26 @@ async function saveSchoolDays() {
         const schoolDays = [];
         const dayElements = document.querySelectorAll('.calendar-day:not(.empty)');
         
-        console.log('Found', dayElements.length, 'calendar day elements');
+        console.log('تم العثور على', dayElements.length, 'عناصر أيام التقويم');
         
         // Debug: Check all calendar elements
         const allCalendarElements = document.querySelectorAll('.calendar-day');
-        console.log('Total calendar elements:', allCalendarElements.length);
+        console.log('إجمالي عناصر التقويم:', allCalendarElements.length);
         
         const emptyElements = document.querySelectorAll('.calendar-day.empty');
-        console.log('Empty calendar elements:', emptyElements.length);
+        console.log('عناصر التقويم الفارغة:', emptyElements.length);
         
         const nonEmptyElements = document.querySelectorAll('.calendar-day:not(.empty)');
-        console.log('Non-empty calendar elements:', nonEmptyElements.length);
+        console.log('عناصر التقويم غير الفارغة:', nonEmptyElements.length);
         
         dayElements.forEach((dayElement, index) => {
-            console.log(`Processing element ${index + 1}/${dayElements.length}`);
+            console.log(`معالجة العنصر ${index + 1}/${dayElements.length}`);
             
             const checkbox = dayElement.querySelector('.calendar-day-checkbox');
             const dayNumber = dayElement.querySelector('.calendar-day-number').textContent;
             
             if (!checkbox || !dayNumber) {
-                console.warn('Missing checkbox or day number for element:', dayElement);
+                console.warn('مربع الاختيار أو رقم اليوم مفقود للعنصر:', dayElement);
                 return;
             }
             
@@ -530,7 +530,7 @@ async function saveSchoolDays() {
             // Extract month and year from monthHeader
             const monthYearMatch = monthHeader.match(/(\w+)\s+(\d{4})/);
             if (!monthYearMatch) {
-                console.warn('Failed to parse month header:', monthHeader);
+                console.warn('فشل في تحليل رأس الشهر:', monthHeader);
                 return;
             }
             
@@ -543,7 +543,7 @@ async function saveSchoolDays() {
             const monthIndex = monthNames.indexOf(monthName);
             
             if (monthIndex === -1) {
-                console.warn('Invalid month name:', monthName);
+                console.warn('اسم شهر غير صالح:', monthName);
                 return;
             }
             
@@ -561,15 +561,15 @@ async function saveSchoolDays() {
                 });
                 
             } else {
-                console.warn('Failed to create date for:', monthName, year, dayNumber);
+                console.warn('فشل في إنشاء التاريخ لـ:', monthName, year, dayNumber);
             }
         });
         
-        console.log(`Collected ${schoolDays.length} school days`);
+        console.log(`تم جمع ${schoolDays.length} يوم دراسي`);
         
         // Validate that we have data
         if (schoolDays.length === 0) {
-            throw new Error('No calendar days found. Please select a semester and generate the calendar first.');
+            throw new Error('لم يتم العثور على أيام في التقويم. يرجى اختيار فصل دراسي وإنشاء التقويم أولاً.');
         }
         
         // Prepare data for API
@@ -592,8 +592,8 @@ async function saveSchoolDays() {
         
         if (!response.ok) {
             const errorText = await response.text();
-            console.error('HTTP Error Response:', errorText);
-            throw new Error(`HTTP error! status: ${response.status}`);
+            console.error('استجابة خطأ HTTP:', errorText);
+            throw new Error(`خطأ HTTP! الحالة: ${response.status}`);
         }
         
         const responseText = await response.text();
@@ -601,22 +601,22 @@ async function saveSchoolDays() {
         try {
             result = JSON.parse(responseText);
         } catch (parseError) {
-            console.error('JSON parse error:', parseError);
-            console.error('Response text that failed to parse:', responseText);
-            throw new Error('Invalid JSON response from server');
+            console.error('خطأ في تحليل JSON:', parseError);
+            console.error('نص الاستجابة الذي فشل في التحليل:', responseText);
+            throw new Error('استجابة JSON غير صالحة من الخادم');
         }
         
         if (result.success) {
-            showAlert('School days saved successfully!', 'success');
+            showAlert('تم حفظ أيام الدراسة بنجاح!', 'success');
             // Reload existing school days
             await loadExistingSchoolDays(currentSemester.id);
         } else {
-            throw new Error(result.message || 'Failed to save school days');
+            throw new Error(result.message || 'فشل في حفظ أيام الدراسة');
         }
         
     } catch (error) {
-        console.error('Error saving school days:', error);
-        showAlert(error.message || 'Network error. Please try again.', 'error');
+        console.error('خطأ في حفظ أيام الدراسة:', error);
+        showAlert(error.message || 'خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
     } finally {
         setSaveLoadingState(false);
     }
@@ -637,10 +637,10 @@ function setSaveLoadingState(isLoading) {
     saveBtn.disabled = isLoading;
     
     if (isLoading) {
-        saveText.textContent = 'Saving...';
+        saveText.textContent = 'جاري الحفظ...';
         loading.style.display = 'inline-block';
     } else {
-        saveText.textContent = 'Save School Days';
+        saveText.textContent = 'حفظ أيام الدراسة';
         loading.style.display = 'none';
     }
 }
@@ -694,19 +694,19 @@ async function handleAcademicYearSubmit(e) {
         const result = await response.json();
 
         if (response.ok && result.success) {
-            showAlert('Academic year added successfully!', 'success');
+            showAlert('تمت إضافة السنة الدراسية بنجاح!', 'success');
             document.getElementById('addAcademicYearForm').reset();
             setTimeout(() => {
                 closeAddAcademicYearModal();
                 loadAcademicYears(); // Refresh the list
             }, 1500);
         } else {
-            throw new Error(result.message || 'Failed to add academic year');
+            throw new Error(result.message || 'فشل في إضافة السنة الدراسية');
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        showAlert(error.message || 'Network error. Please try again.', 'error');
+        console.error('خطأ:', error);
+        showAlert(error.message || 'خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
     } finally {
         setAcademicYearLoadingState(false);
     }
@@ -743,19 +743,19 @@ async function handleSemesterSubmit(e) {
         const result = await response.json();
 
         if (response.ok && result.success) {
-            showAlert('Semester added successfully!', 'success');
+            showAlert('تمت إضافة الفصل الدراسي بنجاح!', 'success');
             document.getElementById('addSemesterForm').reset();
             setTimeout(() => {
                 closeAddSemesterModal();
                 loadSemesters(); // Refresh the list
             }, 1500);
         } else {
-            throw new Error(result.message || 'Failed to add semester');
+            throw new Error(result.message || 'فشل في إضافة الفصل الدراسي');
         }
 
     } catch (error) {
-        console.error('Error:', error);
-        showAlert(error.message || 'Network error. Please try again.', 'error');
+        console.error('خطأ:', error);
+        showAlert(error.message || 'خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
     } finally {
         setSemesterLoadingState(false);
     }
@@ -764,22 +764,22 @@ async function handleSemesterSubmit(e) {
 // Validation functions
 function validateAcademicYearForm(data) {
     if (!data.year_name || data.year_name.length < 2) {
-        showAlert('Academic year name must be at least 2 characters long.', 'error');
+        showAlert('يجب أن يكون اسم السنة الدراسية على الأقل حرفين.', 'error');
         return false;
     }
 
     if (!data.start_date) {
-        showAlert('Start date is required.', 'error');
+        showAlert('تاريخ البداية مطلوب.', 'error');
         return false;
     }
 
     if (!data.end_date) {
-        showAlert('End date is required.', 'error');
+        showAlert('تاريخ النهاية مطلوب.', 'error');
         return false;
     }
 
     if (new Date(data.end_date) <= new Date(data.start_date)) {
-        showAlert('End date must be after start date.', 'error');
+        showAlert('يجب أن يكون تاريخ النهاية بعد تاريخ البداية.', 'error');
         return false;
     }
 
@@ -788,27 +788,27 @@ function validateAcademicYearForm(data) {
 
 function validateSemesterForm(data) {
     if (!data.academic_year_id) {
-        showAlert('Please select an academic year.', 'error');
+        showAlert('يرجى اختيار سنة دراسية.', 'error');
         return false;
     }
 
     if (!data.term_name || data.term_name.length < 2) {
-        showAlert('Semester name must be at least 2 characters long.', 'error');
+        showAlert('يجب أن يكون اسم الفصل الدراسي على الأقل حرفين.', 'error');
         return false;
     }
 
     if (!data.start_date) {
-        showAlert('Start date is required.', 'error');
+        showAlert('تاريخ البداية مطلوب.', 'error');
         return false;
     }
 
     if (!data.end_date) {
-        showAlert('End date is required.', 'error');
+        showAlert('تاريخ النهاية مطلوب.', 'error');
         return false;
     }
 
     if (new Date(data.end_date) <= new Date(data.start_date)) {
-        showAlert('End date must be after start date.', 'error');
+        showAlert('يجب أن يكون تاريخ النهاية بعد تاريخ البداية.', 'error');
         return false;
     }
 
@@ -824,10 +824,10 @@ function setAcademicYearLoadingState(isLoading) {
     submitBtn.disabled = isLoading;
     
     if (isLoading) {
-        submitText.textContent = 'Adding...';
+        submitText.textContent = 'جاري الإضافة...';
         loading.style.display = 'inline-block';
     } else {
-        submitText.textContent = 'Add Academic Year';
+        submitText.textContent = 'إضافة السنة الدراسية';
         loading.style.display = 'none';
     }
 }
@@ -840,10 +840,10 @@ function setSemesterLoadingState(isLoading) {
     submitBtn.disabled = isLoading;
     
     if (isLoading) {
-        submitText.textContent = 'Adding...';
+        submitText.textContent = 'جاري الإضافة...';
         loading.style.display = 'inline-block';
     } else {
-        submitText.textContent = 'Add Semester';
+        submitText.textContent = 'إضافة الفصل الدراسي';
         loading.style.display = 'none';
     }
 }
