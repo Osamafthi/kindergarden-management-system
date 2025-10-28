@@ -39,17 +39,17 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
         </div>
         <nav class="sidebar-menu">
             <ul>
-                <li><a href="#" class="active"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-                <li><a href="teachers/add-teacher.php"><i class="fas fa-user-plus"></i> <span>Add Teacher</span></a></li>
-                <li><a href="students/add-student.php"><i class="fas fa-child"></i> <span>Add Student</span></a></li>
-                <li><a href="classrooms/add-classroom.php"><i class="fas fa-school"></i> <span>Add Classroom</span></a></li>
-                <li><a href="#" onclick="openHomeworkModal()"><i class="fas fa-book"></i> <span>Add Homework Type</span></a></li>
-                <li><a href="teachers/view-edit-teacher.php"><i class="fas fa-users"></i> <span>View/Edit Teachers</span></a></li>
-                <li><a href="students/view-edit-student.php"><i class="fas fa-user-graduate"></i> <span>View/Edit Students</span></a></li>
-                <li><a href="#" onclick="openCreateSessionModal()" ><i class="fas fa-tasks"></i> <span>add session for teacher </span></a></li>
-                <li><a href="#" onclick="openAddAcademicYearModal()"><i class="fas fa-calendar-alt"></i> <span>Add Academic Year</span></a></li>
-                <li><a href="#" onclick="openAddSemesterModal()"><i class="fas fa-graduation-cap"></i> <span>Add Semester</span></a></li>
-                <li><a href="students/organize-attendance.php"><i class="fas fa-calendar-check"></i> <span>Create Attendance Plan</span></a></li>
+                <li><a href="#" class="active"><i class="fas fa-tachometer-alt"></i> <span>الصفحة الرئيسية</span></a></li>
+                <li><a href="teachers/add-teacher.php"><i class="fas fa-user-plus"></i> <span>اضافة مدرس</span></a></li>
+                <li><a href="students/add-student.php"><i class="fas fa-child"></i> <span>اضافة طالب</span></a></li>
+                <li><a href="classrooms/add-classroom.php"><i class="fas fa-school"></i> <span>اضافة فصل</span></a></li>
+                <li><a href="#" onclick="openHomeworkModal()"><i class="fas fa-book"></i> <span>اضافة مادة جديدة قران، عقيدة</span></a></li>
+                <li><a href="teachers/view-edit-teacher.php"><i class="fas fa-users"></i> <span>عرض وتعديل المعلمين</span></a></li>
+                <li><a href="students/view-edit-student.php"><i class="fas fa-user-graduate"></i> <span>عرض وتعديل الطلاب</span></a></li>
+                <li><a href="#" onclick="openCreateSessionModal()" ><i class="fas fa-tasks"></i> <span>اضافة حصة لمدرس </span></a></li>
+                <li><a href="#" onclick="openAddAcademicYearModal()"><i class="fas fa-calendar-alt"></i> <span>اضافة سنة دراسية جديدة</span></a></li>
+                <li><a href="#" onclick="openAddSemesterModal()"><i class="fas fa-graduation-cap"></i> <span>اضافة ترم جديد</span></a></li>
+                <li><a href="students/organize-attendance.php"><i class="fas fa-calendar-check"></i> <span>اضافة ايام الدراسة وايام الاجازة</span></a></li>
                
             </ul>
         </nav>
@@ -68,7 +68,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             </div>
             <div class="user-info">
                 <img src="https://ui-avatars.com/api/?name=Admin+User&background=4e73df&color=fff" alt="Admin User">
-                <span>Admin User</span>
+                <span>الادمن</span>
                 <a href="?logout=1" class="logout-btn" title="Logout">
                     <i class="fas fa-sign-out-alt"></i>
                 </a>
@@ -77,7 +77,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
 
         <!-- Dashboard Content -->
         <div class="dashboard">
-            <h1 class="page-title">Dashboard Overview</h1>
+            <h1 class="page-title">عرض الصفحة الرئيسية</h1>
 
             <!-- Stats Cards -->
             <div class="cards-row">
@@ -85,7 +85,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     <div class="card-body">
                         <i class="fas fa-chalkboard-teacher"></i>
                         <h3>24</h3>
-                        <p>Total Teachers</p>
+                        <p>عدد المعلمين</p>
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     <div class="card-body">
                         <i class="fas fa-child"></i>
                         <h3>186</h3>
-                        <p>Total Students</p>
+                        <p>عدد الطلاب</p>
                     </div>
                 </div>
 
@@ -101,7 +101,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     <div class="card-body">
                         <i class="fas fa-school"></i>
                         <h3>8</h3>
-                        <p>Classrooms</p>
+                        <p>عدد الفصول</p>
                     </div>
                 </div>
 
@@ -109,7 +109,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     <div class="card-body">
                         <i class="fas fa-book"></i>
                         <h3>12</h3>
-                        <p>Homework Types</p>
+                        <p>عدد مواد القران والعقيدة</p>
                     </div>
                 </div>
             </div>
@@ -123,144 +123,41 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     <div class="quick-actions">
                         <div class="action-btn" onclick="location.href='teachers/add-teacher.php'">
                             <i class="fas fa-user-plus"></i>
-                            <span>Add Teacher</span>
+                            <span>اضافة معلمr</span>
                         </div>
                         <div class="action-btn" onclick="location.href='students/add-student.php'">
                             <i class="fas fa-child"></i>
-                            <span>Add Student</span>
+                            <span>اضافة طالب</span>
                         </div>
                         <div class="action-btn" onclick="location.href='classrooms/add-classroom.php'">
                             <i class="fas fa-school"></i>
-                            <span>Add Classroom</span>
+                            <span>اضافة فصل</span>
                         </div>
                         <div class="action-btn" onclick="openHomeworkModal()">
                             <i class="fas fa-book"></i>
-                            <span>Add Homework</span>
+                            <span>اضافة مادة عقيدة او قران</span>
                         </div>
                         <div class="action-btn" onclick="location.href='inventory/manage_inventory.php'">
                             <i class="fas fa-boxes"></i>
-                            <span>Manage Inventory</span>
+                            <span>ادارة المخزن</span>
                         </div>
                       
                         <div class="action-btn" onclick="openCreateSessionModal()">
                             <i class="fas fa-calendar-plus"></i>
-                            <span>Create Session for Teacher</span>
+                            <span>اضافة حصة للمدرس</span>
                         </div>
                         <div class="action-btn" onclick="openAddAcademicYearModal()">
                             <i class="fas fa-calendar-alt"></i>
-                            <span>Add Academic Year</span>
+                            <span>اضافة سنه دراسية جديدة</span>
                         </div>
                         <div class="action-btn" onclick="openAddSemesterModal()">
                             <i class="fas fa-graduation-cap"></i>
-                            <span>Add Semester</span>
+                            <span>اضافة ترم جديد</span>
                         </div>
                         <div class="action-btn" onclick="location.href='students/organize-attendance.php'">
                             <i class="fas fa-calendar-check"></i>
-                            <span>Create Attendance Plan</span>
+                            <span>اضافة ايام الدراسة والاجازة</span>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Activity -->
-            <div class="cards-row">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Recent Activity</h2>
-                    </div>
-                    <div class="card-body">
-                        <ul class="activity-list">
-                            <li class="activity-item">
-                                <div class="activity-icon teacher">
-                                    <i class="fas fa-user-plus"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>New Teacher Added</h4>
-                                    <p>Ms. Johnson was added to the system</p>
-                                    <span class="activity-time">2 hours ago</span>
-                                </div>
-                            </li>
-                            <li class="activity-item">
-                                <div class="activity-icon student">
-                                    <i class="fas fa-child"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Student Registered</h4>
-                                    <p>Emily Parker was registered in Sunflower Class</p>
-                                    <span class="activity-time">5 hours ago</span>
-                                </div>
-                            </li>
-                            <li class="activity-item">
-                                <div class="activity-icon homework">
-                                    <i class="fas fa-book"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Homework Assigned</h4>
-                                    <p>Math worksheet assigned to Kindergarten B</p>
-                                    <span class="activity-time">Yesterday</span>
-                                </div>
-                            </li>
-                            <li class="activity-item">
-                                <div class="activity-icon classroom">
-                                    <i class="fas fa-school"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Classroom Created</h4>
-                                    <p>Butterflies classroom was added</p>
-                                    <span class="activity-time">2 days ago</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Upcoming Events</h2>
-                    </div>
-                    <div class="card-body">
-                        <ul class="activity-list">
-                            <li class="activity-item">
-                                <div class="activity-icon" style="background: var(--secondary);">
-                                    <i class="fas fa-music"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Annual Concert</h4>
-                                    <p>School annual concert rehearsal</p>
-                                    <span class="activity-time">June 15, 2023</span>
-                                </div>
-                            </li>
-                            <li class="activity-item">
-                                <div class="activity-icon" style="background: var(--primary);">
-                                    <i class="fas fa-graduation-cap"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Graduation Day</h4>
-                                    <p>Kindergarten graduation ceremony</p>
-                                    <span class="activity-time">June 30, 2023</span>
-                                </div>
-                            </li>
-                            <li class="activity-item">
-                                <div class="activity-icon" style="background: var(--warning);">
-                                    <i class="fas fa-calendar"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Parent-Teacher Meeting</h4>
-                                    <p>Quarterly parent-teacher meeting</p>
-                                    <span class="activity-time">July 5, 2023</span>
-                                </div>
-                            </li>
-                            <li class="activity-item">
-                                <div class="activity-icon" style="background: var(--info);">
-                                    <i class="fas fa-tripadvisor"></i>
-                                </div>
-                                <div class="activity-content">
-                                    <h4>Field Trip</h4>
-                                    <p>Zoo visit for all classes</p>
-                                    <span class="activity-time">July 12, 2023</span>
-                                </div>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -324,13 +221,13 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 }
                 
             } catch (error) {
-                console.error('Error loading dashboard stats:', error);
+                console.error('خطا في تحميل الصفحة الرئيسية:', error);
             }
         }
 
         // Simulate loading
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Dashboard loaded successfully');
+            console.log('تم تحميل لوحة التحكم بنجاح');
             
             // Load dashboard statistics
             loadDashboardStats();
@@ -410,7 +307,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
 
                 if (response.ok && result.success) {
                     // Success
-                    showHomeworkAlert('Homework type added successfully!', 'success');
+                    showHomeworkAlert('تمت إضافة نوع الواجب بنجاح!', 'success');
                     document.getElementById('homeworkForm').reset();
                     // Close modal after a short delay
                     setTimeout(() => {
@@ -418,12 +315,12 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     }, 1500);
                 } else {
                     // API error
-                    throw new Error(result.message || 'Failed to add homework type');
+                    throw new Error(result.message || 'فشل في إضافة نوع الواجب');
                 }
 
             } catch (error) {
-                console.error('Error:', error);
-                showHomeworkAlert(error.message || 'Network error. Please try again.', 'error');
+                console.error('خطأ:', error);
+                showHomeworkAlert(error.message || 'خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
             } finally {
                 setHomeworkLoadingState(false);
             }
@@ -432,22 +329,22 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
         // Validate homework form
         function validateHomeworkForm(data) {
             if (!data.homework_type_name || data.homework_type_name.length < 2) {
-                showHomeworkAlert('Homework type name must be at least 2 characters long.', 'error');
+                showHomeworkAlert('يجب أن يكون اسم نوع الواجب على الأقل حرفين.', 'error');
                 return false;
             }
 
             if (!data.description || data.description.length < 10) {
-                showHomeworkAlert('Description must be at least 10 characters long.', 'error');
+                showHomeworkAlert('يجب أن يكون الوصف على الأقل 10 أحرف.', 'error');
                 return false;
             }
 
             if (!data.max_grade || data.max_grade < 1 || data.max_grade > 100) {
-                showHomeworkAlert('Maximum grade must be between 1 and 100.', 'error');
+                showHomeworkAlert('يجب أن تكون الدرجة القصوى بين 1 و 100.', 'error');
                 return false;
             }
 
             if (!data.different_types || (data.different_types !== 'quran' && data.different_types !== 'modules')) {
-                showHomeworkAlert('Please select a valid homework category.', 'error');
+                showHomeworkAlert('يرجى اختيار فئة واجب صالحة.', 'error');
                 return false;
             }
 
@@ -463,10 +360,10 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             submitBtn.disabled = isLoading;
             
             if (isLoading) {
-                submitText.textContent = 'Adding...';
+                submitText.textContent = 'جاري الإضافة...';
                 loading.style.display = 'inline-block';
             } else {
-                submitText.textContent = 'Add Homework Type';
+                submitText.textContent = 'إضافة نوع الواجب';
                 loading.style.display = 'none';
             }
         }
@@ -513,7 +410,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             document.body.style.overflow = 'hidden';
             // Clear classroom dropdown initially
             const classroomSelect = document.getElementById('classroomSelect');
-            classroomSelect.innerHTML = '<option value="">Select a teacher first...</option>';
+            classroomSelect.innerHTML = '<option value="">اختر معلماً أولاً...</option>';
             // Hide both homework sections initially
             document.getElementById('quranHomeworkTypesSection').style.display = 'none';
             document.getElementById('modulesHomeworkTypesSection').style.display = 'none';
@@ -530,7 +427,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             document.getElementById('modulesHomeworkTypesSection').style.display = 'none';
             // Reset classroom dropdown
             const classroomSelect = document.getElementById('classroomSelect');
-            classroomSelect.innerHTML = '<option value="">Select a teacher first...</option>';
+            classroomSelect.innerHTML = '<option value="">اختر معلماً أولاً...</option>';
             // Remove any existing event listeners to prevent duplicates
             classroomSelect.removeEventListener('change', handleClassroomChange);
             // Hide loading state
@@ -572,7 +469,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         document.getElementById('selectedTeacherId').value = '';
                         // Clear classroom dropdown when teacher search is cleared
                         const classroomSelect = document.getElementById('classroomSelect');
-                        classroomSelect.innerHTML = '<option value="">Select a teacher first...</option>';
+                        classroomSelect.innerHTML = '<option value="">اختر معلماً أولاً...</option>';
                         return;
                     }
                     
@@ -612,7 +509,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     document.getElementById('teacherDropdown').style.display = 'none';
                 }
             } catch (error) {
-                console.error('Error searching teachers:', error);
+                console.error('خطأ في البحث عن المعلمين:', error);
                 document.getElementById('teacherDropdown').style.display = 'none';
             }
         }
@@ -655,7 +552,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 
                 if (data.success) {
                     const select = document.getElementById('classroomSelect');
-                    select.innerHTML = '<option value="">Choose a classroom...</option>';
+                    select.innerHTML = '<option value="">اختر فصلاً دراسياً...</option>';
                     
                     if (data.classrooms && data.classrooms.length > 0) {
                         data.classrooms.forEach(classroom => {
@@ -672,17 +569,17 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         const homeworkCategorySelect = document.getElementById('homeworkCategorySession');
                         homeworkCategorySelect.addEventListener('change', handleHomeworkCategoryChange);
                     } else {
-                        select.innerHTML = '<option value="">No classrooms assigned to this teacher</option>';
+                        select.innerHTML = '<option value="">لا توجد فصول مسندة لهذا المعلم</option>';
                     }
                 } else {
                     const select = document.getElementById('classroomSelect');
-                    select.innerHTML = '<option value="">Error loading classrooms</option>';
-                    console.error('Error loading teacher classrooms:', data.message);
+                    select.innerHTML = '<option value="">خطأ في تحميل الفصول</option>';
+                    console.error('خطأ في تحميل فصول المعلم:', data.message);
                 }
             } catch (error) {
-                console.error('Error loading teacher classrooms:', error);
+                console.error('خطأ في تحميل فصول المعلم:', error);
                 const select = document.getElementById('classroomSelect');
-                select.innerHTML = '<option value="">Error loading classrooms</option>';
+                select.innerHTML = '<option value="">خطأ في تحميل الفصول</option>';
             }
         }
 
@@ -751,7 +648,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     hideAutocomplete(inputElement);
                 }
             } catch (error) {
-                console.error('Error searching chapters:', error);
+                console.error('خطأ في البحث عن السور:', error);
                 hideAutocomplete(inputElement);
             }
         }
@@ -815,14 +712,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
         // Load homework types function
         async function loadHomeworkTypes(type = 'quran') {
             try {
-                console.log('Loading homework types for type:', type);
+                console.log('جاري تحميل أنواع الواجبات للنوع:', type);
                 const response = await fetch(`../../api/get-homework-types${type === 'modules' ? '-modules' : ''}.php`, {
                     method: 'GET',
                     credentials: 'same-origin'
                 });
                 
                 const data = await response.json();
-                console.log('Homework types response:', data);
+                console.log('استجابة أنواع الواجبات:', data);
                 
                 if (data.success) {
                     const container = document.getElementById(`${type}HomeworkTypesContainer`);
@@ -912,12 +809,12 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         }, 100);
                     }
                 } else {
-                    console.error('Failed to load homework types:', data.message);
-                    showHomeworkAlert('Failed to load homework types: ' + data.message, 'error');
+                    console.error('فشل في تحميل أنواع الواجبات:', data.message);
+                    showHomeworkAlert('فشل في تحميل أنواع الواجبات: ' + data.message, 'error');
                 }
             } catch (error) {
-                console.error('Error loading homework types:', error);
-                showHomeworkAlert('Network error loading homework types', 'error');
+                console.error('خطأ في تحميل أنواع الواجبات:', error);
+                showHomeworkAlert('خطأ في الشبكة أثناء تحميل أنواع الواجبات', 'error');
             }
         }
 
@@ -1021,7 +918,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
 
                         const failed = validationResults.find(v => !v.success);
                         if (failed) {
-                            showHomeworkAlert(failed.message || 'Invalid Quran homework data', 'error');
+                            showHomeworkAlert(failed.message || 'بيانات واجب القرآن غير صحيحة', 'error');
                             setSessionLoadingState(false);
                             return; // Stop here, do not create session
                         }
@@ -1049,10 +946,10 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     const sessionId = sessionData.session_ids && sessionData.session_ids.length > 0 ? sessionData.session_ids[0] : null;
                     
                     if (!sessionId) {
-                        throw new Error('Failed to get session ID from server response');
+                        throw new Error('فشل في الحصول على معرف الحصة من استجابة الخادم');
                     }
                     
-                    console.log('Session created successfully with ID:', sessionId);
+                    console.log('تم إنشاء الحصة بنجاح برقم:', sessionId);
                     
                     if (formData.homework_category === 'quran') {
                         // Collect homework chapter data
@@ -1081,26 +978,26 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                                 const homeworkResult = await homeworkResponse.json();
                                 
                                 if (!homeworkResult.success) {
-                                    console.warn('Failed to save homework data:', homeworkResult.message);
-                                    showHomeworkAlert(`Warning: Failed to save homework "${homework.quran_chapter}": ${homeworkResult.message}`, 'error');
+                                    console.warn('فشل في حفظ بيانات الواجب:', homeworkResult.message);
+                                    showHomeworkAlert(`تحذير: فشل في حفظ واجب "${homework.quran_chapter}": ${homeworkResult.message}`, 'error');
                                 }
                             }
                         }
                     } else if (formData.homework_category === 'modules') {
                         // Collect modules data
                         const modulesData = collectModulesData();
-                        console.log('Collected modules data:', modulesData);
-                        console.log('Session ID for modules:', sessionId);
-                        console.log('Session ID type:', typeof sessionId);
-                        console.log('Session ID value:', String(sessionId));
+                        console.log('بيانات الوحدات المجمعة:', modulesData);
+                        console.log('معرف الحصة للوحدات:', sessionId);
+                        console.log('نوع معرف الحصة:', typeof sessionId);
+                        console.log('قيمة معرف الحصة:', String(sessionId));
                         
                         // If there's modules data, save it using FormData for file uploads
                         if (modulesData.length > 0) {
                             for (const module of modulesData) {
-                                console.log('Saving module:', module);
-                                console.log('Module homework_type_id:', module.homework_type_id);
-                                console.log('Module lesson_title:', module.lesson_title);
-                                console.log('Module file:', module.file);
+                                console.log('حفظ الوحدة:', module);
+                                console.log('معرف نوع واجب الوحدة:', module.homework_type_id);
+                                console.log('عنوان الدرس:', module.lesson_title);
+                                console.log('ملف الوحدة:', module.file);
                                 
                                 const formDataToSend = new FormData();
                                 
@@ -1111,12 +1008,12 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                                 const fileToUpload = module.file;
                                 const classroomId = String(parseInt(formData.classroom_id) || '');
                                 
-                                console.log('About to append to FormData:');
-                                console.log('  session_homework_id:', sessionHomeworkId);
-                                console.log('  homework_type_id:', homeworkTypeId);
-                                console.log('  lesson_title:', lessonTitle);
-                                console.log('  file:', fileToUpload ? fileToUpload.name : 'NONE');
-                                console.log('  classroom_id:', classroomId);
+                                console.log('على وشك الإضافة إلى FormData:');
+                                console.log('  معرف واجب الحصة:', sessionHomeworkId);
+                                console.log('  معرف نوع الواجب:', homeworkTypeId);
+                                console.log('  عنوان الدرس:', lessonTitle);
+                                console.log('  الملف:', fileToUpload ? fileToUpload.name : 'لا يوجد');
+                                console.log('  معرف الفصل:', classroomId);
                                 
                                 formDataToSend.append('session_homework_id', sessionHomeworkId);
                                 formDataToSend.append('homework_type_id', homeworkTypeId);
@@ -1124,7 +1021,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                                 formDataToSend.append('file', fileToUpload);
                                 formDataToSend.append('classroom_id', classroomId);
                                 
-                                console.log('FormData contents after appending:');
+                                console.log('محتويات FormData بعد الإضافة:');
                                 for (let [key, value] of formDataToSend.entries()) {
                                     console.log(key, ':', value instanceof File ? value.name : value);
                                 }
@@ -1136,20 +1033,20 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                                 });
                                 
                                 const moduleResult = await moduleResponse.json();
-                                console.log('Module response:', moduleResult);
+                                console.log('استجابة الوحدة:', moduleResult);
                                 
                                 if (!moduleResult.success) {
-                                    console.warn('Failed to save module data:', moduleResult.message);
-                                    showHomeworkAlert(`Warning: Failed to save module "${module.lesson_title}": ${moduleResult.message}`, 'error');
+                                    console.warn('فشل في حفظ بيانات الوحدة:', moduleResult.message);
+                                    showHomeworkAlert(`تحذير: فشل في حفظ الوحدة "${module.lesson_title}": ${moduleResult.message}`, 'error');
                                 }
                             }
                         } else {
-                            console.warn('No modules data collected');
+                            console.warn('لم يتم جمع بيانات الوحدات');
                         }
                     }
                     
                     // Success
-                    showHomeworkAlert('Session created successfully!', 'success');
+                    showHomeworkAlert('تم إنشاء الحصة بنجاح!', 'success');
                     document.getElementById('createSessionForm').reset();
                     document.getElementById('selectedTeacherId').value = '';
                     document.getElementById('quranHomeworkTypesSection').style.display = 'none';
@@ -1160,12 +1057,12 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         closeCreateSessionModal();
                     }, 1500);
                 } else {
-                    throw new Error(sessionData.message || 'Failed to create session');
+                    throw new Error(sessionData.message || 'فشل في إنشاء الحصة');
                 }
 
             } catch (error) {
-                console.error('Error:', error);
-                showHomeworkAlert(error.message || 'Network error. Please try again.', 'error');
+                console.error('خطأ:', error);
+                showHomeworkAlert(error.message || 'خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
             } finally {
                 setSessionLoadingState(false);
             }
@@ -1174,22 +1071,22 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
         // Validate create session form
         function validateCreateSessionForm(data) {
             if (!data.session_name || data.session_name.length < 2) {
-                showHomeworkAlert('Session name must be at least 2 characters long.', 'error');
+                showHomeworkAlert('يجب أن يكون اسم الحصة على الأقل حرفين.', 'error');
                 return false;
             }
 
             if (!data.teacher_id) {
-                showHomeworkAlert('Please select a teacher from the dropdown.', 'error');
+                showHomeworkAlert('يرجى اختيار معلم من القائمة المنسدلة.', 'error');
                 return false;
             }
 
             if (!data.classroom_id) {
-                showHomeworkAlert('Please select a classroom.', 'error');
+                showHomeworkAlert('يرجى اختيار فصل دراسي.', 'error');
                 return false;
             }
 
             if (!data.homework_category || (data.homework_category !== 'quran' && data.homework_category !== 'modules')) {
-                showHomeworkAlert('Please select a homework category.', 'error');
+                showHomeworkAlert('يرجى اختيار فئة الواجب.', 'error');
                 return false;
             }
 
@@ -1205,10 +1102,10 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             submitBtn.disabled = isLoading;
             
             if (isLoading) {
-                submitText.textContent = 'Creating...';
+                submitText.textContent = 'جاري الإنشاء...';
                 loading.style.display = 'inline-block';
             } else {
-                submitText.textContent = 'Create Session';
+                submitText.textContent = 'إنشاء الحصة';
                 loading.style.display = 'none';
             }
         }
@@ -1236,15 +1133,15 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             fileInputs.forEach(input => {
                 const homeworkId = input.dataset.homeworkId;
                 const file = input.files[0];
-                console.log('File input for homework ID:', homeworkId, 'File:', file);
+                console.log('إدخال الملف لمعرف الواجب:', homeworkId, 'الملف:', file);
                 if (file) {
                     if (!modulesMap[homeworkId]) {
                         modulesMap[homeworkId] = { homework_type_id: homeworkId };
                     }
                     modulesMap[homeworkId].file = file;
-                    console.log('Added file to modulesMap:', modulesMap[homeworkId]);
+                    console.log('تم إضافة الملف إلى modulesMap:', modulesMap[homeworkId]);
                 } else {
-                    console.log('No file selected for homework ID:', homeworkId);
+                    console.log('لم يتم اختيار ملف لمعرف الواجب:', homeworkId);
                 }
             });
 
@@ -1307,7 +1204,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     });
                 }
             } catch (error) {
-                console.error('Error loading academic years:', error);
+                console.error('خطأ في تحميل السنوات الدراسية:', error);
             }
         }
 
@@ -1342,18 +1239,18 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 const result = await response.json();
 
                 if (response.ok && result.success) {
-                    showHomeworkAlert('Academic year added successfully!', 'success');
+                    showHomeworkAlert('تمت إضافة السنة الدراسية بنجاح!', 'success');
                     document.getElementById('addAcademicYearForm').reset();
                     setTimeout(() => {
                         closeAddAcademicYearModal();
                     }, 1500);
                 } else {
-                    throw new Error(result.message || 'Failed to add academic year');
+                    throw new Error(result.message || 'فشل في إضافة السنة الدراسية');
                 }
 
             } catch (error) {
-                console.error('Error:', error);
-                showHomeworkAlert(error.message || 'Network error. Please try again.', 'error');
+                console.error('خطأ:', error);
+                showHomeworkAlert(error.message || 'خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
             } finally {
                 setAcademicYearLoadingState(false);
             }
@@ -1391,18 +1288,18 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 const result = await response.json();
 
                 if (response.ok && result.success) {
-                    showHomeworkAlert('Semester added successfully!', 'success');
+                    showHomeworkAlert('تمت إضافة الترم بنجاح!', 'success');
                     document.getElementById('addSemesterForm').reset();
                     setTimeout(() => {
                         closeAddSemesterModal();
                     }, 1500);
                 } else {
-                    throw new Error(result.message || 'Failed to add semester');
+                    throw new Error(result.message || 'فشل في إضافة الترم');
                 }
 
             } catch (error) {
-                console.error('Error:', error);
-                showHomeworkAlert(error.message || 'Network error. Please try again.', 'error');
+                console.error('خطأ:', error);
+                showHomeworkAlert(error.message || 'خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
             } finally {
                 setSemesterLoadingState(false);
             }
@@ -1411,22 +1308,22 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
         // Validate academic year form
         function validateAcademicYearForm(data) {
             if (!data.year_name || data.year_name.length < 2) {
-                showHomeworkAlert('Academic year name must be at least 2 characters long.', 'error');
+                showHomeworkAlert('يجب أن يكون اسم السنة الدراسية على الأقل حرفين.', 'error');
                 return false;
             }
 
             if (!data.start_date) {
-                showHomeworkAlert('Start date is required.', 'error');
+                showHomeworkAlert('تاريخ البداية مطلوب.', 'error');
                 return false;
             }
 
             if (!data.end_date) {
-                showHomeworkAlert('End date is required.', 'error');
+                showHomeworkAlert('تاريخ النهاية مطلوب.', 'error');
                 return false;
             }
 
             if (new Date(data.end_date) <= new Date(data.start_date)) {
-                showHomeworkAlert('End date must be after start date.', 'error');
+                showHomeworkAlert('يجب أن يكون تاريخ النهاية بعد تاريخ البداية.', 'error');
                 return false;
             }
 
@@ -1436,27 +1333,27 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
         // Validate semester form
         function validateSemesterForm(data) {
             if (!data.academic_year_id) {
-                showHomeworkAlert('Please select an academic year.', 'error');
+                showHomeworkAlert('يرجى اختيار سنة دراسية.', 'error');
                 return false;
             }
 
             if (!data.term_name || data.term_name.length < 2) {
-                showHomeworkAlert('Semester name must be at least 2 characters long.', 'error');
+                showHomeworkAlert('يجب أن يكون اسم الترم على الأقل حرفين.', 'error');
                 return false;
             }
 
             if (!data.start_date) {
-                showHomeworkAlert('Start date is required.', 'error');
+                showHomeworkAlert('تاريخ البداية مطلوب.', 'error');
                 return false;
             }
 
             if (!data.end_date) {
-                showHomeworkAlert('End date is required.', 'error');
+                showHomeworkAlert('تاريخ النهاية مطلوب.', 'error');
                 return false;
             }
 
             if (new Date(data.end_date) <= new Date(data.start_date)) {
-                showHomeworkAlert('End date must be after start date.', 'error');
+                showHomeworkAlert('يجب أن يكون تاريخ النهاية بعد تاريخ البداية.', 'error');
                 return false;
             }
 
@@ -1472,10 +1369,10 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             submitBtn.disabled = isLoading;
             
             if (isLoading) {
-                submitText.textContent = 'Adding...';
+                submitText.textContent = 'جاري الإضافة...';
                 loading.style.display = 'inline-block';
             } else {
-                submitText.textContent = 'Add Academic Year';
+                submitText.textContent = 'إضافة السنة الدراسية';
                 loading.style.display = 'none';
             }
         }
@@ -1489,10 +1386,10 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             submitBtn.disabled = isLoading;
             
             if (isLoading) {
-                submitText.textContent = 'Adding...';
+                submitText.textContent = 'جاري الإضافة...';
                 loading.style.display = 'inline-block';
             } else {
-                submitText.textContent = 'Add Semester';
+                submitText.textContent = 'إضافة الترم';
                 loading.style.display = 'none';
             }
         }
@@ -1515,39 +1412,39 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <div id="homeworkModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-book"></i> Add Homework Type</h2>
+                <h2><i class="fas fa-book"></i> إضافة مادة جديدة قران، عقيدة</h2>
                 <span class="close" onclick="closeHomeworkModal()">&times;</span>
             </div>
             <div class="modal-body">
                 <form id="homeworkForm">
                     <div class="form-group">
-                        <label for="homeworkName">Homework Type Name *</label>
+                        <label for="homeworkName">اسم المادة *</label>
                         <input type="text" id="homeworkName" name="homeworkName" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="homeworkDescription">Description *</label>
+                        <label for="homeworkDescription">وصف المادة *</label>
                         <textarea id="homeworkDescription" name="homeworkDescription" class="form-control" rows="4" required></textarea>
                     </div>
                     
                     <div class="form-group">
-                        <label for="maxGrade">Maximum Grade *</label>
+                        <label for="maxGrade"> اعلي درجة ممكنة للمادة *</label>
                         <input type="number" id="maxGrade" name="maxGrade" class="form-control" min="1" max="100" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="homeworkCategory">Homework Category *</label>
+                        <label for="homeworkCategory">نوع المادة *</label>
                         <select id="homeworkCategory" name="homeworkCategory" class="form-control" required>
-                            <option value="">Choose a category...</option>
-                            <option value="quran">Quran</option>
-                            <option value="modules">Modules</option>
+                            <option value="">اختر فئة...</option>
+                            <option value="quran">قرآن</option>
+                            <option value="modules">عقيدة او ماشابه ذلك</option>
                         </select>
                     </div>
                     
                     <div class="modal-actions">
-                        <button type="button" class="btn btn-secondary" onclick="closeHomeworkModal()">Cancel</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeHomeworkModal()">إلغاء</button>
                         <button type="submit" class="btn btn-primary" id="submitHomeworkBtn">
-                            <span id="submitText">Add Homework Type</span>
+                            <span id="submitText">إضافة المادة</span>
                             <div class="loading" id="homeworkLoading" style="display: none;"></div>
                         </button>
                     </div>
@@ -1560,14 +1457,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <div id="createSessionModal" class="modal">
         <div class="modal-content large-modal">
             <div class="modal-header">
-                <h2><i class="fas fa-calendar-plus"></i> Create Session for Teacher</h2>
+                <h2><i class="fas fa-calendar-plus"></i> إنشاء حصة للمعلم</h2>
                 <span class="close" onclick="closeCreateSessionModal()">&times;</span>
             </div>
             <div class="modal-body">
                 <form id="createSessionForm">
                     <div class="form-group">
                         <label for="teacherSearch">
-                            <i class="fas fa-user"></i> Teacher Name *
+                            <i class="fas fa-user"></i> اسم المعلم *
                         </label>
                         <div class="teacher-search-container">
                             <input 
@@ -1575,7 +1472,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                                 id="teacherSearch" 
                                 name="teacherSearch" 
                                 class="form-control" 
-                                placeholder="Start typing teacher name..."
+                                placeholder="ابدأ بكتابة اسم المعلم..."
                                 autocomplete="off"
                                 required
                             >
@@ -1583,52 +1480,52 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                                 <!-- Teacher suggestions will appear here -->
                             </div>
                         </div>
-                        <small class="form-help">Type the first few letters of the teacher's name</small>
+                        <small class="form-help">اكتب الأحرف الأولى من اسم المعلم</small>
                         <input type="hidden" id="selectedTeacherId" name="teacher_id">
                     </div>
                     
                     <div class="form-group">
                         <label for="sessionName">
-                            <i class="fas fa-tag"></i> Session Name *
+                            <i class="fas fa-tag"></i> اسم الحصة *
                         </label>
                         <input 
                             type="text" 
                             id="sessionName" 
                             name="session_name" 
                             class="form-control" 
-                            placeholder="Enter session name (e.g., Math Lesson, Reading Time, Art Activity)"
+                            placeholder="أدخل اسم الحصة (مثال: درس الرياضيات، وقت القراءة، نشاط فني)"
                             required
                             maxlength="100"
                         >
-                        <small class="form-help">Choose a descriptive name for this session</small>
+                        <small class="form-help">اختر اسماً وصفياً لهذه الحصة</small>
                     </div>
                     
                     <div class="form-group">
                         <label for="classroomSelect">
-                            <i class="fas fa-chalkboard"></i> Select Classroom *
+                            <i class="fas fa-chalkboard"></i> اختر الفصل *
                         </label>
                         <select id="classroomSelect" name="classroom_id" class="form-control" required>
-                            <option value="">Choose a classroom...</option>
+                            <option value="">اختر الفصل الخاص بالحصة ...</option>
                             <!-- Classrooms will be populated via JavaScript -->
                         </select>
-                        <small class="form-help">Select the classroom for this session</small>
+                        <small class="form-help">اختر الفصل  الذي سيتم اضافة الحصة اليه</small>
                     </div>
 
                     <div class="form-group">
                         <label for="homeworkCategorySession">
-                            <i class="fas fa-tags"></i> Homework Category *
+                            <i class="fas fa-tags"></i> نوع المادة قران ،،عقيدة *
                         </label>
                         <select id="homeworkCategorySession" name="homeworkCategory" class="form-control" required>
-                            <option value="">Choose a category...</option>
-                            <option value="quran">Quran</option>
-                            <option value="modules">Modules</option>
+                            <option value="">اختر فئة...</option>
+                            <option value="quran">قرآن</option>
+                            <option value="modules">عقيدة او ماشابه ذلك</option>
                         </select>
-                        <small class="form-help">Select the type of homework for this session</small>
+                        <small class="form-help">اختر نوع الواجب لهذه الحصة</small>
                     </div>
 
                     <!-- Quran Homework Types Section -->
                     <div class="homework-types-section" id="quranHomeworkTypesSection" style="display: none;">
-                        <h3><i class="fas fa-book"></i> Quran Homework Types</h3>
+                        <h3><i class="fas fa-book"></i> أنواع واجبات القرآن</h3>
                         <div class="homework-types-container" id="quranHomeworkTypesContainer">
                             <!-- Quran homework types will be loaded here via JavaScript -->
                         </div>
@@ -1636,16 +1533,16 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
 
                     <!-- Modules Homework Types Section -->
                     <div class="homework-types-section" id="modulesHomeworkTypesSection" style="display: none;">
-                        <h3><i class="fas fa-file-alt"></i> Module Homework Types</h3>
+                        <h3><i class="fas fa-file-alt"></i> أنواع واجبات الوحدات</h3>
                         <div class="homework-types-container" id="modulesHomeworkTypesContainer">
                             <!-- Module homework types will be loaded here via JavaScript -->
                         </div>
                     </div>
                     
                     <div class="modal-actions">
-                        <button type="button" class="btn btn-secondary" onclick="closeCreateSessionModal()">Cancel</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeCreateSessionModal()">إلغاء</button>
                         <button type="submit" class="btn btn-primary" id="submitSessionBtn">
-                            <span id="sessionSubmitText">Create Session</span>
+                            <span id="sessionSubmitText">إنشاء الحصة</span>
                             <div class="loading" id="sessionLoading" style="display: none;">
                                 <i class="fas fa-spinner fa-spin"></i>
                             </div>
@@ -1660,23 +1557,23 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <div id="addAcademicYearModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-calendar-alt"></i> Add Academic Year</h2>
+                <h2><i class="fas fa-calendar-alt"></i> إضافة سنة دراسية</h2>
                 <span class="close" onclick="closeAddAcademicYearModal()">&times;</span>
             </div>
             <div class="modal-body">
                 <form id="addAcademicYearForm">
                     <div class="form-group">
-                        <label for="yearName">Academic Year Name *</label>
-                        <input type="text" id="yearName" name="yearName" class="form-control" placeholder="e.g., 2024-2025" required>
+                        <label for="yearName">اسم السنة الدراسية *</label>
+                        <input type="text" id="yearName" name="yearName" class="form-control" placeholder="مثال: 2024-2025" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="academicStartDate">Start Date *</label>
+                        <label for="academicStartDate">تاريخ البداية *</label>
                         <input type="date" id="academicStartDate" name="startDate" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="academicEndDate">End Date *</label>
+                        <label for="academicEndDate">تاريخ النهاية *</label>
                         <input type="date" id="academicEndDate" name="endDate" class="form-control" required>
                     </div>
                     
@@ -1684,14 +1581,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         <label class="checkbox-label">
                             <input type="checkbox" id="academicIsCurrent" name="isCurrent">
                             <span class="checkmark"></span>
-                            Set as current academic year
+                            تعيين كسنة دراسية حالية
                         </label>
                     </div>
                     
                     <div class="modal-actions">
-                        <button type="button" class="btn btn-secondary" onclick="closeAddAcademicYearModal()">Cancel</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeAddAcademicYearModal()">إلغاء</button>
                         <button type="submit" class="btn btn-primary" id="submitAcademicYearBtn">
-                            <span id="academicYearSubmitText">Add Academic Year</span>
+                            <span id="academicYearSubmitText">إضافة السنة الدراسية</span>
                             <div class="loading" id="academicYearLoading" style="display: none;"></div>
                         </button>
                     </div>
@@ -1704,31 +1601,31 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <div id="addSemesterModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-graduation-cap"></i> Add Semester</h2>
+                <h2><i class="fas fa-graduation-cap"></i> إضافة ترم دراسي</h2>
                 <span class="close" onclick="closeAddSemesterModal()">&times;</span>
             </div>
             <div class="modal-body">
                 <form id="addSemesterForm">
                     <div class="form-group">
-                        <label for="academicYearSelect">Academic Year *</label>
+                        <label for="academicYearSelect">السنة الدراسية *</label>
                         <select id="academicYearSelect" name="academicYearId" class="form-control" required>
-                            <option value="">Choose an academic year...</option>
+                            <option value="">اختر سنة دراسية...</option>
                             <!-- Academic years will be populated via JavaScript -->
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="termName">Semester Name *</label>
-                        <input type="text" id="termName" name="termName" class="form-control" placeholder="e.g., Fall 2024, Spring 2025" required>
+                        <label for="termName">اسم الترم *</label>
+                        <input type="text" id="termName" name="termName" class="form-control" placeholder="مثال: خريف 2024، ربيع 2025" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="semesterStartDate">Start Date *</label>
+                        <label for="semesterStartDate">تاريخ البداية *</label>
                         <input type="date" id="semesterStartDate" name="startDate" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="semesterEndDate">End Date *</label>
+                        <label for="semesterEndDate">تاريخ النهاية *</label>
                         <input type="date" id="semesterEndDate" name="endDate" class="form-control" required>
                     </div>
                     
@@ -1736,14 +1633,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         <label class="checkbox-label">
                             <input type="checkbox" id="semesterIsCurrent" name="isCurrent">
                             <span class="checkmark"></span>
-                            Set as current semester
+                            تعيين كترم حالي
                         </label>
                     </div>
                     
                     <div class="modal-actions">
-                        <button type="button" class="btn btn-secondary" onclick="closeAddSemesterModal()">Cancel</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeAddSemesterModal()">إلغاء</button>
                         <button type="submit" class="btn btn-primary" id="submitSemesterBtn">
-                            <span id="semesterSubmitText">Add Semester</span>
+                            <span id="semesterSubmitText">إضافة الترم</span>
                             <div class="loading" id="semesterLoading" style="display: none;"></div>
                         </button>
                     </div>

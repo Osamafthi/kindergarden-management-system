@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializePage() {
-    console.log('Control Inventory page loaded');
+    console.log('تم تحميل صفحة التحكم في المخزون');
     
     // Hide messages initially
     hideMessages();
@@ -107,12 +107,12 @@ async function loadProducts() {
                 }
             }
         } else {
-            throw new Error(result.message || 'Failed to load products');
+            throw new Error(result.message || 'فشل في تحميل المنتجات');
         }
         
     } catch (error) {
-        console.error('Error loading products:', error);
-        showMessage('error', 'Failed to load products. Please refresh the page.');
+        console.error('خطأ في تحميل المنتجات:', error);
+        showMessage('error', 'فشل في تحميل المنتجات. يرجى تحديث الصفحة.');
         
         if (loadingContainer) loadingContainer.style.display = 'none';
         if (emptyState) emptyState.style.display = 'block';
@@ -148,7 +148,7 @@ function createProductCard(product) {
                 ${escapeHtml(product.name)}
             </div>
             <div class="product-quantity">
-                ${product.current_quantity} / ${product.original_quantity} items
+                ${product.current_quantity} / ${product.original_quantity} منتج
             </div>
         </div>
         <div class="product-body">
@@ -227,15 +227,15 @@ async function updateQuantity(productId, quantity, movementType) {
                 updateProductCard(productId, products[productIndex]);
             }
             
-            showMessage('success', `${movementType === 'IN' ? 'Increased' : 'Decreased'} quantity successfully`);
+            showMessage('success', `${movementType === 'IN' ? 'تمت الزيادة' : 'تم التقليل'} بنجاح`);
             
         } else {
-            throw new Error(result.message || 'Failed to update quantity');
+            throw new Error(result.message || 'فشل في تحديث الكمية');
         }
         
     } catch (error) {
-        console.error('Error updating quantity:', error);
-        showMessage('error', error.message || 'Failed to update quantity. Please try again.');
+        console.error('خطأ في تحديث الكمية:', error);
+        showMessage('error', error.message || 'فشل في تحديث الكمية. يرجى المحاولة مرة أخرى.');
     }
 }
 
@@ -341,7 +341,7 @@ async function handleEditSubmit(event) {
     
     // Validate quantity
     if (isNaN(newQuantity) || newQuantity < 1) {
-        showMessage('error', 'Please enter a valid quantity (minimum 1)');
+        showMessage('error', 'يرجى إدخال كمية صالحة (الحد الأدنى 1)');
         return;
     }
     
@@ -377,16 +377,16 @@ async function handleEditSubmit(event) {
                 updateProductCard(productId, products[productIndex]);
             }
             
-            showMessage('success', 'Product quantity updated successfully');
+            showMessage('success', 'تم تحديث كمية المنتج بنجاح');
             closeEditModal();
             
         } else {
-            throw new Error(result.message || 'Failed to update product quantity');
+            throw new Error(result.message || 'فشل في تحديث كمية المنتج');
         }
         
     } catch (error) {
-        console.error('Error updating product:', error);
-        showMessage('error', error.message || 'Failed to update product. Please try again.');
+        console.error('خطأ في تحديث المنتج:', error);
+        showMessage('error', error.message || 'فشل في تحديث المنتج. يرجى المحاولة مرة أخرى.');
     } finally {
         setEditLoadingState(false);
     }

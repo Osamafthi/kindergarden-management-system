@@ -91,16 +91,16 @@ document.addEventListener('DOMContentLoaded', function() {
           if (response.ok) {
               // Success
               
-              showAlert('Classroom added successfully!', 'success');
+              showAlert('تمت إضافة الفصل الدراسي بنجاح!', 'success');
               form.reset();
           } else {
               // API error
-              throw new Error(result.message || 'Failed to add classroom');
+              throw new Error(result.message || 'فشل في إضافة الفصل الدراسي');
           }
 
       } catch (error) {
-          console.error('Error:', error);
-          showAlert(error.message || 'Network error. Please try again.', 'error');
+          console.error('خطأ:', error);
+          showAlert(error.message || 'خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
       } finally {
           setLoadingState(false);
       }
@@ -109,22 +109,22 @@ document.addEventListener('DOMContentLoaded', function() {
   // Form validation
   function validateForm(data) {
       if (!data.name || data.name.length < 2) {
-          showAlert('Classroom name must be at least 2 characters long.', 'error');
+          showAlert('يجب أن يكون اسم الفصل الدراسي على الأقل حرفين.', 'error');
           return false;
       }
 
       if (!data.grade_level) {
-          showAlert('Please select a grade level.', 'error');
+          showAlert('يرجى اختيار المستوى الدراسي.', 'error');
           return false;
       }
 
       if (!data.room_number || data.room_number.length < 1) {
-          showAlert('Room number is required.', 'error');
+          showAlert('رقم الغرفة مطلوب.', 'error');
           return false;
       }
 
       if (!data.capacity || data.capacity < 1 || data.capacity > 50) {
-          showAlert('Capacity must be between 1 and 50 students.', 'error');
+          showAlert('يجب أن تكون السعة بين 1 و 50 طالباً.', 'error');
           return false;
       }
 
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function setLoadingState(isLoading) {
       submitBtn.disabled = isLoading;
       loading.style.display = isLoading ? 'inline-block' : 'none';
-      submitBtn.textContent = isLoading ? 'Adding Classroom...' : 'Add Classroom';
+      submitBtn.textContent = isLoading ? 'جاري الإضافة...' : 'إضافة الفصل الدراسي';
       
       if (isLoading) {
           submitBtn.appendChild(loading);

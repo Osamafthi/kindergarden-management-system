@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializePage() {
-    console.log('Manage Inventory page loaded');
+    console.log('تم تحميل صفحة إدارة المخزون');
     
     // Hide messages initially
     hideMessages();
@@ -95,29 +95,29 @@ function validateField(event) {
     
     // Validate based on field type
     if (field.hasAttribute('required') && !value) {
-        showFieldError(field, 'This field is required');
+        showFieldError(field, 'هذا الحقل مطلوب');
         return false;
     }
     
     if (field.type === 'text' && value.length < 2) {
-        showFieldError(field, 'Must be at least 2 characters long');
+        showFieldError(field, 'يجب أن يكون على الأقل حرفين');
         return false;
     }
     
     if (field.type === 'number') {
         const numValue = parseInt(value);
         if (isNaN(numValue) || numValue < 1) {
-            showFieldError(field, 'Must be a positive number');
+            showFieldError(field, 'يجب أن يكون رقماً موجباً');
             return false;
         }
         if (numValue > 9999) {
-            showFieldError(field, 'Maximum value is 9999');
+            showFieldError(field, 'القيمة القصوى هي 9999');
             return false;
         }
     }
     
     if (field.tagName === 'TEXTAREA' && value.length < 10) {
-        showFieldError(field, 'Description must be at least 10 characters long');
+        showFieldError(field, 'يجب أن يكون الوصف على الأقل 10 أحرف');
         return false;
     }
     
@@ -171,7 +171,7 @@ async function handleFormSubmit(event) {
     });
     
     if (!isValid) {
-        showMessage('error', 'Please fix the form errors before submitting');
+        showMessage('error', 'يرجى إصلاح أخطاء النموذج قبل الإرسال');
         return;
     }
     
@@ -211,12 +211,12 @@ async function handleFormSubmit(event) {
             
         } else {
             // API error
-            throw new Error(result.message || 'Failed to add product');
+            throw new Error(result.message || 'فشل في إضافة المنتج');
         }
         
     } catch (error) {
-        console.error('Error:', error);
-        showMessage('error', error.message || 'Network error. Please try again.');
+        console.error('خطأ:', error);
+        showMessage('error', error.message || 'خطأ في الشبكة. يرجى المحاولة مرة أخرى.');
     } finally {
         setLoadingState(false);
     }
@@ -293,7 +293,7 @@ async function loadStats() {
         }
         
     } catch (error) {
-        console.error('Error loading stats:', error);
+        console.error('خطأ في تحميل الإحصائيات:', error);
         // Don't show error to user for stats loading
     }
 }
