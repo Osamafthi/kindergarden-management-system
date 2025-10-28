@@ -21,6 +21,27 @@ body {
     min-height: 100vh;
 }
 
+/* RTL Layout Fix - Icons and spacing */
+[dir="rtl"] .back-button {
+    display: inline-flex;
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .back-button i {
+    margin-right: 0;
+    margin-left: 8px;
+}
+
+[dir="rtl"] .alert i {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+[dir="rtl"] .password-toggle {
+    left: 12px !important;
+    right: auto !important;
+}
+
 .container {
     max-width: 1000px;
     margin: 0 auto;

@@ -89,15 +89,15 @@ monthly_salary: document.getElementById('monthlySalary').value
                 teacherForm.reset();
             } else {
                 // Show error message
-                errorMessage.textContent = data.message || 'There was an error adding the teacher.';
+                errorMessage.textContent = data.message || 'حدث خطأ أثناء إضافة المعلم.';
                 alertError.style.display = 'block';
                 alertSuccess.style.display = 'none';
             }
         })
         .catch(error => {
             // Show error message
-            console.error('Fetch error:', error);
-            errorMessage.textContent = 'Network error. Please try again.';
+            console.error('خطأ في الطلب:', error);
+            errorMessage.textContent = 'خطأ في الشبكة. يرجى المحاولة مرة أخرى.';
             alertError.style.display = 'block';
             alertSuccess.style.display = 'none';
         })
@@ -120,35 +120,35 @@ monthly_salary: document.getElementById('monthlySalary').value
         
         // Simple email validation
         if (!/\S+@\S+\.\S+/.test(email)) {
-            errorMessage.textContent = 'Please enter a valid email address.';
+            errorMessage.textContent = 'يرجى إدخال عنوان بريد إلكتروني صالح.';
             alertError.style.display = 'block';
             return false;
         }
         
         // Password validation
         if (password.length < 6) {
-            errorMessage.textContent = 'Password must be at least 6 characters long.';
+            errorMessage.textContent = 'يجب أن تكون كلمة المرور 6 أحرف على الأقل.';
             alertError.style.display = 'block';
             return false;
         }
         
         // Confirm password validation
         if (confirmPassword.length < 6) {
-            errorMessage.textContent = 'Confirm password must be at least 6 characters long.';
+            errorMessage.textContent = 'يجب أن يكون تأكيد كلمة المرور 6 أحرف على الأقل.';
             alertError.style.display = 'block';
             return false;
         }
         
         // Check if passwords match
         if (password !== confirmPassword) {
-            errorMessage.textContent = 'Passwords do not match. Please make sure both passwords are the same.';
+            errorMessage.textContent = 'كلمات المرور غير متطابقة. يرجى التأكد من أن كلتا كلمتي المرور متطابقتان.';
             alertError.style.display = 'block';
             return false;
         }
         
         // Simple phone validation (at least 10 digits)
         if (phone.replace(/\D/g, '').length < 10) {
-            errorMessage.textContent = 'Please enter a valid phone number.';
+            errorMessage.textContent = 'يرجى إدخال رقم هاتف صالح.';
             alertError.style.display = 'block';
             return false;
         }
