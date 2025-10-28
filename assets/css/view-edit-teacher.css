@@ -921,3 +921,54 @@ body {
         gap: 8px;
     }
 }
+
+/* RTL Layout Fixes */
+[dir="rtl"] .header h1 i,
+[dir="rtl"] .back-button i,
+[dir="rtl"] .search-btn i,
+[dir="rtl"] .clear-btn i,
+[dir="rtl"] .status-toggle-btn i,
+[dir="rtl"] .stat-icon i,
+[dir="rtl"] .modal-header i {
+    margin-right: 0;
+    margin-left: 8px;
+}
+
+[dir="rtl"] .back-button {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .teacher-avatar {
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+[dir="rtl"] .action-buttons {
+    justify-content: flex-start;
+}
+
+[dir="rtl"] .btn i {
+    margin-right: 0;
+    margin-left: 5px;
+}
+
+[dir="rtl"] .pagination-nav-btn i {
+    margin: 0 5px;
+}
+
+[dir="rtl"] .form-row {
+    flex-direction: row;
+}
+
+[dir="rtl"] .radio-group {
+    flex-direction: row;
+}
+
+[dir="rtl"] .radio-option {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .radio-option input[type="radio"] {
+    margin-right: 0;
+    margin-left: 8px;
+}

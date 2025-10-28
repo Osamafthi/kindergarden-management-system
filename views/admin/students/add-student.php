@@ -16,11 +16,11 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Student - Kindergarten System</title>
+    <title>إضافة طالب - نظام الروضة</title>
    
     <link rel="stylesheet" href="../../../assets/css/add_student.css"> 
 
@@ -28,91 +28,91 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
 <body>
 <div id="button">
         <a href="../index.php" class="back-button">
-                <i class="fas fa-arrow-left"></i> Back to Dashboard
+                <i class="fas fa-arrow-left"></i> العودة إلى الصفحة الرئيسية
             </a>
     </div>
     <div class="container">
         <div class="header">
-            <h1>🎓 Add New Student</h1>
-            <p>Welcome to our Kindergarten Management System</p>
+            <h1>🎓 إضافة طالب جديد</h1>
+            <p>مرحباً بك في نظام إدارة الروضة</p>
         </div>
 
         <div class="form-container">
             <div class="success-message" id="successMessage">
-                Student added successfully! 🎉
+                تمت إضافة الطالب بنجاح! 🎉
             </div>
 
             <div class="error-message" id="errorMessage">
-                Please check the form and try again.
+                يرجى التحقق من النموذج والمحاولة مرة أخرى.
             </div>
 
             <form id="addStudentForm">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="firstName">First Name *</label>
+                        <label for="firstName">الاسم الأول *</label>
                         <input type="text" id="firstName" name="firstName" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="lastName">Last Name *</label>
+                        <label for="lastName">اسم العائلة *</label>
                         <input type="text" id="lastName" name="lastName" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="dateOfBirth">Date of Birth *</label>
+                        <label for="dateOfBirth">تاريخ الميلاد *</label>
                         <input type="date" id="dateOfBirth" name="dateOfBirth" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="enrollmentDate">Enrollment Date *</label>
+                        <label for="enrollmentDate">تاريخ التسجيل *</label>
                         <input type="date" id="enrollmentDate" name="enrollmentDate" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Gender *</label>
+                    <label>الجنس *</label>
                     <div class="gender-group">
                         <div class="radio-option">
                             <input type="radio" id="male" name="gender" value="male" required>
-                            <label for="male">👦 Male</label>
+                            <label for="male">👦 ذكر</label>
                         </div>
                         <div class="radio-option">
                             <input type="radio" id="female" name="gender" value="female" required>
-                            <label for="female">👧 Female</label>
+                            <label for="female">👧 أنثى</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="studentLevel">Student Level at Enrollment *</label>
+                    <label for="studentLevel">مستوى الطالب عند التسجيل *</label>
                     <select id="studentLevel" name="studentLevel" required>
-                        <option value="">Select Level</option>
-                        <option value="pre-k">Pre-K (3-4 years)</option>
-                        <option value="kindergarten">Kindergarten (5-6 years)</option>
-                        <option value="beginner">Beginner</option>
-                        <option value="intermediate">Intermediate</option>
-                        <option value="advanced">Advanced</option>
+                        <option value="">اختر المستوى</option>
+                        <option value="pre-k">ما قبل الروضة (3-4 سنوات)</option>
+                        <option value="kindergarten">الروضة (5-6 سنوات)</option>
+                        <option value="beginner">مبتدئ</option>
+                        <option value="intermediate">متوسط</option>
+                        <option value="advanced">متقدم</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="photo">Student Photo</label>
+                    <label for="photo">صورة الطالب</label>
                     <div class="photo-upload" id="photoUploadContainer">
                         <input type="file" id="photo" name="photo" accept="image/*">
                         <div class="photo-icon" id="photoIcon">📷</div>
-                        <p id="uploadText">Click to upload a photo</p>
+                        <p id="uploadText">انقر لتحميل صورة</p>
                         <p style="font-size: 0.9em; color: #666; margin-top: 5px;">
-                            Supported formats: JPG, PNG, GIF (Max 5MB)
+                            الصيغ المدعومة: JPG, PNG, GIF (الحد الأقصى 5 ميجابايت)
                         </p>
                         <div class="upload-status" id="uploadStatus"></div>
-                        <img class="photo-preview" id="photoPreview" alt="Preview">
+                        <img class="photo-preview" id="photoPreview" alt="معاينة">
                     </div>
                 </div>
 
                 <button type="submit" class="submit-btn" id="submitBtn">
-                    Add Student
+                    إضافة الطالب
                 </button>
             </form>
         </div>
@@ -138,14 +138,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             if (file) {
                 // Validate file size (5MB limit)
                 if (file.size > 5 * 1024 * 1024) {
-                    showUploadStatus('Photo size must be less than 5MB', 'error');
+                    showUploadStatus('يجب أن يكون حجم الصورة أقل من 5 ميجابايت', 'error');
                     resetPhotoUpload();
                     return;
                 }
                 
                 // Validate file type
                 if (!file.type.startsWith('image/')) {
-                    showUploadStatus('Please select a valid image file', 'error');
+                    showUploadStatus('يرجى اختيار ملف صورة صالح', 'error');
                     resetPhotoUpload();
                     return;
                 }
@@ -156,8 +156,8 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     preview.style.display = 'block';
                     photoUpload.classList.add('has-image');
                     photoIcon.textContent = '✅';
-                    uploadText.textContent = 'Photo selected: ' + file.name;
-                    showUploadStatus('Photo ready for upload!', 'success');
+                    uploadText.textContent = 'تم اختيار الصورة: ' + file.name;
+                    showUploadStatus('الصورة جاهزة للتحميل!', 'success');
                     photoUpload.style.padding = '15px';
                 };
                 reader.readAsDataURL(file);
@@ -184,7 +184,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             preview.style.display = 'none';
             photoUpload.classList.remove('has-image');
             photoIcon.textContent = '📷';
-            uploadText.textContent = 'Click to upload a photo';
+            uploadText.textContent = 'انقر لتحميل صورة';
             uploadStatus.className = 'upload-status';
             uploadStatus.textContent = '';
             photoUpload.style.padding = '30px';
@@ -195,7 +195,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
         function validatePhoto() {
             const fileInput = document.getElementById('photo');
             if (fileInput.files.length === 0) {
-                showUploadStatus('No photo selected (optional)', 'info');
+                showUploadStatus('لم يتم اختيار صورة (اختياري)', 'info');
                 return true; // Photo is optional, so return true
             }
             
@@ -213,7 +213,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Adding Student...';
+            submitBtn.textContent = 'جاري إضافة الطالب...';
             
             try {
                 // Create FormData object to handle file upload
@@ -235,7 +235,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 
                 // Validate required fields
                 if (!validateForm()) {
-                    throw new Error('Please fill in all required fields');
+                    throw new Error('يرجى ملء جميع الحقول المطلوبة');
                 }
                 
                 // Send to PHP API
@@ -247,18 +247,18 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 const result = await response.json();
                 
                 if (response.ok && result.success) {
-                    showSuccess('Student added successfully! 🎉');
+                    showSuccess('تمت إضافة الطالب بنجاح! 🎉');
                     resetForm();
                 } else {
-                    throw new Error(result.message || 'Failed to add student');
+                    throw new Error(result.message || 'فشل في إضافة الطالب');
                 }
                 
             } catch (error) {
                 showError(error.message);
-                console.error('Error:', error);
+                console.error('خطأ:', error);
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Add Student';
+                submitBtn.textContent = 'إضافة الطالب';
             }
         });
 
@@ -283,12 +283,12 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             const today = new Date();
             
             if (dob >= today) {
-                showError('Date of birth must be in the past');
+                showError('يجب أن يكون تاريخ الميلاد في الماضي');
                 return false;
             }
             
             if (enrollment > today) {
-                showError('Enrollment date cannot be in the future');
+                showError('لا يمكن أن يكون تاريخ التسجيل في المستقبل');
                 return false;
             }
             
@@ -296,7 +296,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             const minAge = new Date();
             minAge.setFullYear(today.getFullYear() - 2);
             if (dob > minAge) {
-                showError('Student must be at least 2 years old');
+                showError('يجب أن يكون عمر الطالب سنتين على الأقل');
                 return false;
             }
             

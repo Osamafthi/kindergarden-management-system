@@ -16,11 +16,11 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View & Edit Teachers - Kindergarten Admin System</title>
+    <title>عرض وتعديل المعلمين - نظام إدارة الروضة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../../assets/css/view-edit-teacher.css?v=<?php echo time(); ?>">
     <style>
@@ -30,7 +30,8 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
-            border-left: 4px solid var(--primary);
+            border-right: 4px solid var(--primary);
+            border-left: none;
         }
         
         .teacher-info-section h3 {
@@ -106,12 +107,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
         }
         
         .password-input-container .form-control {
-            padding-right: 45px;
+            padding-left: 45px;
+            padding-right: 12px;
         }
         
         .password-toggle {
             position: absolute;
-            right: 10px;
+            left: 10px;
+            right: auto;
             top: 50%;
             transform: translateY(-50%);
             background: none;
@@ -443,7 +446,8 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
         }
         
         .payment-section button i {
-            margin-right: 8px;
+            margin-right: 0;
+            margin-left: 8px;
             font-size: 1.1em;
         }
         
@@ -530,9 +534,9 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1><i class="fas fa-chalkboard-teacher"></i> View & Edit Teachers</h1>
+            <h1><i class="fas fa-chalkboard-teacher"></i> عرض وتعديل المعلمين</h1>
             <a href="../index.php" class="back-button">
-                <i class="fas fa-arrow-left"></i> Back to Dashboard
+                <i class="fas fa-arrow-left"></i> العودة إلى الصفحة الرئيسية
             </a>
         </div>
         
@@ -542,12 +546,12 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
         <!-- Search Section -->
         <div class="search-section">
             <div class="search-container">
-                <input type="text" id="searchInput" class="search-input" placeholder="Search teachers by name, email, or phone...">
+                <input type="text" id="searchInput" class="search-input" placeholder="البحث عن المعلمين بالاسم أو البريد الإلكتروني أو الهاتف...">
                 <button id="searchBtn" class="search-btn">
-                    <i class="fas fa-search"></i> Search
+                    <i class="fas fa-search"></i> بحث
                 </button>
                 <button id="clearBtn" class="clear-btn">
-                    <i class="fas fa-times"></i> Clear
+                    <i class="fas fa-times"></i> مسح
                 </button>
             </div>
         </div>
@@ -555,10 +559,10 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
         <!-- Status Toggle Buttons -->
         <div class="status-toggle-container">
             <button class="status-toggle-btn active" id="activeTeachersBtn" onclick="teachersManager.toggleTeachersView(1)">
-                <i class="fas fa-check-circle"></i> Active Teachers
+                <i class="fas fa-check-circle"></i> المعلمون النشطون
             </button>
             <button class="status-toggle-btn" id="inactiveTeachersBtn" onclick="teachersManager.toggleTeachersView(0)">
-                <i class="fas fa-times-circle"></i> Inactive Teachers
+                <i class="fas fa-times-circle"></i> المعلمون غير النشطين
             </button>
         </div>
         
@@ -569,47 +573,47 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     <i class="fas fa-users"></i>
                 </div>
                 <div class="stat-number" id="totalTeachers">0</div>
-                <div class="stat-label">Total Teachers</div>
+                <div class="stat-label">إجمالي المعلمين</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon success">
                     <i class="fas fa-user-check"></i>
                 </div>
                 <div class="stat-number" id="activeTeachers">0</div>
-                <div class="stat-label">Active Teachers</div>
+                <div class="stat-label">المعلمون النشطون</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon warning">
                     <i class="fas fa-clock"></i>
                 </div>
                 <div class="stat-number" id="recentTeachers">0</div>
-                <div class="stat-label">Added This Month</div>
+                <div class="stat-label">المضافون هذا الشهر</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon info">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
                 <div class="stat-number" id="avgSalary">$0</div>
-                <div class="stat-label">Average Salary</div>
+                <div class="stat-label">متوسط الراتب</div>
             </div>
         </div>
         
         <!-- Teachers Table -->
         <div class="teachers-container">
             <div class="table-header">
-                <h2><i class="fas fa-list"></i> Teachers List</h2>
+                <h2><i class="fas fa-list"></i> قائمة المعلمين</h2>
             </div>
             
             <div class="table-container">
                 <table class="teachers-table">
                     <thead>
                         <tr>
-                            <th>Teacher</th>
-                            <th>Contact</th>
-                            <th>Position</th>
-                            <th>Salary</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>المعلم</th>
+                            <th>جهة الاتصال</th>
+                            <th>الوظيفة</th>
+                            <th>الراتب</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
                         </tr>
                     </thead>
                     <tbody id="teachersTableBody">
@@ -621,41 +625,41 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             <!-- Loading State -->
             <div id="loadingContainer" class="loading-container" style="display: none;">
                 <div class="loading-spinner"></div>
-                <p>Loading teachers...</p>
+                <p>جاري تحميل المعلمين...</p>
             </div>
             
             <!-- Empty State -->
             <div id="emptyState" class="empty-state" style="display: none;">
                 <i class="fas fa-user-slash"></i>
-                <h3>No Teachers Found</h3>
-                <p>No teachers match your search criteria.</p>
+                <h3>لم يتم العثور على معلمين</h3>
+                <p>لا يوجد معلمون يطابقون معايير البحث.</p>
             </div>
             
             <!-- Pagination -->
             <div id="paginationContainer" class="pagination-container" style="display: none;">
                 <div class="pagination-info" id="paginationInfo">
-                    Showing 0 to 0 of 0 entries
+                    عرض 0 إلى 0 من 0 سجل
                 </div>
                 <div class="pagination-wrapper">
                     <button class="pagination-nav-btn" id="firstPageBtn" onclick="teachersManager.goToPage(1)" disabled>
-                        <i class="fas fa-angle-double-left"></i> First
+                        <i class="fas fa-angle-double-left"></i> الأولى
                     </button>
                     <button class="pagination-nav-btn" id="prevPageBtn" onclick="teachersManager.goToPreviousPage()" disabled>
-                        <i class="fas fa-chevron-left"></i> Previous
+                        <i class="fas fa-chevron-left"></i> السابقة
                     </button>
                     <div class="pagination-buttons" id="paginationButtons">
                         <!-- Pagination buttons will be generated here -->
                     </div>
                     <button class="pagination-nav-btn" id="nextPageBtn" onclick="teachersManager.goToNextPage()" disabled>
-                        Next <i class="fas fa-chevron-right"></i>
+                        التالية <i class="fas fa-chevron-right"></i>
                     </button>
                     <button class="pagination-nav-btn" id="lastPageBtn" onclick="teachersManager.goToLastPage()" disabled>
-                        Last <i class="fas fa-angle-double-right"></i>
+                        الأخيرة <i class="fas fa-angle-double-right"></i>
                     </button>
                     <div class="pagination-jump">
-                        <span>Go to:</span>
-                        <input type="number" id="jumpToPageInput" min="1" placeholder="Page">
-                        <button onclick="teachersManager.jumpToPage()">Go</button>
+                        <span>الانتقال إلى:</span>
+                        <input type="number" id="jumpToPageInput" min="1" placeholder="صفحة">
+                        <button onclick="teachersManager.jumpToPage()">انتقال</button>
                     </div>
                 </div>
             </div>
@@ -666,7 +670,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <div id="editTeacherModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-edit"></i> Edit Teacher</h2>
+                <h2><i class="fas fa-edit"></i> تعديل المعلم</h2>
                 <span class="close" onclick="teachersManager.closeEditModal()">&times;</span>
             </div>
             <div class="modal-body">
@@ -676,14 +680,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     <div class="form-row">
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="editFullName">Full Name *</label>
+                                <label for="editFullName">الاسم الكامل *</label>
                                 <input type="text" id="editFullName" name="full_name" class="form-control" required>
                             </div>
                         </div>
                         
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="editPhone">Phone Number *</label>
+                                <label for="editPhone">رقم الهاتف *</label>
                                 <input type="tel" id="editPhone" name="phone_number" class="form-control" required>
                             </div>
                         </div>
@@ -692,26 +696,26 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     <div class="form-row">
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="editEmail">Email Address *</label>
+                                <label for="editEmail">البريد الإلكتروني *</label>
                                 <input type="email" id="editEmail" name="email" class="form-control" required>
                             </div>
                         </div>
                         
                         <div class="form-col">
                             <div class="form-group">
-                                <label>Gender *</label>
+                                <label>الجنس *</label>
                                 <div class="radio-group">
                                     <div class="radio-option">
                                         <input type="radio" id="editGenderMale" name="gender" value="male" required>
-                                        <label for="editGenderMale">Male</label>
+                                        <label for="editGenderMale">ذكر</label>
                                     </div>
                                     <div class="radio-option">
                                         <input type="radio" id="editGenderFemale" name="gender" value="female">
-                                        <label for="editGenderFemale">Female</label>
+                                        <label for="editGenderFemale">أنثى</label>
                                     </div>
                                     <div class="radio-option">
                                         <input type="radio" id="editGenderOther" name="gender" value="other">
-                                        <label for="editGenderOther">Other</label>
+                                        <label for="editGenderOther">آخر</label>
                                     </div>
                                 </div>
                             </div>
@@ -721,14 +725,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     <div class="form-row">
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="editHourlyRate">Hourly Rate ($) *</label>
+                                <label for="editHourlyRate">الأجر بالساعة ($) *</label>
                                 <input type="number" id="editHourlyRate" name="hourly_rate" class="form-control" min="0" step="0.01" required>
                             </div>
                         </div>
                         
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="editMonthlySalary">Monthly Salary ($) *</label>
+                                <label for="editMonthlySalary">الراتب الشهري ($) *</label>
                                 <input type="number" id="editMonthlySalary" name="monthly_salary" class="form-control" min="0" step="0.01" required>
                             </div>
                         </div>
@@ -737,22 +741,22 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     <div class="form-row">
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="editPassword">Password</label>
+                                <label for="editPassword">كلمة المرور</label>
                                 <div class="password-input-container">
-                                    <input type="password" id="editPassword" name="password" class="form-control" placeholder="Leave blank to keep current password">
+                                    <input type="password" id="editPassword" name="password" class="form-control" placeholder="اتركه فارغًا للحفاظ على كلمة المرور الحالية">
                                     <button type="button" class="password-toggle" onclick="teachersManager.togglePasswordVisibility('editPassword')">
                                         <i class="fas fa-eye" id="editPasswordIcon"></i>
                                     </button>
                                 </div>
-                                <small class="form-text text-muted">Leave blank to keep the current password unchanged</small>
+                                <small class="form-text text-muted">اتركه فارغًا للحفاظ على كلمة المرور الحالية دون تغيير</small>
                             </div>
                         </div>
                         
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="editConfirmPassword">Confirm Password</label>
+                                <label for="editConfirmPassword">تأكيد كلمة المرور</label>
                                 <div class="password-input-container">
-                                    <input type="password" id="editConfirmPassword" name="confirm_password" class="form-control" placeholder="Confirm new password">
+                                    <input type="password" id="editConfirmPassword" name="confirm_password" class="form-control" placeholder="تأكيد كلمة المرور الجديدة">
                                     <button type="button" class="password-toggle" onclick="teachersManager.togglePasswordVisibility('editConfirmPassword')">
                                         <i class="fas fa-eye" id="editConfirmPasswordIcon"></i>
                                     </button>
@@ -762,9 +766,9 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     </div>
                     
                     <div class="modal-actions">
-                        <button type="button" class="btn btn-secondary" onclick="teachersManager.closeEditModal()">Cancel</button>
+                        <button type="button" class="btn btn-secondary" onclick="teachersManager.closeEditModal()">إلغاء</button>
                         <button type="submit" class="btn btn-primary" id="updateTeacherBtn">
-                            <span id="updateText">Update Teacher</span>
+                            <span id="updateText">تحديث المعلم</span>
                             <div class="loading" id="updateLoading" style="display: none;"></div>
                         </button>
                     </div>
@@ -777,7 +781,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <div id="assignClassroomModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><i class="fas fa-school"></i> Assign Classroom</h2>
+                <h2><i class="fas fa-school"></i> تعيين فصل دراسي</h2>
                 <span class="close" onclick="teachersManager.closeAssignClassroomModal()">&times;</span>
             </div>
             <div class="modal-body">
@@ -787,14 +791,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 </div>
                 
                 <div class="classrooms-section">
-                    <h4>Available Classrooms</h4>
+                    <h4>الفصول الدراسية المتاحة</h4>
                     <div id="classroomsList" class="classrooms-grid">
                         <!-- Classrooms will be loaded here -->
                     </div>
                 </div>
                 
                 <div class="modal-actions">
-                    <button type="button" class="btn btn-secondary" onclick="teachersManager.closeAssignClassroomModal()">Cancel</button>
+                    <button type="button" class="btn btn-secondary" onclick="teachersManager.closeAssignClassroomModal()">إلغاء</button>
                 </div>
             </div>
         </div>
@@ -804,14 +808,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <div id="salaryModal" class="modal">
         <div class="modal-content large-modal">
             <div class="modal-header">
-                <h2><i class="fas fa-money-bill-wave"></i> Salary Details - <span id="salaryTeacherName"></span></h2>
+                <h2><i class="fas fa-money-bill-wave"></i> تفاصيل الراتب - <span id="salaryTeacherName"></span></h2>
                 <span class="close" onclick="teachersManager.closeSalaryModal()">&times;</span>
             </div>
             <div class="modal-body">
                 <!-- Month Navigation -->
                 <div class="month-navigation">
                     <button class="btn btn-secondary" onclick="teachersManager.viewSalaryHistory()">
-                        <i class="fas fa-history"></i> View Past Months
+                        <i class="fas fa-history"></i> عرض الأشهر السابقة
                     </button>
                     <h3 id="currentMonth"></h3>
                 </div>
@@ -819,37 +823,37 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 <!-- Salary Summary -->
                 <div class="salary-summary">
                     <div class="summary-card">
-                        <label>Monthly Salary:</label>
+                        <label>الراتب الشهري:</label>
                         <span id="monthlySalary"></span>
                     </div>
                     <div class="summary-card">
-                        <label>Working Days:</label>
+                        <label>أيام العمل:</label>
                         <span id="workingDays"></span>
                     </div>
                     <div class="summary-card">
-                        <label>Days Attended:</label>
+                        <label>أيام الحضور:</label>
                         <span id="attendedDays"></span>
                     </div>
                     <div class="summary-card">
-                        <label>Days Missed:</label>
+                        <label>أيام الغياب:</label>
                         <span id="missedDays"></span>
                     </div>
                     <div class="summary-card highlight">
-                        <label>Calculated Salary:</label>
+                        <label>الراتب المحسوب:</label>
                         <span id="calculatedSalary"></span>
                     </div>
                 </div>
                 
                 <!-- Attendance Calendar -->
                 <div class="attendance-calendar">
-                    <h4><i class="fas fa-calendar-check"></i> Attendance Details</h4>
+                    <h4><i class="fas fa-calendar-check"></i> تفاصيل الحضور</h4>
                     <div id="attendanceList"></div>
                 </div>
                 
                 <!-- Payment Button -->
                 <div class="payment-section">
                     <button id="paymentBtn" class="btn btn-primary" onclick="teachersManager.markSalaryPaid()">
-                        <i class="fas fa-check"></i> Pay Check
+                        <i class="fas fa-check"></i> دفع الراتب
                     </button>
                 </div>
             </div>
@@ -860,7 +864,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <div id="salaryHistoryModal" class="modal">
         <div class="modal-content large-modal">
             <div class="modal-header">
-                <h2><i class="fas fa-history"></i> Salary History</h2>
+                <h2><i class="fas fa-history"></i> سجل الرواتب</h2>
                 <span class="close" onclick="teachersManager.closeSalaryHistoryModal()">&times;</span>
             </div>
             <div class="modal-body">
@@ -976,11 +980,11 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         this.updateStats();
                         this.renderPagination();
                     } else {
-                        this.showAlert('Error loading teachers: ' + data.message, 'error');
+                        this.showAlert('خطأ في تحميل المعلمين: ' + data.message, 'error');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
-                    this.showAlert('Network error. Please try again.', 'error');
+                    console.error('خطأ:', error);
+                    this.showAlert('خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
                 } finally {
                     this.isLoading = false;
                     this.hideLoading();
@@ -1041,7 +1045,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         <td>
                             <div class="teacher-details">
                                 <p><strong>${teacher.gender}</strong></p>
-                                <p>Hired: ${new Date(teacher.date_of_hire).toLocaleDateString()}</p>
+                                <p>تاريخ التعيين: ${new Date(teacher.date_of_hire).toLocaleDateString()}</p>
                             </div>
                         </td>
                         <td>
@@ -1057,24 +1061,24 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                             <div class="action-buttons">
                                 ${this.currentIsActive === 1 ? `
                                 <button class="btn btn-view" onclick="teachersManager.assignClassroom(${teacher.id})">
-                                    <i class="fas fa-school"></i> Assign Classroom
+                                    <i class="fas fa-school"></i> تعيين فصل
                                 </button>
                                 <button class="btn btn-deactivate" onclick="teachersManager.deactivateTeacher(${teacher.id})">
-                                    <i class="fas fa-user-slash"></i> De-activate
+                                    <i class="fas fa-user-slash"></i> إلغاء التفعيل
                                 </button>
                                 ` : `
                                 <button class="btn btn-activate" onclick="teachersManager.activateTeacher(${teacher.id})">
-                                    <i class="fas fa-user-check"></i> Activate
+                                    <i class="fas fa-user-check"></i> تفعيل
                                 </button>
                                 `}
                                 <button class="btn btn-salary" onclick="teachersManager.viewSalary(${teacher.id})">
-                                    <i class="fas fa-money-bill-wave"></i> View Salary
+                                    <i class="fas fa-money-bill-wave"></i> عرض الراتب
                                 </button>
                                 <button class="btn btn-edit" onclick="teachersManager.editTeacher(${teacher.id})">
-                                    <i class="fas fa-edit"></i> Edit
+                                    <i class="fas fa-edit"></i> تعديل
                                 </button>
                                 <button class="btn btn-delete" onclick="teachersManager.deleteTeacher(${teacher.id})">
-                                    <i class="fas fa-trash"></i> Delete
+                                    <i class="fas fa-trash"></i> حذف
                                 </button>
                             </div>
                         </td>
@@ -1118,7 +1122,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 const startItem = (this.currentPage - 1) * this.itemsPerPage + 1;
                 const endItem = Math.min(this.currentPage * this.itemsPerPage, this.totalCount);
                 
-                info.textContent = `Showing ${startItem} to ${endItem} of ${this.totalCount} entries`;
+                info.textContent = `عرض ${startItem} إلى ${endItem} من ${this.totalCount} سجل`;
                 
                 // Update navigation buttons
                 document.getElementById('firstPageBtn').disabled = this.currentPage === 1;
@@ -1218,7 +1222,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 if (page && page >= 1 && page <= totalPages) {
                     this.goToPage(page);
                 } else {
-                    this.showAlert(`Please enter a valid page number between 1 and ${totalPages}`, 'error');
+                    this.showAlert(`يرجى إدخال رقم صفحة صالح بين 1 و ${totalPages}`, 'error');
                 }
             }
             
@@ -1302,11 +1306,11 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     if (data.success) {
                         this.renderClassrooms(data.classrooms);
                     } else {
-                        this.showAlert('Error loading classrooms: ' + data.message, 'error');
+                        this.showAlert('خطأ في تحميل الفصول الدراسية: ' + data.message, 'error');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
-                    this.showAlert('Network error loading classrooms.', 'error');
+                    console.error('خطأ:', error);
+                    this.showAlert('خطأ في الشبكة أثناء تحميل الفصول الدراسية.', 'error');
                 }
             }
             
@@ -1314,7 +1318,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 const container = document.getElementById('classroomsList');
                 
                 if (classrooms.length === 0) {
-                    container.innerHTML = '<p>No classrooms available.</p>';
+                    container.innerHTML = '<p>لا توجد فصول دراسية متاحة.</p>';
                     return;
                 }
                 
@@ -1325,9 +1329,9 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         </div>
                         <div class="classroom-info">
                             <h5>${classroom.name}</h5>
-                            <p>Grade: ${classroom.grade_level}</p>
-                            <p>Room: ${classroom.room_number}</p>
-                            <p>Capacity: ${classroom.capacity}</p>
+                            <p>المستوى: ${classroom.grade_level}</p>
+                            <p>الغرفة: ${classroom.room_number}</p>
+                            <p>السعة: ${classroom.capacity}</p>
                         </div>
                     </div>
                 `).join('');
@@ -1335,7 +1339,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             
             async assignClassroomToTeacher(classroomId, classroomName) {
                 if (!this.currentTeacherId) {
-                    this.showAlert('No teacher selected', 'error');
+                    this.showAlert('لم يتم اختيار معلم', 'error');
                     return;
                 }
                 
@@ -1354,14 +1358,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     const data = await response.json();
                     
                     if (data.success) {
-                        this.showAlert(`Classroom "${classroomName}" assigned successfully!`, 'success');
+                        this.showAlert(`تم تعيين الفصل الدراسي "${classroomName}" بنجاح!`, 'success');
                         this.closeAssignClassroomModal();
                     } else {
-                        this.showAlert('Error assigning classroom: ' + data.message, 'error');
+                        this.showAlert('خطأ في تعيين الفصل الدراسي: ' + data.message, 'error');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
-                    this.showAlert('Network error. Please try again.', 'error');
+                    console.error('خطأ:', error);
+                    this.showAlert('خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
                 }
             }
             
@@ -1369,7 +1373,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 // Find the teacher data
                 const teacher = this.teachers.find(t => t.id == id);
                 if (!teacher) {
-                    this.showAlert('Teacher not found', 'error');
+                    this.showAlert('لم يتم العثور على المعلم', 'error');
                     return;
                 }
                 
@@ -1431,11 +1435,11 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 // Validate passwords if provided
                 if (password || confirmPassword) {
                     if (password !== confirmPassword) {
-                        this.showAlert('Passwords do not match', 'error');
+                        this.showAlert('كلمات المرور غير متطابقة', 'error');
                         return;
                     }
                     if (password.length < 6) {
-                        this.showAlert('Password must be at least 6 characters long', 'error');
+                        this.showAlert('يجب أن تكون كلمة المرور 6 أحرف على الأقل', 'error');
                         return;
                     }
                 }
@@ -1476,16 +1480,16 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     const result = await response.json();
                     
                     if (result.success) {
-                        this.showAlert('Teacher updated successfully!', 'success');
+                        this.showAlert('تم تحديث المعلم بنجاح!', 'success');
                         this.closeEditModal();
                         // Reload teachers to show updated data
                         this.loadTeachers();
                     } else {
-                        this.showAlert('Error updating teacher: ' + result.message, 'error');
+                        this.showAlert('خطأ في تحديث المعلم: ' + result.message, 'error');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
-                    this.showAlert('Network error. Please try again.', 'error');
+                    console.error('خطأ:', error);
+                    this.showAlert('خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
                 } finally {
                     this.setUpdateLoadingState(false);
                 }
@@ -1493,32 +1497,32 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             
             validateEditForm(data) {
                 if (!data.full_name || data.full_name.length < 2) {
-                    this.showAlert('Full name must be at least 2 characters long.', 'error');
+                    this.showAlert('يجب أن يكون الاسم الكامل حرفين على الأقل.', 'error');
                     return false;
                 }
                 
                 if (!data.phone_number || data.phone_number.length < 10) {
-                    this.showAlert('Phone number must be at least 10 digits long.', 'error');
+                    this.showAlert('يجب أن يكون رقم الهاتف 10 أرقام على الأقل.', 'error');
                     return false;
                 }
                 
                 if (!data.email || !/\S+@\S+\.\S+/.test(data.email)) {
-                    this.showAlert('Please enter a valid email address.', 'error');
+                    this.showAlert('يرجى إدخال عنوان بريد إلكتروني صالح.', 'error');
                     return false;
                 }
                 
                 if (!data.gender) {
-                    this.showAlert('Please select a gender.', 'error');
+                    this.showAlert('يرجى اختيار الجنس.', 'error');
                     return false;
                 }
                 
                 if (!data.hourly_rate || data.hourly_rate < 0) {
-                    this.showAlert('Hourly rate must be a positive number.', 'error');
+                    this.showAlert('يجب أن يكون الأجر بالساعة رقمًا موجبًا.', 'error');
                     return false;
                 }
                 
                 if (!data.monthly_salary || data.monthly_salary < 0) {
-                    this.showAlert('Monthly salary must be a positive number.', 'error');
+                    this.showAlert('يجب أن يكون الراتب الشهري رقمًا موجبًا.', 'error');
                     return false;
                 }
                 
@@ -1533,24 +1537,24 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 updateBtn.disabled = isLoading;
                 
                 if (isLoading) {
-                    updateText.textContent = 'Updating...';
+                    updateText.textContent = 'جاري التحديث...';
                     updateLoading.style.display = 'inline-block';
                 } else {
-                    updateText.textContent = 'Update Teacher';
+                    updateText.textContent = 'تحديث المعلم';
                     updateLoading.style.display = 'none';
                 }
             }
             
             deleteTeacher(id) {
-                if (confirm('Are you sure you want to delete this teacher?')) {
-                    this.showAlert(`Delete teacher with ID: ${id}`, 'warning');
+                if (confirm('هل أنت متأكد من حذف هذا المعلم?')) {
+                    this.showAlert(`حذف المعلم برقم: ${id}`, 'warning');
                     // Implement delete functionality
                 }
             }
             
             // De-activate teacher
             async deactivateTeacher(teacher_id) {
-                if (confirm('Are you sure you want to de-activate this teacher?')) {
+                if (confirm('هل أنت متأكد من إلغاء تفعيل هذا المعلم?')) {
                     try {
                         const response = await fetch('../../../api/update-teacher-status.php', {
                             method: 'POST',
@@ -1566,21 +1570,21 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         const data = await response.json();
                         
                         if (data.success) {
-                            this.showAlert('Teacher de-activated successfully!', 'success');
+                            this.showAlert('تم إلغاء تفعيل المعلم بنجاح!', 'success');
                             this.loadTeachers(); // Reload the list
                         } else {
-                            this.showAlert('Error de-activating teacher: ' + data.message, 'error');
+                            this.showAlert('خطأ في إلغاء تفعيل المعلم: ' + data.message, 'error');
                         }
                     } catch (error) {
-                        console.error('Error:', error);
-                        this.showAlert('Network error. Please try again.', 'error');
+                        console.error('خطأ:', error);
+                        this.showAlert('خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
                     }
                 }
             }
             
             // Activate teacher
             async activateTeacher(teacher_id) {
-                if (confirm('Are you sure you want to activate this teacher?')) {
+                if (confirm('هل أنت متأكد من تفعيل هذا المعلم?')) {
                     try {
                         const response = await fetch('../../../api/update-teacher-status.php', {
                             method: 'POST',
@@ -1596,14 +1600,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         const data = await response.json();
                         
                         if (data.success) {
-                            this.showAlert('Teacher activated successfully!', 'success');
+                            this.showAlert('تم تفعيل المعلم بنجاح!', 'success');
                             this.loadTeachers(); // Reload the list
                         } else {
-                            this.showAlert('Error activating teacher: ' + data.message, 'error');
+                            this.showAlert('خطأ في تفعيل المعلم: ' + data.message, 'error');
                         }
                     } catch (error) {
-                        console.error('Error:', error);
-                        this.showAlert('Network error. Please try again.', 'error');
+                        console.error('خطأ:', error);
+                        this.showAlert('خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
                     }
                 }
             }
@@ -1643,11 +1647,11 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     if (data.success) {
                         this.renderSalaryData(data);
                     } else {
-                        this.showAlert('Error loading salary data: ' + data.message, 'error');
+                        this.showAlert('خطأ في تحميل بيانات الراتب: ' + data.message, 'error');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
-                    this.showAlert('Network error loading salary data.', 'error');
+                    console.error('خطأ:', error);
+                    this.showAlert('خطأ في الشبكة أثناء تحميل بيانات الراتب.', 'error');
                 }
             }
             
@@ -1698,13 +1702,13 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     
                     if (isSchoolDay === 0) {
                         className += ' off-day';
-                        status = 'Off';
+                        status = 'إجازة';
                     } else if (isAttended) {
                         className += ' attended';
-                        status = 'Present';
+                        status = 'حاضر';
                     } else {
                         className += ' missed';
-                        status = 'Absent';
+                        status = 'غائب';
                     }
                     
                     html += `
@@ -1723,7 +1727,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 const paymentBtn = document.getElementById('paymentBtn');
                 
                 if (isPaid) {
-                    paymentBtn.textContent = 'Paid';
+                    paymentBtn.textContent = 'تم الدفع';
                     paymentBtn.className = 'btn btn-primary paid';
                     paymentBtn.disabled = true;
                     paymentBtn.onclick = null;
@@ -1731,10 +1735,10 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     // Add payment info if available
                     if (paymentData && paymentData.paid_date) {
                         const paidDate = new Date(paymentData.paid_date).toLocaleDateString();
-                        paymentBtn.title = `Paid on ${paidDate}`;
+                        paymentBtn.title = `تم الدفع في ${paidDate}`;
                     }
                 } else {
-                    paymentBtn.innerHTML = '<i class="fas fa-check"></i> Pay Check';
+                    paymentBtn.innerHTML = '<i class="fas fa-check"></i> دفع الراتب';
                     paymentBtn.className = 'btn btn-primary';
                     paymentBtn.disabled = false;
                     paymentBtn.onclick = () => this.markSalaryPaid();
@@ -1744,7 +1748,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             
             async markSalaryPaid() {
                 if (!this.currentTeacherId || !this.currentSalaryMonth) {
-                    this.showAlert('No teacher or month selected', 'error');
+                    this.showAlert('لم يتم اختيار معلم أو شهر', 'error');
                     return;
                 }
                 
@@ -1763,21 +1767,21 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     const data = await response.json();
                     
                     if (data.success) {
-                        this.showAlert('Salary marked as paid successfully!', 'success');
+                        this.showAlert('تم وضع علامة مدفوع على الراتب بنجاح!', 'success');
                         // Reload salary data to update the UI
                         this.loadSalaryData(this.currentTeacherId, this.currentSalaryMonth);
                     } else {
-                        this.showAlert('Error marking salary as paid: ' + data.message, 'error');
+                        this.showAlert('خطأ في وضع علامة مدفوع على الراتب: ' + data.message, 'error');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
-                    this.showAlert('Network error. Please try again.', 'error');
+                    console.error('خطأ:', error);
+                    this.showAlert('خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
                 }
             }
             
             viewSalaryHistory() {
                 if (!this.currentTeacherId) {
-                    this.showAlert('No teacher selected', 'error');
+                    this.showAlert('لم يتم اختيار معلم', 'error');
                     return;
                 }
                 
@@ -1803,11 +1807,11 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     if (data.success) {
                         this.renderSalaryHistory(data.history);
                     } else {
-                        this.showAlert('Error loading salary history: ' + data.message, 'error');
+                        this.showAlert('خطأ في تحميل سجل الرواتب: ' + data.message, 'error');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
-                    this.showAlert('Network error loading salary history.', 'error');
+                    console.error('خطأ:', error);
+                    this.showAlert('خطأ في الشبكة أثناء تحميل سجل الرواتب.', 'error');
                 }
             }
             
@@ -1815,7 +1819,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 const container = document.getElementById('historyList');
                 
                 if (history.length === 0) {
-                    container.innerHTML = '<p>No salary history available.</p>';
+                    container.innerHTML = '<p>لا يوجد سجل للرواتب.</p>';
                     return;
                 }
                 
@@ -1824,7 +1828,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 history.forEach(item => {
                     const { month_name, salary_calculation, is_paid } = item;
                     const statusClass = is_paid ? 'paid' : 'unpaid';
-                    const statusText = is_paid ? 'Paid' : 'Unpaid';
+                    const statusText = is_paid ? 'مدفوع' : 'غير مدفوع';
                     
                     html += `
                         <div class="history-item ${statusClass}" onclick="teachersManager.viewSalary(${this.currentTeacherId}, '${item.month}')">
@@ -1834,19 +1838,19 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                             </div>
                             <div class="history-details">
                                 <div class="history-detail">
-                                    <label>Monthly Salary:</label>
+                                    <label>الراتب الشهري:</label>
                                     <span>$${salary_calculation.monthly_salary.toFixed(2)}</span>
                                 </div>
                                 <div class="history-detail">
-                                    <label>Days Attended:</label>
+                                    <label>أيام الحضور:</label>
                                     <span>${salary_calculation.attended_days_count}</span>
                                 </div>
                                 <div class="history-detail">
-                                    <label>Days Missed:</label>
+                                    <label>أيام الغياب:</label>
                                     <span>${salary_calculation.missed_working_days_count}</span>
                                 </div>
                                 <div class="history-detail">
-                                    <label>Final Salary:</label>
+                                    <label>الراتب النهائي:</label>
                                     <span>$${salary_calculation.calculated_salary.toFixed(2)}</span>
                                 </div>
                             </div>

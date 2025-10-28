@@ -17,7 +17,7 @@ class ReportManager {
         this.studentId = urlParams.get('student_id');
         
         if (!this.studentId) {
-            this.showAlert('Student ID is required', 'error');
+            this.showAlert('معرف الطالب مطلوب', 'error');
             return;
         }
         
@@ -39,11 +39,11 @@ class ReportManager {
                 this.reportData = data;
                 this.renderReport();
             } else {
-                this.showAlert('Error loading report: ' + data.message, 'error');
+                this.showAlert('خطأ في تحميل التقرير: ' + data.message, 'error');
             }
         } catch (error) {
-            console.error('Error:', error);
-            this.showAlert('Network error. Please try again.', 'error');
+            console.error('خطأ:', error);
+            this.showAlert('خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
         } finally {
             this.isLoading = false;
             this.hideLoading();
@@ -80,7 +80,7 @@ class ReportManager {
         
         // Student name and level
         document.getElementById('studentName').textContent = student.full_name;
-        document.getElementById('studentLevel').textContent = `Level: ${student.student_level_at_enrollment || 'N/A'}`;
+        document.getElementById('studentLevel').textContent = `المستوى: ${student.student_level_at_enrollment || 'غير متاح'}`;
         
         // Student photo
         const photoContainer = document.getElementById('studentPhoto');
@@ -98,8 +98,8 @@ class ReportManager {
     
     renderPeriodInfo() {
         const periodNames = {
-            'monthly': 'Current Month',
-            'weekly': 'Last 7 Days'
+            'monthly': 'الشهر الحالي',
+            'weekly': 'آخر 7 أيام'
         };
         
         document.getElementById('currentPeriod').textContent = periodNames[this.currentPeriod];
@@ -123,14 +123,14 @@ class ReportManager {
         if (overall.total_submissions > 0) {
             document.getElementById('overallGrade').textContent = overall.overall_avg_grade;
             document.getElementById('overallLevel').textContent = overall.overall_performance_level;
-            document.getElementById('overallDetails').textContent = `${overall.total_submissions} submissions`;
+            document.getElementById('overallDetails').textContent = `${overall.total_submissions} تسليم`;
             
             // Add performance level class
             card.className = `overview-card overall-performance level-${overall.overall_performance_level.toLowerCase()}`;
         } else {
             document.getElementById('overallGrade').textContent = '--';
-            document.getElementById('overallLevel').textContent = 'N/A';
-            document.getElementById('overallDetails').textContent = 'No data available';
+            document.getElementById('overallLevel').textContent = 'غير متاح';
+            document.getElementById('overallDetails').textContent = 'لا توجد بيانات متاحة';
             card.className = 'overview-card overall-performance no-data';
         }
     }
@@ -141,7 +141,7 @@ class ReportManager {
         
         if (attendance.total_days > 0) {
             document.getElementById('attendancePercentage').textContent = `${attendance.attendance_percentage}%`;
-            document.getElementById('attendanceDetails').textContent = `${attendance.present_days}/${attendance.total_days} days present`;
+            document.getElementById('attendanceDetails').textContent = `${attendance.present_days}/${attendance.total_days} يوم حضور`;
             
             // Add attendance level class
             const percentage = attendance.attendance_percentage;
@@ -153,7 +153,7 @@ class ReportManager {
             card.className = `overview-card attendance-performance level-${level}`;
         } else {
             document.getElementById('attendancePercentage').textContent = '--%';
-            document.getElementById('attendanceDetails').textContent = 'No attendance records';
+            document.getElementById('attendanceDetails').textContent = 'لا توجد سجلات حضور';
             card.className = 'overview-card attendance-performance no-data';
         }
     }
@@ -165,7 +165,7 @@ class ReportManager {
         const card = document.getElementById('recitationPerformanceCard');
         
         if (!card) {
-            console.error('Recitation card element not found');
+            console.error('لم يتم العثور على عنصر بطاقة التلاوة');
             return;
         }
         
@@ -173,7 +173,7 @@ class ReportManager {
             const pagesEl = document.getElementById('recitationPages');
             const detailsEl = document.getElementById('recitationDetails');
             if (pagesEl) pagesEl.textContent = '--';
-            if (detailsEl) detailsEl.textContent = 'No data available';
+            if (detailsEl) detailsEl.textContent = 'لا توجد بيانات متاحة';
             card.className = 'overview-card recitation-performance no-data';
             return;
         }
@@ -183,8 +183,8 @@ class ReportManager {
             const pagesEl = document.getElementById('recitationPages');
             const detailsEl = document.getElementById('recitationDetails');
             
-            if (pagesEl) pagesEl.textContent = `${pages.toFixed(2)} pages`;
-            if (detailsEl) detailsEl.textContent = `${recitation.total_verses || 0} verses, ${recitation.total_words || 0} words`;
+            if (pagesEl) pagesEl.textContent = `${pages.toFixed(2)} صفحة`;
+            if (detailsEl) detailsEl.textContent = `${recitation.total_verses || 0} آية، ${recitation.total_words || 0} كلمة`;
             
             // Add performance level class based on pages
             let level = 'poor';
@@ -196,8 +196,8 @@ class ReportManager {
         } else {
             const pagesEl = document.getElementById('recitationPages');
             const detailsEl = document.getElementById('recitationDetails');
-            if (pagesEl) pagesEl.textContent = '0 pages';
-            if (detailsEl) detailsEl.textContent = 'No Quran homework recorded';
+            if (pagesEl) pagesEl.textContent = '0 صفحة';
+            if (detailsEl) detailsEl.textContent = 'لم يتم تسجيل واجب قرآني';
             card.className = 'overview-card recitation-performance no-data';
         }
     }
@@ -211,7 +211,7 @@ class ReportManager {
         const loading = document.getElementById('recitationTypesLoading');
         
         if (!grid || !emptyState || !loading) {
-            console.error('Recitation per type elements not found');
+            console.error('لم يتم العثور على عناصر التلاوة حسب النوع');
             return;
         }
         
@@ -245,12 +245,12 @@ class ReportManager {
                     <div class="type-content">
                         <div class="type-pages">
                             <span class="pages-value">${pages.toFixed(2)}</span>
-                            <span class="pages-label">pages</span>
+                            <span class="pages-label">صفحة</span>
                         </div>
                         <div class="type-details">
-                            <span><i class="fas fa-list"></i> ${type.total_verses || 0} verses</span>
-                            <span><i class="fas fa-font"></i> ${type.total_words || 0} words</span>
-                            <span><i class="fas fa-tasks"></i> ${type.total_homework_items || 0} assignments</span>
+                            <span><i class="fas fa-list"></i> ${type.total_verses || 0} آية</span>
+                            <span><i class="fas fa-font"></i> ${type.total_words || 0} كلمة</span>
+                            <span><i class="fas fa-tasks"></i> ${type.total_homework_items || 0} واجب</span>
                         </div>
                     </div>
                 </div>
@@ -274,7 +274,7 @@ class ReportManager {
         if (modules.length === 0) {
             grid.style.display = 'none';
             emptyState.style.display = 'block';
-            document.getElementById('emptyStateMessage').textContent = 'No homework grades found for this period.';
+            document.getElementById('emptyStateMessage').textContent = 'لم يتم العثور على درجات واجبات لهذه الفترة.';
             return;
         }
         
@@ -294,8 +294,8 @@ class ReportManager {
                     <div class="module-content">
                         <div class="module-grade">${module.avg_grade}</div>
                         <div class="module-details">
-                            <span>Average Grade</span>
-                            <span>${module.total_submissions} submissions</span>
+                            <span>متوسط الدرجة</span>
+                            <span>${module.total_submissions} تسليم</span>
                         </div>
                     </div>
                 </div>
@@ -375,12 +375,12 @@ class ReportManager {
         const diffTime = Math.abs(now - date);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         
-        if (diffDays === 0) return 'Today';
-        if (diffDays === 1) return 'Yesterday';
-        if (diffDays < 7) return `${diffDays} days ago`;
-        if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
-        if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
-        return `${Math.floor(diffDays / 365)} years ago`;
+        if (diffDays === 0) return 'اليوم';
+        if (diffDays === 1) return 'أمس';
+        if (diffDays < 7) return `منذ ${diffDays} أيام`;
+        if (diffDays < 30) return `منذ ${Math.floor(diffDays / 7)} أسابيع`;
+        if (diffDays < 365) return `منذ ${Math.floor(diffDays / 30)} أشهر`;
+        return `منذ ${Math.floor(diffDays / 365)} سنوات`;
     }
     
     // Method to refresh data
@@ -391,7 +391,7 @@ class ReportManager {
     // Method to export report (future enhancement)
     exportReport() {
         // This could be implemented to export the report as PDF or CSV
-        console.log('Export functionality not yet implemented');
+        console.log('وظيفة التصدير لم يتم تطبيقها بعد');
     }
 }
 
