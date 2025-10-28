@@ -16,11 +16,11 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View & Edit Students - Kindergarten Admin System</title>
+    <title>عرض وتعديل الطلاب - نظام إدارة الروضة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../../assets/css/view_edit_student.css?v=<?php echo time(); ?>">
 </head>
@@ -28,9 +28,9 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1><i class="fas fa-graduation-cap"></i> View & Edit Students</h1>
+            <h1><i class="fas fa-graduation-cap"></i> عرض وتعديل الطلاب</h1>
             <a href="../index.php" class="back-button">
-                <i class="fas fa-arrow-left"></i> Back to Dashboard
+                <i class="fas fa-arrow-left"></i> العودة إلى الصفحة الرئيسية
             </a>
         </div>
         
@@ -40,12 +40,12 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
         <!-- Search Section -->
         <div class="search-section">
             <div class="search-container">
-                <input type="text" id="searchInput" class="search-input" placeholder="Search students by name...">
+                <input type="text" id="searchInput" class="search-input" placeholder="البحث عن الطلاب بالاسم...">
                 <button id="searchBtn" class="search-btn">
-                    <i class="fas fa-search"></i> Search
+                    <i class="fas fa-search"></i> بحث
                 </button>
                 <button id="clearBtn" class="clear-btn">
-                    <i class="fas fa-times"></i> Clear
+                    <i class="fas fa-times"></i> مسح
                 </button>
             </div>
         </div>
@@ -53,10 +53,10 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
         <!-- Status Toggle Buttons -->
         <div class="status-toggle-container">
             <button class="status-toggle-btn active" id="activeStudentsBtn" onclick="studentsManager.toggleStudentsView('active')">
-                <i class="fas fa-check-circle"></i> Active Students
+                <i class="fas fa-check-circle"></i> الطلاب النشطون
             </button>
             <button class="status-toggle-btn" id="inactiveStudentsBtn" onclick="studentsManager.toggleStudentsView('inactive')">
-                <i class="fas fa-times-circle"></i> Inactive Students
+                <i class="fas fa-times-circle"></i> الطلاب غير النشطين
             </button>
         </div>
         
@@ -67,47 +67,47 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     <i class="fas fa-users"></i>
                 </div>
                 <div class="stat-number" id="totalStudents">0</div>
-                <div class="stat-label">Total Students</div>
+                <div class="stat-label">إجمالي الطلاب</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon success">
                     <i class="fas fa-child"></i>
                 </div>
                 <div class="stat-number" id="activeStudents">0</div>
-                <div class="stat-label">Active Students</div>
+                <div class="stat-label">الطلاب النشطون</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon warning">
                     <i class="fas fa-calendar-plus"></i>
                 </div>
                 <div class="stat-number" id="recentStudents">0</div>
-                <div class="stat-label">Enrolled This Month</div>
+                <div class="stat-label">المسجلون هذا الشهر</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon info">
                     <i class="fas fa-birthday-cake"></i>
                 </div>
                 <div class="stat-number" id="avgAge">0</div>
-                <div class="stat-label">Average Age</div>
+                <div class="stat-label">متوسط العمر</div>
             </div>
         </div>
         
         <!-- Students Table -->
         <div class="students-container">
             <div class="table-header">
-                <h2><i class="fas fa-list"></i> Students List</h2>
+                <h2><i class="fas fa-list"></i> قائمة الطلاب</h2>
             </div>
             
             <div class="table-container">
                 <table class="students-table">
                     <thead>
                         <tr>
-                            <th>Student</th>
-                            <th>Age</th>
-                            <th>Level</th>
-                            <th>Enrollment Date</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>الطالب</th>
+                            <th>العمر</th>
+                            <th>المستوى</th>
+                            <th>تاريخ التسجيل</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
                         </tr>
                     </thead>
                     <tbody id="studentsTableBody">
@@ -119,41 +119,41 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             <!-- Loading State -->
             <div id="loadingContainer" class="loading-container" style="display: none;">
                 <div class="loading-spinner"></div>
-                <p>Loading students...</p>
+                <p>جاري تحميل الطلاب...</p>
             </div>
             
             <!-- Empty State -->
             <div id="emptyState" class="empty-state" style="display: none;">
                 <i class="fas fa-user-slash"></i>
-                <h3>No Students Found</h3>
-                <p>No students match your search criteria.</p>
+                <h3>لم يتم العثور على طلاب</h3>
+                <p>لا يوجد طلاب يطابقون معايير البحث.</p>
             </div>
             
             <!-- Pagination -->
             <div id="paginationContainer" class="pagination-container" style="display: none;">
                 <div class="pagination-info" id="paginationInfo">
-                    Showing 0 to 0 of 0 entries
+                    عرض 0 إلى 0 من 0 سجل
                 </div>
                 <div class="pagination-wrapper">
                     <button class="pagination-nav-btn" id="firstPageBtn" onclick="studentsManager.goToPage(1)" disabled>
-                        <i class="fas fa-angle-double-left"></i> First
+                        <i class="fas fa-angle-double-left"></i> الأولى
                     </button>
                     <button class="pagination-nav-btn" id="prevPageBtn" onclick="studentsManager.goToPreviousPage()" disabled>
-                        <i class="fas fa-chevron-left"></i> Previous
+                        <i class="fas fa-chevron-left"></i> السابقة
                     </button>
                     <div class="pagination-buttons" id="paginationButtons">
                         <!-- Pagination buttons will be generated here -->
                     </div>
                     <button class="pagination-nav-btn" id="nextPageBtn" onclick="studentsManager.goToNextPage()" disabled>
-                        Next <i class="fas fa-chevron-right"></i>
+                        التالية <i class="fas fa-chevron-right"></i>
                     </button>
                     <button class="pagination-nav-btn" id="lastPageBtn" onclick="studentsManager.goToLastPage()" disabled>
-                        Last <i class="fas fa-angle-double-right"></i>
+                        الأخيرة <i class="fas fa-angle-double-right"></i>
                     </button>
                     <div class="pagination-jump">
-                        <span>Go to:</span>
-                        <input type="number" id="jumpToPageInput" min="1" placeholder="Page">
-                        <button onclick="studentsManager.jumpToPage()">Go</button>
+                        <span>الانتقال إلى:</span>
+                        <input type="number" id="jumpToPageInput" min="1" placeholder="صفحة">
+                        <button onclick="studentsManager.jumpToPage()">انتقال</button>
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <div id="editStudentModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3><i class="fas fa-edit"></i> Edit Student</h3>
+                <h3><i class="fas fa-edit"></i> تعديل الطالب</h3>
                 <button class="modal-close" onclick="studentsManager.closeEditModal()">
                     <i class="fas fa-times"></i>
                 </button>
@@ -175,63 +175,63 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="editFirstName">First Name *</label>
+                            <label for="editFirstName">الاسم الأول *</label>
                             <input type="text" id="editFirstName" name="firstName" required>
                         </div>
                         <div class="form-group">
-                            <label for="editLastName">Last Name *</label>
+                            <label for="editLastName">الاسم الأخير *</label>
                             <input type="text" id="editLastName" name="lastName" required>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="editDateOfBirth">Date of Birth *</label>
+                            <label for="editDateOfBirth">تاريخ الميلاد *</label>
                             <input type="date" id="editDateOfBirth" name="dateOfBirth" required>
                         </div>
                         <div class="form-group">
-                            <label for="editGender">Gender *</label>
+                            <label for="editGender">الجنس *</label>
                             <select id="editGender" name="gender" required>
-                                <option value="">Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="">اختر الجنس</option>
+                                <option value="male">ذكر</option>
+                                <option value="female">أنثى</option>
                             </select>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="editStudentLevel">Student Level *</label>
+                        <label for="editStudentLevel">مستوى الطالب *</label>
                         <select id="editStudentLevel" name="studentLevel" required>
-                            <option value="">Select Level</option>
-                            <option value="pre-k">Pre-K</option>
-                            <option value="kindergarten">Kindergarten</option>
-                            <option value="beginner">Beginner</option>
-                            <option value="intermediate">Intermediate</option>
-                            <option value="advanced">Advanced</option>
+                            <option value="">اختر المستوى</option>
+                            <option value="pre-k">ما قبل الروضة</option>
+                            <option value="kindergarten">الروضة</option>
+                            <option value="beginner">مبتدئ</option>
+                            <option value="intermediate">متوسط</option>
+                            <option value="advanced">متقدم</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="editPhoto">Student Photo</label>
+                        <label for="editPhoto">صورة الطالب</label>
                         <div class="photo-upload" id="editPhotoUploadContainer">
                             <input type="file" id="editPhoto" name="photo" accept="image/*">
                             <div class="photo-icon" id="editPhotoIcon">📷</div>
-                            <p id="editUploadText">Click to upload a photo</p>
+                            <p id="editUploadText">انقر لتحميل صورة</p>
                             <p style="font-size: 0.9em; color: #666; margin-top: 5px;">
-                                Supported formats: JPG, PNG, GIF (Max 5MB)
+                                الصيغ المدعومة: JPG, PNG, GIF (الحد الأقصى 5 ميجابايت)
                             </p>
                             <div class="upload-status" id="editUploadStatus"></div>
-                            <img class="photo-preview" id="editPhotoPreview" alt="Preview">
+                            <img class="photo-preview" id="editPhotoPreview" alt="معاينة">
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn-modal btn-modal-secondary" onclick="studentsManager.closeEditModal()">
-                    <i class="fas fa-times"></i> Cancel
+                    <i class="fas fa-times"></i> إلغاء
                 </button>
                 <button type="button" class="btn-modal btn-modal-primary" id="updateStudentBtn" onclick="studentsManager.updateStudent()">
-                    <i class="fas fa-save"></i> Update Student
+                    <i class="fas fa-save"></i> تحديث الطالب
                 </button>
             </div>
         </div>
@@ -241,7 +241,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <div id="assignClassroomModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3><i class="fas fa-door-open"></i> Assign Student to Classroom</h3>
+                <h3><i class="fas fa-door-open"></i> تعيين الطالب إلى فصل دراسي</h3>
                 <button class="modal-close" onclick="studentsManager.closeAssignClassroomModal()">
                     <i class="fas fa-times"></i>
                 </button>
@@ -252,9 +252,9 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 </div>
                 
                 <div class="form-group">
-                    <label for="classroomSelect">Select Classroom *</label>
+                    <label for="classroomSelect">اختر الفصل الدراسي *</label>
                     <select id="classroomSelect" name="classroomId" required>
-                        <option value="">Loading classrooms...</option>
+                        <option value="">جاري تحميل الفصول الدراسية...</option>
                     </select>
                 </div>
                 
@@ -264,10 +264,10 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn-modal btn-modal-secondary" onclick="studentsManager.closeAssignClassroomModal()">
-                    <i class="fas fa-times"></i> Cancel
+                    <i class="fas fa-times"></i> إلغاء
                 </button>
                 <button type="button" class="btn-modal btn-modal-primary" id="assignStudentBtn" onclick="studentsManager.assignStudentToClassroom()">
-                    <i class="fas fa-check"></i> Assign Student
+                    <i class="fas fa-check"></i> تعيين الطالب
                 </button>
             </div>
         </div>
@@ -367,11 +367,11 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         this.updateStats();
                         this.renderPagination();
                     } else {
-                        this.showAlert('Error loading students: ' + data.message, 'error');
+                        this.showAlert('خطأ في تحميل الطلاب: ' + data.message, 'error');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
-                    this.showAlert('Network error. Please try again.', 'error');
+                    console.error('خطأ:', error);
+                    this.showAlert('خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
                 } finally {
                     this.isLoading = false;
                     this.hideLoading();
@@ -430,8 +430,8 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                             </td>
                             <td>
                                 <div class="student-details">
-                                    <p><strong>${age} years old</strong></p>
-                                    <p>Born: ${new Date(student.date_of_birth).toLocaleDateString()}</p>
+                                    <p><strong>${age} سنة</strong></p>
+                                    <p>المولد: ${new Date(student.date_of_birth).toLocaleDateString()}</p>
                                 </div>
                             </td>
                             <td>
@@ -450,31 +450,31 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                              
                             <td>
                                 <span class="status-badge ${student.status === 'active' ? 'active' : 'inactive'}">
-                                    ${student.status === 'active' ? 'Active' : 'Inactive'}
+                                    ${student.status === 'active' ? 'نشط' : 'غير نشط'}
                                 </span>
                             </td>
                             <td>
                                 <div class="action-buttons">
                                     ${this.currentStatusFilter === 'active' ? `
                                     <button class="btn btn-view" onclick="studentsManager.assignToClassroom(${student.id})">
-                                        <i class="fas fa-door-open"></i> Assign to Classroom
+                                        <i class="fas fa-door-open"></i> تعيين إلى فصل
                                     </button>
                                     <button class="btn btn-deactivate" onclick="studentsManager.deactivateStudent(${student.id})">
-                                        <i class="fas fa-user-slash"></i> De-activate
+                                        <i class="fas fa-user-slash"></i> إلغاء التفعيل
                                     </button>
                                     ` : `
                                     <button class="btn btn-activate" onclick="studentsManager.activateStudent(${student.id})">
-                                        <i class="fas fa-user-check"></i> Activate
+                                        <i class="fas fa-user-check"></i> تفعيل
                                     </button>
                                     `}
                                     <button class="btn btn-reports" onclick="studentsManager.viewReport(${student.id})">
-                                        <i class="fas fa-chart-line"></i> Reports
+                                        <i class="fas fa-chart-line"></i> التقارير
                                     </button>
                                     <button class="btn btn-edit" onclick="studentsManager.editStudent(${student.id})">
-                                        <i class="fas fa-edit"></i> Edit
+                                        <i class="fas fa-edit"></i> تعديل
                                     </button>
                                     <button class="btn btn-delete" onclick="studentsManager.deleteStudent(${student.id})">
-                                        <i class="fas fa-trash"></i> Delete
+                                        <i class="fas fa-trash"></i> حذف
                                     </button>
                                 </div>
                             </td>
@@ -515,11 +515,11 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 const diffTime = Math.abs(today - enrollment);
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                 
-                if (diffDays === 0) return 'Today';
-                if (diffDays === 1) return 'Yesterday';
-                if (diffDays < 30) return `${diffDays} days ago`;
-                if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
-                return `${Math.floor(diffDays / 365)} years ago`;
+                if (diffDays === 0) return 'اليوم';
+                if (diffDays === 1) return 'أمس';
+                if (diffDays < 30) return `منذ ${diffDays} يوم`;
+                if (diffDays < 365) return `منذ ${Math.floor(diffDays / 30)} شهر`;
+                return `منذ ${Math.floor(diffDays / 365)} سنة`;
             }
             
             updateStats() {
@@ -561,7 +561,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 const startItem = (this.currentPage - 1) * this.itemsPerPage + 1;
                 const endItem = Math.min(this.currentPage * this.itemsPerPage, this.totalCount);
                 
-                info.textContent = `Showing ${startItem} to ${endItem} of ${this.totalCount} entries`;
+                info.textContent = `عرض ${startItem} إلى ${endItem} من ${this.totalCount} سجل`;
                 
                 // Update navigation buttons
                 document.getElementById('firstPageBtn').disabled = this.currentPage === 1;
@@ -661,7 +661,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 if (page && page >= 1 && page <= totalPages) {
                     this.goToPage(page);
                 } else {
-                    this.showAlert(`Please enter a valid page number between 1 and ${totalPages}`, 'error');
+                    this.showAlert(`يرجى إدخال رقم صفحة صالح بين 1 و ${totalPages}`, 'error');
                 }
             }
             
@@ -713,7 +713,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 // Find the student data
                 const student = this.students.find(s => s.id == id);
                 if (!student) {
-                    this.showAlert('Student not found', 'error');
+                    this.showAlert('لم يتم العثور على الطالب', 'error');
                     return;
                 }
                 
@@ -756,7 +756,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 for (const field of requiredFields) {
                     const element = document.getElementById('edit' + field.charAt(0).toUpperCase() + field.slice(1));
                     if (!element || !element.value || element.value.trim() === '') {
-                        this.showAlert(`Please fill in the ${field} field`, 'error');
+                        this.showAlert(`يرجى ملء حقل ${field}`, 'error');
                         return;
                     }
                 }
@@ -764,7 +764,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 // Disable the update button
                 const updateBtn = document.getElementById('updateStudentBtn');
                 updateBtn.disabled = true;
-                updateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+                updateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحديث...';
                 
                 try {
                     // Create FormData for file upload
@@ -790,25 +790,25 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     const data = await response.json();
                     
                     if (data.success) {
-                        this.showAlert('Student updated successfully!', 'success');
+                        this.showAlert('تم تحديث الطالب بنجاح!', 'success');
                         this.closeEditModal();
                         this.loadStudents(); // Refresh the students list
                     } else {
-                        this.showAlert('Error updating student: ' + data.message, 'error');
+                        this.showAlert('خطأ في تحديث الطالب: ' + data.message, 'error');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
-                    this.showAlert('Network error. Please try again.', 'error');
+                    console.error('خطأ:', error);
+                    this.showAlert('خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
                 } finally {
                     // Re-enable the update button
                     updateBtn.disabled = false;
-                    updateBtn.innerHTML = '<i class="fas fa-save"></i> Update Student';
+                    updateBtn.innerHTML = '<i class="fas fa-save"></i> تحديث الطالب';
                 }
             }
             
             deleteStudent(id) {
-                if (confirm('Are you sure you want to delete this student?')) {
-                    this.showAlert(`Delete student with ID: ${id}`, 'warning');
+                if (confirm('هل أنت متأكد من حذف هذا الطالب?')) {
+                    this.showAlert(`حذف الطالب برقم: ${id}`, 'warning');
                     // Implement delete functionality
                 }
             }
@@ -819,7 +819,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
             
             // De-activate student
             async deactivateStudent(student_id) {
-                if (confirm('Are you sure you want to de-activate this student?')) {
+                if (confirm('هل أنت متأكد من إلغاء تفعيل هذا الطالب?')) {
                     try {
                         const response = await fetch('../../../api/update-student-status.php', {
                             method: 'POST',
@@ -835,21 +835,21 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         const data = await response.json();
                         
                         if (data.success) {
-                            this.showAlert('Student de-activated successfully!', 'success');
+                            this.showAlert('تم إلغاء تفعيل الطالب بنجاح!', 'success');
                             this.loadStudents(); // Reload the list
                         } else {
-                            this.showAlert('Error de-activating student: ' + data.message, 'error');
+                            this.showAlert('خطأ في إلغاء تفعيل الطالب: ' + data.message, 'error');
                         }
                     } catch (error) {
-                        console.error('Error:', error);
-                        this.showAlert('Network error. Please try again.', 'error');
+                        console.error('خطأ:', error);
+                        this.showAlert('خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
                     }
                 }
             }
             
             // Activate student
             async activateStudent(student_id) {
-                if (confirm('Are you sure you want to activate this student?')) {
+                if (confirm('هل أنت متأكد من تفعيل هذا الطالب?')) {
                     try {
                         const response = await fetch('../../../api/update-student-status.php', {
                             method: 'POST',
@@ -865,14 +865,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         const data = await response.json();
                         
                         if (data.success) {
-                            this.showAlert('Student activated successfully!', 'success');
+                            this.showAlert('تم تفعيل الطالب بنجاح!', 'success');
                             this.loadStudents(); // Reload the list
                         } else {
-                            this.showAlert('Error activating student: ' + data.message, 'error');
+                            this.showAlert('خطأ في تفعيل الطالب: ' + data.message, 'error');
                         }
                     } catch (error) {
-                        console.error('Error:', error);
-                        this.showAlert('Network error. Please try again.', 'error');
+                        console.error('خطأ:', error);
+                        this.showAlert('خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
                     }
                 }
             }
@@ -893,14 +893,14 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 if (file) {
                     // Validate file size (5MB limit)
                     if (file.size > 5 * 1024 * 1024) {
-                        this.showEditUploadStatus('Photo size must be less than 5MB', 'error');
+                        this.showEditUploadStatus('يجب أن يكون حجم الصورة أقل من 5 ميجابايت', 'error');
                         this.resetEditPhotoUpload();
                         return;
                     }
                     
                     // Validate file type
                     if (!file.type.startsWith('image/')) {
-                        this.showEditUploadStatus('Please select a valid image file', 'error');
+                        this.showEditUploadStatus('يرجى اختيار ملف صورة صالح', 'error');
                         this.resetEditPhotoUpload();
                         return;
                     }
@@ -911,8 +911,8 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         preview.style.display = 'block';
                         photoUpload.classList.add('has-image');
                         photoIcon.textContent = '✅';
-                        uploadText.textContent = 'Photo selected: ' + file.name;
-                        this.showEditUploadStatus('Photo ready for upload!', 'success');
+                        uploadText.textContent = 'تم اختيار الصورة: ' + file.name;
+                        this.showEditUploadStatus('الصورة جاهزة للتحميل!', 'success');
                         photoUpload.style.padding = '15px';
                     }.bind(this);
                     reader.readAsDataURL(file);
@@ -937,7 +937,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 preview.style.display = 'none';
                 photoUpload.classList.remove('has-image');
                 photoIcon.textContent = '📷';
-                uploadText.textContent = 'Click to upload a photo';
+                uploadText.textContent = 'انقر لتحميل صورة';
                 uploadStatus.className = 'upload-status';
                 uploadStatus.textContent = '';
                 photoUpload.style.padding = '30px';
@@ -967,7 +967,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 preview.style.display = 'block';
                 photoUpload.classList.add('has-image');
                 photoIcon.textContent = '✅';
-                uploadText.textContent = 'Current photo (click to change)';
+                uploadText.textContent = 'الصورة الحالية (انقر للتغيير)';
                 photoUpload.style.padding = '15px';
                
             }
