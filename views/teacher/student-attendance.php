@@ -21,11 +21,11 @@ if (!$classroom_id) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Attendance - Kindergarten Management System</title>
+    <title>حضور الطلاب - نظام إدارة الروضة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/student-attendance.css?v=<?php echo time(); ?>">
 </head>
@@ -38,14 +38,14 @@ if (!$classroom_id) {
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <div class="header-info">
-                    <h1 id="classroomName">Loading...</h1>
-                    <p class="header-subtitle">Student Attendance</p>
+                    <h1 id="classroomName">جاري التحميل...</h1>
+                    <p class="header-subtitle">حضور الطلاب</p>
                 </div>
             </div>
             <div class="header-right">
                 <div class="attendance-status" id="attendanceStatus">
                     <span class="status-indicator" id="statusIndicator"></span>
-                    <span class="status-text" id="statusText">Loading...</span>
+                    <span class="status-text" id="statusText">جاري التحميل...</span>
                 </div>
             </div>
         </div>
@@ -55,16 +55,16 @@ if (!$classroom_id) {
             <div class="date-navigation-top">
                 <button class="nav-btn" id="prevDayBtn" disabled>
                     <i class="fas fa-chevron-left"></i>
-                    <span>Previous</span>
+                    <span>السابق</span>
                 </button>
                 
                 <div class="current-date" id="currentDate">
-                    <div class="date-display" id="dateDisplay">Loading...</div>
-                    <div class="date-subtitle" id="dateSubtitle">School Day</div>
+                    <div class="date-display" id="dateDisplay">جاري التحميل...</div>
+                    <div class="date-subtitle" id="dateSubtitle">يوم دراسي</div>
                 </div>
                 
                 <button class="nav-btn" id="nextDayBtn" disabled>
-                    <span>Next</span>
+                    <span>التالي</span>
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
@@ -75,14 +75,14 @@ if (!$classroom_id) {
         <!-- Loading State -->
         <div id="loadingContainer" class="loading-container">
             <div class="loading-spinner"></div>
-            <p>Loading attendance data...</p>
+            <p>جاري تحميل بيانات الحضور...</p>
         </div>
 
         <!-- Students List -->
         <div class="students-container" id="studentsContainer" style="display: none;">
             <div class="students-header">
-                <h3><i class="fas fa-users"></i> Students</h3>
-                <div class="students-count" id="studentsCount">0 students</div>
+                <h3><i class="fas fa-users"></i> الطلاب</h3>
+                <div class="students-count" id="studentsCount">0 طالب</div>
             </div>
             
             <div class="students-list" id="studentsList">
@@ -93,20 +93,20 @@ if (!$classroom_id) {
         <!-- Empty State -->
         <div id="emptyState" class="empty-state" style="display: none;">
             <i class="fas fa-calendar-times"></i>
-            <h3>No School Day</h3>
-            <p>This is not a school day or no school days are available for this classroom.</p>
+            <h3>ليس يوم دراسي</h3>
+            <p>هذا ليس يوماً دراسياً أو لا توجد أيام دراسية متاحة لهذا الفصل.</p>
         </div>
 
         <!-- Action Buttons -->
         <div class="action-buttons" id="actionButtons" style="display: none;">
             <button class="btn btn-reopen" id="reopenBtn" style="display: none;">
                 <i class="fas fa-edit"></i>
-                <span>Reopen & Edit</span>
+                <span>إعادة الفتح والتعديل</span>
             </button>
             
             <button class="btn btn-submit" id="submitBtn">
                 <i class="fas fa-check"></i>
-                <span id="submitText">Submit Attendance</span>
+                <span id="submitText">حفظ الحضور</span>
                 <div class="loading-spinner" id="submitLoading" style="display: none;">
                     <i class="fas fa-spinner fa-spin"></i>
                 </div>
@@ -121,7 +121,7 @@ if (!$classroom_id) {
     <div id="noteModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3><i class="fas fa-sticky-note"></i> Add Note</h3>
+                <h3><i class="fas fa-sticky-note"></i> إضافة ملاحظة</h3>
                 <button class="modal-close" onclick="studentAttendance.closeNoteModal()">
                     <i class="fas fa-times"></i>
                 </button>
@@ -131,23 +131,23 @@ if (!$classroom_id) {
                     <!-- Student info will be populated here -->
                 </div>
                 <div class="form-group">
-                    <label for="studentNote">Note (optional)</label>
+                    <label for="studentNote">ملاحظة (اختياري)</label>
                     <textarea 
                         id="studentNote" 
                         class="form-control" 
-                        placeholder="Enter any additional notes..."
+                        placeholder="أدخل أي ملاحظات إضافية..."
                         rows="3"
                         maxlength="255"
                     ></textarea>
-                    <small class="form-help">Maximum 255 characters</small>
+                    <small class="form-help">الحد الأقصى 255 حرف</small>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="studentAttendance.closeNoteModal()">
-                    Cancel
+                    إلغاء
                 </button>
                 <button type="button" class="btn btn-primary" id="saveNoteBtn">
-                    Save Note
+                    حفظ الملاحظة
                 </button>
             </div>
         </div>

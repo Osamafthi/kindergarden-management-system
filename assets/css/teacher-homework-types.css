@@ -1447,3 +1447,60 @@ body {
         break-inside: avoid;
     }
 }
+
+/* RTL Layout Fixes */
+[dir="rtl"] .header-info h1 i,
+[dir="rtl"] .section-header h2 i,
+[dir="rtl"] .student-selector-header h3 i,
+[dir="rtl"] .back-btn i,
+[dir="rtl"] .logout-btn i,
+[dir="rtl"] .btn i,
+[dir="rtl"] .btn-refresh i {
+    margin-right: 0;
+    margin-left: 8px;
+}
+
+[dir="rtl"] .user-avatar {
+    margin-right: 0;
+    margin-left: 12px;
+}
+
+[dir="rtl"] .back-btn {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .dropdown-arrow {
+    left: 15px;
+    right: auto;
+}
+
+[dir="rtl"] .student-selector {
+    padding-left: 16px;
+    padding-right: 45px;
+}
+
+[dir="rtl"] .grade-label {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+[dir="rtl"] .max-grade-info {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+[dir="rtl"] .pdf-action-btn {
+    margin-left: 0;
+    margin-right: 8px;
+}
+
+[dir="rtl"] .pdf-action-btn:last-child {
+    margin-right: 0;
+}
+
+/* RTL Responsive Fixes */
+@media (max-width: 768px) and (orientation: landscape) {
+    [dir="rtl"] .header-left {
+        text-align: right;
+    }
+}

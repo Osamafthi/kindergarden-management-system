@@ -24,6 +24,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../../assets/css/admin-index.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../../../assets/css/organize-attendance.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../../assets/css/compatibility.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <!-- Sidebar -->

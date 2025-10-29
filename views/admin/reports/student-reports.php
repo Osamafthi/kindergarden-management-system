@@ -23,6 +23,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <title>تقارير الطلاب - نظام إدارة الروضة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../../assets/css/student-reports.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../../assets/css/compatibility.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <div class="container">

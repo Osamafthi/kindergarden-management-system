@@ -849,3 +849,42 @@ body {
         border: 1px solid var(--gray-300);
     }
 }
+
+/* RTL Layout Fixes */
+[dir="rtl"] .back-btn i,
+[dir="rtl"] .nav-btn i,
+[dir="rtl"] .students-header h3 i,
+[dir="rtl"] .modal-header h3 i {
+    margin-right: 0;
+    margin-left: 8px;
+}
+
+[dir="rtl"] .nav-btn span {
+    margin-left: 0;
+    margin-right: 8px;
+}
+
+[dir="rtl"] .student-avatar {
+    margin-right: 0;
+    margin-left: 12px;
+}
+
+[dir="rtl"] .status-btn i {
+    margin-right: 0;
+    margin-left: 6px;
+}
+
+[dir="rtl"] .note-btn i,
+[dir="rtl"] .btn i {
+    margin-right: 0;
+    margin-left: 8px;
+}
+
+[dir="rtl"] .form-group label {
+    text-align: right;
+}
+
+[dir="rtl"] .modal-footer {
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+}

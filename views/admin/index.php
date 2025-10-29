@@ -29,6 +29,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kindergarten Admin System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/compatibility.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../../assets/css/admin-index.css?v=<?php echo time(); ?>">
 </head>
 <body>
@@ -689,7 +690,23 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                 content.appendChild(englishName);
                 
                 item.appendChild(content);
-                item.onclick = () => selectChapter(inputElement, chapter);
+                
+                // Use both onclick and mousedown for better compatibility
+                item.onmousedown = (e) => {
+                    e.preventDefault(); // Prevent input blur
+                    selectChapter(inputElement, chapter);
+                };
+                item.onclick = (e) => {
+                    e.preventDefault();
+                    selectChapter(inputElement, chapter);
+                };
+                
+                // Add touch support for mobile
+                item.ontouchend = (e) => {
+                    e.preventDefault();
+                    selectChapter(inputElement, chapter);
+                };
+                
                 dropdown.appendChild(item);
             });
             
@@ -704,9 +721,20 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
         }
         
         function selectChapter(inputElement, chapter) {
+            // Use setAttribute for better cross-browser compatibility
             inputElement.value = chapter.name_ar + ' (' + chapter.name_en + ')';
+            inputElement.setAttribute('data-chapter-id', chapter.id);
             inputElement.dataset.chapterId = chapter.id;
+            
+            // Store chapter info in a more reliable way
+            inputElement.setAttribute('data-chapter-name-ar', chapter.name_ar);
+            inputElement.setAttribute('data-chapter-name-en', chapter.name_en);
+            
             hideAutocomplete(inputElement);
+            
+            // Trigger change event for any listeners
+            const event = new Event('change', { bubbles: true });
+            inputElement.dispatchEvent(event);
         }
 
         // Load homework types function
@@ -739,15 +767,15 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                                 <p class="homework-description">${homeworkType.description}</p>
                                 <div class="homework-inputs">
                                     <div class="input-group chapter-input-group">
-                                        <label>Chapter Name:</label>
-                                        <input type="text" class="chapter-input" data-homework-id="${homeworkType.id}" placeholder="Type chapter name..." autocomplete="off">
+                                        <label>اسم السورة</label>
+                                        <input type="text" class="chapter-input" data-homework-id="${homeworkType.id}" placeholder="اسم السورة" autocomplete="off">
                                     </div>
                                     <div class="input-group">
-                                        <label>From Verse:</label>
+                                        <label>من الآية</label>
                                         <input type="text" class="from-input" data-homework-id="${homeworkType.id}" min="1" placeholder="1" pattern="[0-9٠-٩]+" autocomplete="off">
                                     </div>
                                     <div class="input-group">
-                                        <label>To Verse:</label>
+                                        <label>إلى الآية</label>
                                         <input type="text" class="to-input" data-homework-id="${homeworkType.id}" min="1" placeholder="7" pattern="[0-9٠-٩]+" autocomplete="off">
                                     </div>
                                 </div>
@@ -762,13 +790,13 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                                 <p class="homework-description">${homeworkType.description}</p>
                                 <div class="homework-inputs">
                                     <div class="input-group">
-                                        <label>Lesson Title:</label>
-                                        <input type="text" class="lesson-title-input" data-homework-id="${homeworkType.id}" placeholder="e.g., Introduction to Arabic Letters">
+                                        <label>عنوان الدرس</label>
+                                        <input type="text" class="lesson-title-input" data-homework-id="${homeworkType.id}" placeholder="عنوان الدرس">
                                     </div>
                                     <div class="input-group">
-                                        <label>Upload File:</label>
+                                        <label>رفع ملف</label>
                                         <input type="file" class="file-input" data-homework-id="${homeworkType.id}" accept=".pdf,.jpg,.jpeg,.png">
-                                        <small class="form-help">Accepted formats: PDF, JPG, JPEG, PNG (Max: 90MB)</small>
+                                        <small class="form-help">الصيغ المقبولة: PDF, JPG, JPEG, PNG (الحد الأقصى: 90MB)</small>
                                     </div>
                                 </div>
                             `;
@@ -830,14 +858,24 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
 
             chapterInputs.forEach(input => {
                 const homeworkId = input.dataset.homeworkId;
-                const chapterId = input.dataset.chapterId;
+                // Try multiple ways to get chapter ID for cross-browser compatibility
+                const chapterId = input.dataset.chapterId || input.getAttribute('data-chapter-id');
                 const value = input.value.trim();
-                if (value && chapterId) {
+                
+                if (value) {
                     if (!homeworkMap[homeworkId]) {
                         homeworkMap[homeworkId] = { homework_type_id: homeworkId };
                     }
                     homeworkMap[homeworkId].quran_chapter = value;
-                    homeworkMap[homeworkId].quran_suras_id = chapterId;
+                    
+                    // If chapter ID exists, use it; otherwise send the text for fuzzy matching
+                    if (chapterId) {
+                        homeworkMap[homeworkId].quran_suras_id = chapterId;
+                    } else {
+                        // Send the chapter name text for fuzzy matching in the API
+                        homeworkMap[homeworkId].quran_chapter_text = value;
+                        homeworkMap[homeworkId].quran_suras_id = null; // Will be resolved by API
+                    }
                 }
             });
 
@@ -865,11 +903,16 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
 
             // Convert map to array and filter out incomplete entries
             Object.values(homeworkMap).forEach(homework => {
-                if (homework.quran_chapter && homework.quran_from !== undefined && homework.quran_to !== undefined && homework.quran_suras_id) {
+                // Allow entries with either quran_suras_id OR quran_chapter_text (for fuzzy matching)
+                const hasChapterIdentifier = homework.quran_suras_id || homework.quran_chapter_text;
+                if (homework.quran_chapter && homework.quran_from !== undefined && homework.quran_to !== undefined && hasChapterIdentifier) {
                     homeworkData.push(homework);
                 }
             });
 
+            // Debug: Log collected homework data
+            console.log('Collected Homework Data:', homeworkData);
+            
             return homeworkData;
         }
 
@@ -898,13 +941,8 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     const quranHomeworkData = collectHomeworkData();
                     if (quranHomeworkData.length > 0) {
                         const validationResults = await Promise.all(
-                            quranHomeworkData.map(hw => fetch('../../api/add-homework-chapter.php', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                credentials: 'same-origin',
-                                body: JSON.stringify({
+                            quranHomeworkData.map(hw => {
+                                const requestBody = {
                                     validate_only: true,
                                     homework_type_id: hw.homework_type_id,
                                     quran_from: hw.quran_from,
@@ -912,8 +950,24 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                                     quran_chapter: hw.quran_chapter,
                                     classroom_id: formData.classroom_id,
                                     quran_suras_id: hw.quran_suras_id
-                                })
-                            }).then(r => r.json()).catch(() => ({ success: false, message: 'Network error validating Quran homework' })))
+                                };
+                                
+                                // Include quran_chapter_text if available (for fuzzy matching)
+                                if (hw.quran_chapter_text) {
+                                    requestBody.quran_chapter_text = hw.quran_chapter_text;
+                                }
+                                
+                                console.log('Validation Request Body:', requestBody);
+                                
+                                return fetch('../../api/add-homework-chapter.php', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    credentials: 'same-origin',
+                                    body: JSON.stringify(requestBody)
+                                }).then(r => r.json()).catch(() => ({ success: false, message: 'Network error validating Quran homework' }));
+                            })
                         );
 
                         const failed = validationResults.find(v => !v.success);
@@ -958,21 +1012,30 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                         // If there's homework data, save it using the session IDs from the response
                         if (homeworkData.length > 0) {
                             for (const homework of homeworkData) {
+                                const homeworkRequestBody = {
+                                    session_homework_id: sessionId,
+                                    homework_type_id: homework.homework_type_id,
+                                    quran_from: homework.quran_from,
+                                    quran_to: homework.quran_to,
+                                    quran_chapter: homework.quran_chapter,
+                                    classroom_id: parseInt(formData.classroom_id),
+                                    quran_suras_id: homework.quran_suras_id
+                                };
+                                
+                                // Include quran_chapter_text if available (for fuzzy matching)
+                                if (homework.quran_chapter_text) {
+                                    homeworkRequestBody.quran_chapter_text = homework.quran_chapter_text;
+                                }
+                                
+                                console.log('Submission Request Body:', homeworkRequestBody);
+                                
                                 const homeworkResponse = await fetch('../../api/add-homework-chapter.php', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
                                     },
                                     credentials: 'same-origin',
-                                    body: JSON.stringify({
-                                        session_homework_id: sessionId,
-                                        homework_type_id: homework.homework_type_id,
-                                        quran_from: homework.quran_from,
-                                        quran_to: homework.quran_to,
-                                        quran_chapter: homework.quran_chapter,
-                                        classroom_id: parseInt(formData.classroom_id),
-                                        quran_suras_id: homework.quran_suras_id
-                                    })
+                                    body: JSON.stringify(homeworkRequestBody)
                                 });
                                 
                                 const homeworkResult = await homeworkResponse.json();

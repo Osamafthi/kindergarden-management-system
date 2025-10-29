@@ -157,7 +157,7 @@ function createProductCard(product) {
             </div>
             <div class="progress-container">
                 <div class="progress-label">
-                    <span>Stock Level</span>
+                    <span>مستوى المخزون</span>
                     <span class="progress-percentage">${percentage}%</span>
                 </div>
                 <div class="progress-bar-container">
@@ -172,7 +172,7 @@ function createProductCard(product) {
                     <i class="fas fa-plus"></i> +1
                 </button>
                 <button class="action-btn edit-btn" onclick="openEditModal(${product.id})">
-                    <i class="fas fa-edit"></i> Edit
+                    <i class="fas fa-edit"></i> تعديل
                 </button>
             </div>
         </div>
@@ -250,7 +250,7 @@ function updateProductCard(productId, product) {
     // Update quantity display
     const quantityEl = card.querySelector('.product-quantity');
     if (quantityEl) {
-        quantityEl.textContent = `${product.current_quantity} / ${product.original_quantity} items`;
+        quantityEl.textContent = `${product.current_quantity} / ${product.original_quantity} منتج`;
     }
     
     // Update progress bar

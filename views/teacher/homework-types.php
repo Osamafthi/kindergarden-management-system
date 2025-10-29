@@ -46,13 +46,14 @@ if (!$student_result['success']) {
 $student_info = $student_result['data'];
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classroom Homework Types - Kindergarten Management System</title>
+    <title>أنواع الواجبات - نظام إدارة الروضة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/teacher-homework-types.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../assets/css/compatibility.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <div class="container">
@@ -60,16 +61,16 @@ $student_info = $student_result['data'];
         <div class="header">
             <div class="header-left">
                 <button class="back-btn" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i> Back
+                    <i class="fas fa-arrow-left"></i> رجوع
                 </button>
                 <div class="header-info">
-                    <h1><i class="fas fa-book"></i> Grade Homework</h1>
+                    <h1><i class="fas fa-book"></i> تقييم الواجبات</h1>
                     <p class="classroom-info">
                         <span class="classroom-name"><?php echo htmlspecialchars($classroom_info['name']); ?></span>
                         <span class="classroom-details">
-                            Student: <?php echo htmlspecialchars($student_info['first_name'] . ' ' . $student_info['last_name']); ?> • 
-                            Session: <?php echo htmlspecialchars($session_name); ?> • 
-                            Date: <?php echo htmlspecialchars($session_date); ?>
+                            الطالب: <?php echo htmlspecialchars($student_info['first_name'] . ' ' . $student_info['last_name']); ?> • 
+                            الجلسة: <?php echo htmlspecialchars($session_name); ?> • 
+                            التاريخ: <?php echo htmlspecialchars($session_date); ?>
                         </span>
                     </p>
                 </div>
@@ -81,11 +82,11 @@ $student_info = $student_result['data'];
                     </div>
                     <div class="user-details">
                         <span class="user-name"><?php echo htmlspecialchars(User::getCurrentUserName()); ?></span>
-                        <span class="user-role">Teacher</span>
+                        <span class="user-role">معلم</span>
                     </div>
                 </div>
                 <button class="logout-btn" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Logout
+                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
                 </button>
             </div>
         </div>
@@ -96,7 +97,7 @@ $student_info = $student_result['data'];
         <!-- Student Selector Section -->
         <div class="student-selector-container">
             <div class="student-selector-header">
-                <h3><i class="fas fa-users"></i> Select Student</h3>
+                <h3><i class="fas fa-users"></i> اختر طالباً</h3>
                 <div class="student-count" id="studentCount">
                     <!-- Student count will be loaded here -->
                 </div>
@@ -105,7 +106,7 @@ $student_info = $student_result['data'];
             <div class="student-selector-wrapper">
                 <div class="student-dropdown-container">
                     <select id="studentSelector" class="student-selector" onchange="switchStudent()">
-                        <option value="">Loading students...</option>
+                        <option value="">جاري تحميل الطلاب...</option>
                     </select>
                     <div class="dropdown-arrow">
                         <i class="fas fa-chevron-down"></i>
@@ -126,10 +127,10 @@ $student_info = $student_result['data'];
         <!-- Homework Types Table Section -->
         <div class="homework-container">
             <div class="section-header">
-                <h2><i class="fas fa-table"></i> Homework Data</h2>
+                <h2><i class="fas fa-table"></i> بيانات الواجبات</h2>
                 <div class="section-actions">
                     <button class="btn btn-refresh" onclick="loadHomeworkData()">
-                        <i class="fas fa-sync-alt"></i> Refresh
+                        <i class="fas fa-sync-alt"></i> تحديث
                     </button>
                 </div>
             </div>
@@ -137,14 +138,14 @@ $student_info = $student_result['data'];
             <!-- Loading State -->
             <div id="loadingContainer" class="loading-container" style="display: none;">
                 <div class="loading-spinner-large"></div>
-                <p>Loading homework data...</p>
+                <p>جاري تحميل بيانات الواجبات...</p>
             </div>
 
             <!-- Empty State -->
             <div id="emptyState" class="empty-state" style="display: none;">
                 <i class="fas fa-book-open"></i>
-                <h3>No Homework Data</h3>
-                <p>No homework data has been entered for this session yet.</p>
+                <h3>لا توجد بيانات واجبات</h3>
+                <p>لم يتم إدخال بيانات واجبات لهذه الجلسة بعد.</p>
             </div>
 
             <!-- Quran Homework Data Table -->
@@ -152,11 +153,11 @@ $student_info = $student_result['data'];
                 <table class="homework-table" id="homeworkTable">
                     <thead>
                         <tr>
-                            <th class="homework-info-header">Homework Type</th>
-                            <th class="chapter-header">Chapter Name</th>
-                            <th class="range-header">Verse Range</th>
-                            <th class="grade-header">Grade</th>
-                            <th class="date-header">Created</th>
+                            <th class="homework-info-header">نوع الواجب</th>
+                            <th class="chapter-header">اسم السورة</th>
+                            <th class="range-header">نطاق الآيات</th>
+                            <th class="grade-header">الدرجة</th>
+                            <th class="date-header">تاريخ الإنشاء</th>
                         </tr>
                     </thead>
                     <tbody id="homeworkTableBody">
@@ -174,7 +175,7 @@ $student_info = $student_result['data'];
             <div class="submit-grades-container" id="submitGradesContainer">
                 <button class="btn btn-primary btn-submit-grades" id="submitGradesBtn" onclick="submitGrades()">
                     <i class="fas fa-save"></i>
-                    <span id="submitGradesText">Submit Grades</span>
+                    <span id="submitGradesText">حفظ الدرجات</span>
                     <div class="loading-spinner" id="submitLoadingSpinner" style="display: none;">
                         <i class="fas fa-spinner fa-spin"></i>
                     </div>

@@ -8,12 +8,36 @@ header('Access-Control-Allow-Headers: Content-Type');
 require_once '../includes/autoload.php';
 require_once '../includes/SessionManager.php';
 
-// Function to normalize Arabic characters for flexible searching
+// Enhanced function to normalize Arabic characters for flexible searching
 function normalizeArabicSearch($text) {
+    // Convert to lowercase (for English names)
+    $text = mb_strtolower($text, 'UTF-8');
+    
+    // Remove diacritics (tashkeel)
+    $text = preg_replace('/[\x{064B}-\x{065F}\x{0670}]/u', '', $text);
+    
     // Replace all variations of 'alif' with a simple 'ا'
-    $text = str_replace(['أ', 'إ', 'آ'], 'ا', $text);
-    // Replace variations of 'hamza' with simple form
+    $text = str_replace(['أ', 'إ', 'آ', 'ٱ'], 'ا', $text);
+    
+    // Replace variations of 'hamza'
     $text = str_replace(['ء', 'ئ', 'ؤ'], 'ا', $text);
+    
+    // Replace taa marbouta ة with haa ه (very common variation)
+    $text = str_replace('ة', 'ه', $text);
+    
+    // Replace alif maqsura ى with yaa ي
+    $text = str_replace('ى', 'ي', $text);
+    
+    // Normalize different forms of yaa
+    $text = str_replace(['ئ', 'ى'], 'ي', $text);
+    
+    // Remove definite article "ال" from the beginning
+    $text = preg_replace('/^ال/', '', $text);
+    
+    // Remove extra spaces and trim
+    $text = preg_replace('/\s+/', ' ', $text);
+    $text = trim($text);
+    
     return $text;
 }
 
@@ -44,25 +68,39 @@ try {
     $normalizedQuery = normalizeArabicSearch($query);
     
     // Prepare search terms with variations
-    // Replace 'ا' in query to match different forms: أ, إ, آ, ا
     $patterns = [
         '%' . $query . '%',  // Original query
         '%' . $normalizedQuery . '%'  // Normalized query
     ];
     
-    // Create SQL that searches with normalized database names
-    // Replace different forms of alif in database to match normalized query
-    $sql = "SELECT sura, name_ar, name_en 
+    // Create SQL with comprehensive normalization for better matching
+    // This handles: ة/ه, ى/ي, أ/إ/آ/ا, and removes ال prefix
+    $sql = "SELECT sura, name_ar, name_en,
+            CASE 
+                WHEN name_ar = :exact THEN 100
+                WHEN name_en = :exact THEN 100
+                WHEN name_ar LIKE :query1 THEN 90
+                WHEN name_en LIKE :query1 THEN 85
+                ELSE 70
+            END as match_score
             FROM quran_suras 
             WHERE (
                 name_ar LIKE :query1 
                 OR name_en LIKE :query1
-                OR REPLACE(REPLACE(REPLACE(name_ar, 'أ', 'ا'), 'إ', 'ا'), 'آ', 'ا') LIKE :query2
+                OR REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
+                    name_ar, 
+                    'أ', 'ا'), 'إ', 'ا'), 'آ', 'ا'), 'ة', 'ه'), 'ى', 'ي'), 'ئ', 'ي'), 'ؤ', 'ا'
+                ) LIKE :query2
+                OR REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
+                    CASE WHEN name_ar LIKE 'ال%' THEN SUBSTRING(name_ar, 3) ELSE name_ar END,
+                    'أ', 'ا'), 'إ', 'ا'), 'آ', 'ا'), 'ة', 'ه'), 'ى', 'ي'), 'ئ', 'ي'), 'ؤ', 'ا'
+                ) LIKE :query2
             )
-            ORDER BY sura ASC
+            ORDER BY match_score DESC, sura ASC
             LIMIT 20";
     
     $stmt = $db->prepare($sql);
+    $stmt->bindParam(':exact', $query, PDO::PARAM_STR);
     $stmt->bindParam(':query1', $patterns[0], PDO::PARAM_STR);
     $stmt->bindParam(':query2', $patterns[1], PDO::PARAM_STR);
     $stmt->execute();

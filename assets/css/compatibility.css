@@ -1,0 +1,519 @@
+/* ============================================
+   CROSS-BROWSER COMPATIBILITY CSS
+   Include this file in all pages for consistent behavior
+   across different browsers and display settings
+   ============================================ */
+
+/* Ensure consistent box-sizing across all browsers */
+*, *::before, *::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* Fix for older browsers that don't support smooth scrolling */
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+/* Better font rendering across browsers */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Flex container compatibility */
+.flex,
+.d-flex,
+[class*="flex-"],
+.modal-content,
+.modal-header,
+.modal-footer,
+.modal-actions {
+    display: -webkit-box !important;
+    display: -webkit-flex !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+}
+
+/* Flex direction compatibility */
+.flex-column,
+[class*="flex-column"] {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.flex-row,
+[class*="flex-row"] {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+/* Flex wrap compatibility */
+.flex-wrap {
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+/* Flex grow/shrink compatibility */
+.flex-1 {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.flex-shrink-0 {
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+
+/* Justify content compatibility */
+.justify-content-center {
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.justify-content-between {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.justify-content-end {
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+/* Align items compatibility */
+.align-items-center {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.align-items-start {
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+/* Transform compatibility for animations and hover effects */
+[class*="transform"],
+.card:hover,
+.btn:hover,
+.action-btn:hover {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+/* Transition compatibility */
+.transition,
+[class*="transition"],
+input,
+textarea,
+select,
+button,
+.btn,
+a {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+/* Border-radius compatibility */
+.rounded,
+[class*="rounded"],
+.modal-content,
+.btn,
+input,
+textarea,
+select {
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+
+/* Box-shadow compatibility */
+.shadow,
+[class*="shadow"],
+.modal-content,
+.card {
+    -webkit-box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    -moz-box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+/* Gradient compatibility */
+.gradient,
+[class*="gradient"] {
+    background: -webkit-linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    background: -moz-linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    background: -o-linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    background: -ms-linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+}
+
+/* Animation compatibility */
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@-moz-keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@-webkit-keyframes slideIn {
+    from { 
+        opacity: 0;
+        -webkit-transform: translateY(-50px);
+        transform: translateY(-50px);
+    }
+    to { 
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@-moz-keyframes slideIn {
+    from { 
+        opacity: 0;
+        -moz-transform: translateY(-50px);
+        transform: translateY(-50px);
+    }
+    to { 
+        opacity: 1;
+        -moz-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from { 
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@-moz-keyframes spin {
+    0% { -moz-transform: rotate(0deg); transform: rotate(0deg); }
+    100% { -moz-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Apply animations with browser prefixes */
+.fade-in {
+    -webkit-animation: fadeIn 0.3s ease;
+    -moz-animation: fadeIn 0.3s ease;
+    -o-animation: fadeIn 0.3s ease;
+    animation: fadeIn 0.3s ease;
+}
+
+.slide-in {
+    -webkit-animation: slideIn 0.3s ease;
+    -moz-animation: slideIn 0.3s ease;
+    -o-animation: slideIn 0.3s ease;
+    animation: slideIn 0.3s ease;
+}
+
+.spin {
+    -webkit-animation: spin 1s linear infinite;
+    -moz-animation: spin 1s linear infinite;
+    -o-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+}
+
+/* Ensure proper viewport scaling for all browsers */
+@viewport {
+    width: device-width;
+    zoom: 1.0;
+}
+
+@-ms-viewport {
+    width: device-width;
+}
+
+/* Fix for min-height in IE and Edge */
+.min-vh-100 {
+    min-height: 100vh;
+    min-height: -webkit-calc(100vh);
+    min-height: -moz-calc(100vh);
+}
+
+/* Grid compatibility for older browsers */
+@supports not (display: grid) {
+    .grid,
+    [class*="grid"] {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+}
+
+/* Scrollbar styling for all browsers */
+.scrollable,
+.modal-body,
+.table-container,
+[class*="scroll"] {
+    scrollbar-width: thin;
+    scrollbar-color: #4e73df #f1f1f1;
+    -ms-overflow-style: scrollbar;
+}
+
+.scrollable::-webkit-scrollbar,
+.modal-body::-webkit-scrollbar,
+.table-container::-webkit-scrollbar,
+[class*="scroll"]::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.scrollable::-webkit-scrollbar-track,
+.modal-body::-webkit-scrollbar-track,
+.table-container::-webkit-scrollbar-track,
+[class*="scroll"]::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.scrollable::-webkit-scrollbar-thumb,
+.modal-body::-webkit-scrollbar-thumb,
+.table-container::-webkit-scrollbar-thumb,
+[class*="scroll"]::-webkit-scrollbar-thumb {
+    background: #4e73df;
+    border-radius: 4px;
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover,
+.modal-body::-webkit-scrollbar-thumb:hover,
+.table-container::-webkit-scrollbar-thumb:hover,
+[class*="scroll"]::-webkit-scrollbar-thumb:hover {
+    background: #224abe;
+}
+
+/* Better input styling across browsers */
+input,
+textarea,
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Fix for select dropdowns in IE */
+select::-ms-expand {
+    display: none;
+}
+
+/* Fix for number input spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* Ensure buttons work properly across browsers */
+button,
+.btn,
+[type="button"],
+[type="submit"] {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    cursor: pointer;
+    border: none;
+}
+
+button:disabled,
+.btn:disabled,
+[type="button"]:disabled,
+[type="submit"]:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Fix for focus outlines */
+*:focus {
+    outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* User select compatibility */
+.no-select,
+[class*="no-select"] {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Calc() compatibility */
+.w-100 {
+    width: 100%;
+    width: -webkit-calc(100%);
+    width: -moz-calc(100%);
+}
+
+/* Position sticky compatibility */
+.sticky,
+.sticky-top,
+[class*="sticky"] {
+    position: -webkit-sticky;
+    position: sticky;
+}
+
+/* Object fit compatibility */
+img,
+video {
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+/* Backdrop filter compatibility (where supported) */
+@supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+    .backdrop-blur {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
+}
+
+/* Ensure proper z-index stacking */
+.z-index-1 { z-index: 1; }
+.z-index-10 { z-index: 10; }
+.z-index-100 { z-index: 100; }
+.z-index-1000 { z-index: 1000; }
+.z-index-2000 { z-index: 2000; }
+.z-index-3000 { z-index: 3000; }
+
+/* Modal specific compatibility */
+.modal {
+    -webkit-animation: fadeIn 0.3s ease;
+    -moz-animation: fadeIn 0.3s ease;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    -webkit-animation: slideIn 0.3s ease;
+    -moz-animation: slideIn 0.3s ease;
+    animation: slideIn 0.3s ease;
+}
+
+/* Ensure modals are scrollable */
+.modal-content {
+    max-height: 90vh;
+    max-height: -webkit-calc(90vh);
+    max-height: -moz-calc(90vh);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-header {
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+
+.modal-body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.modal-footer,
+.modal-actions {
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    position: sticky;
+    position: -webkit-sticky;
+    bottom: 0;
+    background: white;
+}
+
+/* Loading spinner compatibility */
+.loading,
+.spinner,
+[class*="loading"],
+[class*="spinner"] {
+    -webkit-animation: spin 1s linear infinite;
+    -moz-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+}
+
+/* Print compatibility */
+@media print {
+    *,
+    *::before,
+    *::after {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+

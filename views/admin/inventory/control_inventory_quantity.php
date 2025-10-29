@@ -23,6 +23,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
     <title>التحكم في المخزون - نظام الروضة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../../assets/css/control_inventory.css">
+    <link rel="stylesheet" href="../../../assets/css/compatibility.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <div class="container">

@@ -44,11 +44,11 @@ if ($student_id) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classroom Sessions - Kindergarten Management System</title>
+    <title>جلسات الفصل - نظام إدارة الروضة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/teacher-sessions.css?v=<?php echo time(); ?>">
 </head>
@@ -58,18 +58,18 @@ if ($student_id) {
         <div class="header">
             <div class="header-left">
                 <button class="back-btn" onclick="goBack()">
-                    <i class="fas fa-arrow-left"></i> Back
+                    <i class="fas fa-arrow-left"></i> رجوع
                 </button>
                 <div class="header-info">
-                    <h1><i class="fas fa-chalkboard-teacher"></i> Classroom Sessions</h1>
+                    <h1><i class="fas fa-chalkboard-teacher"></i> جلسات الفصل</h1>
                     <p class="classroom-info">
                         <span class="classroom-name"><?php echo htmlspecialchars($classroom_info['name']); ?></span>
                         <span class="classroom-details">
                             <?php if ($student_info): ?>
-                                Student: <?php echo htmlspecialchars($student_info['first_name'] . ' ' . $student_info['last_name']); ?> • 
+                                الطالب: <?php echo htmlspecialchars($student_info['first_name'] . ' ' . $student_info['last_name']); ?> • 
                             <?php endif; ?>
                             <?php echo htmlspecialchars($classroom_info['grade_level']); ?> • 
-                            Room <?php echo htmlspecialchars($classroom_info['room_number']); ?>
+                            غرفة <?php echo htmlspecialchars($classroom_info['room_number']); ?>
                         </span>
                     </p>
                 </div>
@@ -81,11 +81,11 @@ if ($student_id) {
                     </div>
                     <div class="user-details">
                         <span class="user-name"><?php echo htmlspecialchars(User::getCurrentUserName()); ?></span>
-                        <span class="user-role">Teacher</span>
+                        <span class="user-role">معلم</span>
                     </div>
                 </div>
                 <button class="logout-btn" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Logout
+                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
                 </button>
             </div>
         </div>
@@ -97,10 +97,10 @@ if ($student_id) {
         <!-- Sessions List Section -->
         <div class="sessions-container">
             <div class="section-header">
-                <h2><i class="fas fa-history"></i> Previous Sessions</h2>
+                <h2><i class="fas fa-history"></i> الجلسات السابقة</h2>
                 <div class="section-actions">
                     <button class="btn btn-refresh" onclick="loadSessions()">
-                        <i class="fas fa-sync-alt"></i> Refresh
+                        <i class="fas fa-sync-alt"></i> تحديث
                     </button>
                 </div>
             </div>
@@ -108,14 +108,14 @@ if ($student_id) {
             <!-- Loading State -->
             <div id="loadingContainer" class="loading-container" style="display: none;">
                 <div class="loading-spinner-large"></div>
-                <p>Loading sessions...</p>
+                <p>جاري تحميل الجلسات...</p>
             </div>
 
             <!-- Empty State -->
             <div id="emptyState" class="empty-state" style="display: none;">
                 <i class="fas fa-calendar-plus"></i>
-                <h3>No Sessions Yet</h3>
-                <p>Create your first session for this classroom to get started.</p>
+                <h3>لا توجد جلسات بعد</h3>
+                <p>قم بإنشاء أول جلسة لهذا الفصل للبدء.</p>
             </div>
 
             <!-- Sessions List -->
@@ -153,12 +153,12 @@ if ($student_id) {
                 if (data.success) {
                     renderSessions(data.sessions);
                 } else {
-                    showAlert('Error loading sessions: ' + data.message, 'error');
+                    showAlert('خطأ في تحميل الجلسات: ' + data.message, 'error');
                     showEmptyState();
                 }
             } catch (error) {
-                console.error('Error loading sessions:', error);
-                showAlert('Network error loading sessions', 'error');
+                console.error('خطأ في تحميل الجلسات:', error);
+                showAlert('خطأ في الشبكة أثناء تحميل الجلسات', 'error');
                 showEmptyState();
             } finally {
                 hideLoading();
@@ -195,25 +195,25 @@ if ($student_id) {
                         <div class="session-details">
                             <div class="session-detail">
                                 <i class="fas fa-calendar"></i>
-                                <span>Session Date: ${formatDate(sessionDate)}</span>
+                                <span>تاريخ الجلسة: ${formatDate(sessionDate)}</span>
                             </div>
                             <div class="session-detail">
                                 <i class="fas fa-clock"></i>
-                                <span>Created: ${formatTimeAgo(createdDate)}</span>
+                                <span>تم الإنشاء: ${formatTimeAgo(createdDate)}</span>
                             </div>
                             <div class="session-detail">
                                 <i class="fas fa-users"></i>
-                                <span>Students: ${session.student_count} student${session.student_count !== 1 ? 's' : ''}</span>
+                                <span>الطلاب: ${session.student_count} طالب</span>
                             </div>
                             <div class="session-detail">
                                 <i class="fas fa-door-open"></i>
-                                <span>Classroom: ${session.classroom_name || 'Unknown'}</span>
+                                <span>الفصل: ${session.classroom_name || 'غير معروف'}</span>
                             </div>
                         </div>
                         
                         <div class="session-actions">
                             <div class="btn btn-view">
-                                <i class="fas fa-eye"></i> View Details
+                                <i class="fas fa-eye"></i> عرض التفاصيل
                             </div>
                         </div>
                     </div>
@@ -279,22 +279,22 @@ if ($student_id) {
             const diffInSeconds = Math.floor((now - date) / 1000);
             
             if (diffInSeconds < 60) {
-                return 'Just now';
+                return 'الآن';
             } else if (diffInSeconds < 3600) {
                 const minutes = Math.floor(diffInSeconds / 60);
-                return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+                return `منذ ${minutes} ${minutes === 1 ? 'دقيقة' : minutes === 2 ? 'دقيقتين' : minutes <= 10 ? 'دقائق' : 'دقيقة'}`;
             } else if (diffInSeconds < 86400) {
                 const hours = Math.floor(diffInSeconds / 3600);
-                return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+                return `منذ ${hours} ${hours === 1 ? 'ساعة' : hours === 2 ? 'ساعتين' : hours <= 10 ? 'ساعات' : 'ساعة'}`;
             } else if (diffInSeconds < 2592000) {
                 const days = Math.floor(diffInSeconds / 86400);
-                return `${days} day${days > 1 ? 's' : ''} ago`;
+                return `منذ ${days} ${days === 1 ? 'يوم' : days === 2 ? 'يومين' : days <= 10 ? 'أيام' : 'يوم'}`;
             } else if (diffInSeconds < 31536000) {
                 const months = Math.floor(diffInSeconds / 2592000);
-                return `${months} month${months > 1 ? 's' : ''} ago`;
+                return `منذ ${months} ${months === 1 ? 'شهر' : months === 2 ? 'شهرين' : months <= 10 ? 'أشهر' : 'شهر'}`;
             } else {
                 const years = Math.floor(diffInSeconds / 31536000);
-                return `${years} year${years > 1 ? 's' : ''} ago`;
+                return `منذ ${years} ${years === 1 ? 'سنة' : years === 2 ? 'سنتين' : years <= 10 ? 'سنوات' : 'سنة'}`;
             }
         }
 
@@ -317,7 +317,7 @@ if ($student_id) {
             modalOverlay.innerHTML = `
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3><i class="fas fa-user-graduate"></i> Select Student</h3>
+                        <h3><i class="fas fa-user-graduate"></i> اختر طالباً</h3>
                         <button class="modal-close" onclick="closeStudentModal()">
                             <i class="fas fa-times"></i>
                         </button>
@@ -325,21 +325,21 @@ if ($student_id) {
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="studentSelectModal">
-                                <i class="fas fa-user"></i> Choose Student
+                                <i class="fas fa-user"></i> اختر الطالب
                             </label>
                             <select id="studentSelectModal" name="student_id" required>
-                                <option value="">Select a student...</option>
+                                <option value="">اختر طالباً...</option>
                                 <!-- Students will be populated here -->
                             </select>
-                            <small class="form-help">Select the student to grade homework for</small>
+                            <small class="form-help">اختر الطالب لتقييم واجباته</small>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn-modal btn-modal-secondary" onclick="closeStudentModal()">
-                            <i class="fas fa-times"></i> Cancel
+                            <i class="fas fa-times"></i> إلغاء
                         </button>
                         <button type="button" class="btn-modal btn-modal-primary" onclick="proceedToHomework('${sessionName}', '${sessionDate}')">
-                            <i class="fas fa-arrow-right"></i> Continue
+                            <i class="fas fa-arrow-right"></i> متابعة
                         </button>
                     </div>
                 </div>
@@ -363,7 +363,7 @@ if ($student_id) {
                 
                 if (data.success) {
                     const studentSelect = document.getElementById('studentSelectModal');
-                    studentSelect.innerHTML = '<option value="">Select a student...</option>';
+                    studentSelect.innerHTML = '<option value="">اختر طالباً...</option>';
                     
                     data.students.forEach(student => {
                         const option = document.createElement('option');
@@ -372,11 +372,11 @@ if ($student_id) {
                         studentSelect.appendChild(option);
                     });
                 } else {
-                    showAlert('Error loading students: ' + data.message, 'error');
+                    showAlert('خطأ في تحميل الطلاب: ' + data.message, 'error');
                 }
             } catch (error) {
-                console.error('Error loading students:', error);
-                showAlert('Network error loading students', 'error');
+                console.error('خطأ في تحميل الطلاب:', error);
+                showAlert('خطأ في الشبكة أثناء تحميل الطلاب', 'error');
             }
         }
         
@@ -393,7 +393,7 @@ if ($student_id) {
             const studentId = document.getElementById('studentSelectModal').value;
             
             if (!studentId) {
-                showAlert('Please select a student first', 'error');
+                showAlert('يرجى اختيار طالب أولاً', 'error');
                 return;
             }
             
@@ -408,7 +408,7 @@ if ($student_id) {
 
         // Logout
         async function logout() {
-            if (confirm('Are you sure you want to logout?')) {
+            if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
                 try {
                     const response = await fetch('../../api/logout.php', {
                         method: 'POST',
@@ -423,11 +423,11 @@ if ($student_id) {
                     if (data.success) {
                         window.location.href = '../../views/auth/login.php';
                     } else {
-                        showAlert('Logout failed: ' + data.message, 'error');
+                        showAlert('فشل تسجيل الخروج: ' + data.message, 'error');
                     }
                 } catch (error) {
-                    console.error('Logout error:', error);
-                    showAlert('An error occurred during logout', 'error');
+                    console.error('خطأ في تسجيل الخروج:', error);
+                    showAlert('حدث خطأ أثناء تسجيل الخروج', 'error');
                 }
             }
         }

@@ -22,7 +22,7 @@ class StudentAttendance {
             this.classroomId = parseInt(urlParams.get('classroom_id'));
             
             if (!this.classroomId) {
-                this.showAlert('Invalid classroom ID', 'error');
+                this.showAlert('معرف الفصل غير صالح', 'error');
                 this.redirectToDashboard();
                 return;
             }
@@ -35,8 +35,8 @@ class StudentAttendance {
             this.setupEventListeners();
             
         } catch (error) {
-            console.error('Error initializing page:', error);
-            this.showAlert('Failed to load attendance page', 'error');
+            console.error('خطأ في تهيئة الصفحة:', error);
+            this.showAlert('فشل في تحميل صفحة الحضور', 'error');
         }
     }
     
@@ -62,7 +62,7 @@ class StudentAttendance {
             }
             
         } catch (error) {
-            console.error('Error loading classroom info:', error);
+            console.error('خطأ في تحميل معلومات الفصل:', error);
             throw error;
         }
     }
@@ -128,8 +128,8 @@ class StudentAttendance {
             }
             
         } catch (error) {
-            console.error('Error loading school days:', error);
-            this.showAlert('Failed to load school days', 'error');
+            console.error('خطأ في تحميل الأيام الدراسية:', error);
+            this.showAlert('فشل في تحميل الأيام الدراسية', 'error');
         } finally {
             this.hideLoading();
         }
@@ -143,15 +143,26 @@ class StudentAttendance {
         
         if (dateDisplay && dateSubtitle) {
             const date = new Date(this.currentSchoolDay.date);
-            const formattedDate = date.toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
+            
+            // Get Arabic weekday
+            const weekday = date.toLocaleDateString('ar-SA', { weekday: 'long' });
+            
+            // Get day, month, year in English format
+            const day = date.getDate();
+            const year = date.getFullYear();
+            
+            // Arabic month names (Gregorian calendar)
+            const arabicMonths = [
+                'يناير', 'فبراير', 'مارس', 'إبريل', 'مايو', 'يونيو',
+                'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+            ];
+            const month = arabicMonths[date.getMonth()];
+            
+            // Format: الثلاثاء، 28 أكتوبر 2025
+            const formattedDate = `${weekday}، ${day} ${month} ${year}`;
             
             dateDisplay.textContent = formattedDate;
-            dateSubtitle.textContent = this.currentSchoolDay.is_school_day ? 'School Day' : 'Non-School Day';
+            dateSubtitle.textContent = this.currentSchoolDay.is_school_day ? 'يوم دراسي' : 'اجازة';
         }
     }
     
@@ -169,20 +180,20 @@ class StudentAttendance {
         if (this.currentSchoolDay.has_attendance) {
             if (this.currentSchoolDay.attendance_status === 'closed') {
                 statusIndicator.className = 'status-indicator completed';
-                statusText.textContent = 'Completed';
+                statusText.textContent = 'منتهي';
                 // Show reopen button for closed attendance
                 console.log('Showing reopen button');
                 this.showReopenButton();
             } else {
                 statusIndicator.className = 'status-indicator open';
-                statusText.textContent = 'In Progress';
+                statusText.textContent = 'قيد التنفيذ';
                 // Show submit button for open attendance
                 console.log('Showing submit button');
                 this.showSubmitButton();
             }
         } else {
             statusIndicator.className = 'status-indicator';
-            statusText.textContent = 'Not Started';
+            statusText.textContent = 'لم يبدأ';
             // Show submit button for new attendance
             console.log('Showing submit button (no attendance)');
             this.showSubmitButton();
@@ -224,11 +235,20 @@ class StudentAttendance {
         
         for (let i = startIndex; i <= endIndex; i++) {
             const day = this.schoolDays[i];
+            const date = new Date(day.date);
+            
+            // Arabic short month names (Gregorian calendar)
+            const arabicShortMonths = [
+                'يناير', 'فبراير', 'مارس', 'إبريل', 'مايو', 'يونيو',
+                'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+            ];
+            const shortMonth = arabicShortMonths[date.getMonth()];
+            
             const dateBtn = document.createElement('button');
             dateBtn.className = `date-btn ${i === this.currentDayIndex ? 'active' : ''}`;
             dateBtn.innerHTML = `
-                <div class="date-day">${new Date(day.date).getDate()}</div>
-                <div class="date-month">${new Date(day.date).toLocaleDateString('en-US', { month: 'short' })}</div>
+                <div class="date-day">${date.getDate()}</div>
+                <div class="date-month">${shortMonth}</div>
             `;
             dateBtn.onclick = () => this.goToDate(i);
             paginationContainer.appendChild(dateBtn);
@@ -268,15 +288,15 @@ class StudentAttendance {
             }
             
         } catch (error) {
-            console.error('Error loading students:', error);
-            this.showAlert('Failed to load students', 'error');
+            console.error('خطأ في تحميل الطلاب:', error);
+            this.showAlert('فشل في تحميل الطلاب', 'error');
         }
     }
     
     updateStudentsCount() {
         const studentsCount = document.getElementById('studentsCount');
         if (studentsCount) {
-            studentsCount.textContent = `${this.students.length} student${this.students.length !== 1 ? 's' : ''}`;
+            studentsCount.textContent = `${this.students.length} طالب`;
         }
     }
     
@@ -294,7 +314,7 @@ class StudentAttendance {
                             ${this.getInitials(student.full_name || student.name || '')}
                         </div>
                         <div class="student-info">
-                            <div class="student-name">${student.full_name || student.name || 'Unnamed Student'}</div>
+                            <div class="student-name">${student.full_name || student.name || 'طالب غير معروف'}</div>
                             <div class="student-id">ID: ${student.id}</div>
                         </div>
                     </div>
@@ -304,32 +324,32 @@ class StudentAttendance {
                                 data-status="present" 
                                 data-student-id="${student.id}">
                             <i class="fas fa-check"></i>
-                            Present
+                            حاضر
                         </button>
                         <button class="status-btn absent ${attendance.status === 'absent' ? 'active' : ''}" 
                                 data-status="absent" 
                                 data-student-id="${student.id}">
                             <i class="fas fa-times"></i>
-                            Absent
+                            غائب
                         </button>
                         <button class="status-btn late ${attendance.status === 'late' ? 'active' : ''}" 
                                 data-status="late" 
                                 data-student-id="${student.id}">
                             <i class="fas fa-clock"></i>
-                            Late
+                            متأخر
                         </button>
                         <button class="status-btn excused ${attendance.status === 'excused' ? 'active' : ''}" 
                                 data-status="excused" 
                                 data-student-id="${student.id}">
                             <i class="fas fa-user-clock"></i>
-                            Excused
+                            معذور
                         </button>
                     </div>
                     
                     <div class="note-section">
                         <button class="note-btn" onclick="studentAttendance.openNoteModal(${student.id})">
                             <i class="fas fa-sticky-note"></i>
-                            ${attendance.note ? 'Edit Note' : 'Add Note'}
+                            ${attendance.note ? 'تعديل الملاحظة' : 'إضافة ملاحظة'}
                         </button>
                         ${attendance.note ? `<div class="note-display">${attendance.note}</div>` : ''}
                     </div>
@@ -438,7 +458,7 @@ class StudentAttendance {
         
         const submitText = document.getElementById('submitText');
         if (submitText) {
-            submitText.textContent = `Submit Attendance (${markedStudents}/${totalStudents})`;
+            submitText.textContent = `حفظ الحضور (${markedStudents}/${totalStudents})`;
         }
     }
     
@@ -506,7 +526,7 @@ class StudentAttendance {
             }
             
         } catch (error) {
-            console.error('Error loading existing attendance:', error);
+            console.error('خطأ في تحميل الحضور الحالي:', error);
             // If API call failed but we know there's attendance, show appropriate button based on status
             if (this.currentSchoolDay.has_attendance) {
                 if (this.currentSchoolDay.attendance_status === 'closed') {
@@ -606,7 +626,7 @@ class StudentAttendance {
         const markedStudents = Object.values(this.attendanceData).filter(att => att.status).length;
         
         if (markedStudents < totalStudents) {
-            this.showAlert(`Please mark attendance for all ${totalStudents} students`, 'warning');
+            this.showAlert(`يرجى تحديد الحضور لجميع الطلاب (${totalStudents})`, 'warning');
             return;
         }
         
@@ -653,19 +673,19 @@ class StudentAttendance {
             const result = await response.json();
             
             if (result.success) {
-                this.showAlert('Attendance saved successfully!', 'success');
+                this.showAlert('تم حفظ الحضور بنجاح!', 'success');
                 this.currentSchoolDay.has_attendance = true;
                 this.currentSchoolDay.attendance_status = 'closed';
                 this.currentSchoolDay.attendance_record_id = result.attendance_record_id;
                 this.updateAttendanceStatus();
                 this.showReopenButton();
             } else {
-                throw new Error(result.message || 'Failed to save attendance');
+                throw new Error(result.message || 'فشل في حفظ الحضور');
             }
             
         } catch (error) {
-            console.error('Error submitting attendance:', error);
-            this.showAlert('Failed to save attendance: ' + error.message, 'error');
+            console.error('خطأ في حفظ الحضور:', error);
+            this.showAlert('فشل في حفظ الحضور: ' + error.message, 'error');
         } finally {
             this.setSubmitLoadingState(false);
         }
@@ -675,7 +695,7 @@ class StudentAttendance {
         if (this.isLoading) return;
         
         if (!this.currentSchoolDay.attendance_record_id) {
-            this.showAlert('No attendance record to reopen', 'error');
+            this.showAlert('لا يوجد سجل حضور لإعادة فتحه', 'error');
             return;
         }
         
@@ -696,7 +716,7 @@ class StudentAttendance {
             const result = await response.json();
             
             if (result.success) {
-                this.showAlert('Attendance reopened for editing', 'success');
+                this.showAlert('تم إعادة فتح الحضور للتعديل', 'success');
                 this.currentSchoolDay.attendance_status = 'open';
                 this.updateAttendanceStatus();
                 
@@ -705,12 +725,12 @@ class StudentAttendance {
                 
                 this.showSubmitButton();
             } else {
-                throw new Error(result.message || 'Failed to reopen attendance');
+                throw new Error(result.message || 'فشل في إعادة فتح الحضور');
             }
             
         } catch (error) {
-            console.error('Error reopening attendance:', error);
-            this.showAlert('Failed to reopen attendance: ' + error.message, 'error');
+            console.error('خطأ في إعادة فتح الحضور:', error);
+            this.showAlert('فشل في إعادة فتح الحضور: ' + error.message, 'error');
         } finally {
             this.setSubmitLoadingState(false);
         }
@@ -777,7 +797,7 @@ class StudentAttendance {
         this.renderStudents();
         
         this.closeNoteModal();
-        this.showAlert('Note saved', 'success');
+        this.showAlert('تم حفظ الملاحظة', 'success');
     }
     
     async navigateDay(direction) {

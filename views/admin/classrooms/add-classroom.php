@@ -45,7 +45,7 @@ if (!User::isLoggedIn() || !User::isAdmin()) {
                     id="name" 
                     name="name" 
                     class="form-control" 
-                    placeholder="مثال: فصل الشمس، فصل قوس قزح"
+                    placeholder="مثال: فصل الشمس، فصل عمرو ابن الخطاب"
                     required
                     maxlength="100"
                 >

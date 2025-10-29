@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 // Detect session type based on URL parameters or API response
 async function detectSessionType() {
     try {
-        console.log('Detecting session type...');
+        console.log('جاري تحديد نوع الجلسة...');
         
         // First try to get Quran homework data
         const quranResponse = await fetch(`../../api/get-homework-data.php?session_name=${encodeURIComponent(sessionName)}&session_date=${sessionDate}&classroom_id=${classroomId}&student_id=${studentId}`, {
@@ -26,11 +26,11 @@ async function detectSessionType() {
         });
         
         const quranData = await quranResponse.json();
-        console.log('Quran data response:', quranData);
+        console.log('استجابة بيانات القرآن:', quranData);
         
         if (quranData.success && quranData.homework_data && quranData.homework_data.length > 0) {
             sessionType = 'quran';
-            console.log('Session type set to: quran');
+            console.log('تم تعيين نوع الجلسة إلى: قرآن');
         } else {
             // Try modules data
             const modulesResponse = await fetch(`../../api/get-homework-data-module.php?session_name=${encodeURIComponent(sessionName)}&session_date=${sessionDate}&classroom_id=${classroomId}&student_id=${studentId}`, {
@@ -39,13 +39,13 @@ async function detectSessionType() {
             });
             
             const modulesData = await modulesResponse.json();
-            console.log('Modules data response:', modulesData);
+            console.log('استجابة بيانات الوحدات:', modulesData);
             
             if (modulesData.success && modulesData.homework_data && modulesData.homework_data.length > 0) {
                 sessionType = 'modules';
-                console.log('Session type set to: modules');
+                console.log('تم تعيين نوع الجلسة إلى: وحدات');
             } else {
-                console.log('No data found for either quran or modules, defaulting to quran');
+                console.log('لم يتم العثور على بيانات للقرآن أو الوحدات، الافتراضي هو القرآن');
             }
         }
         
@@ -53,7 +53,7 @@ async function detectSessionType() {
         updateUIForSessionType();
         
     } catch (error) {
-        console.error('Error detecting session type:', error);
+        console.error('خطأ في تحديد نوع الجلسة:', error);
         // Default to Quran if detection fails
         sessionType = 'quran';
         updateUIForSessionType();
@@ -76,20 +76,20 @@ function updateUIForSessionType() {
 
 // Load homework data based on session type
 async function loadHomeworkData() {
-    console.log('Loading homework data for session type:', sessionType);
+    console.log('جاري تحميل بيانات الواجبات لنوع الجلسة:', sessionType);
     showLoading();
     
     try {
         let response;
         
         if (sessionType === 'quran') {
-            console.log('Fetching Quran homework data...');
+            console.log('جاري جلب بيانات واجبات القرآن...');
             response = await fetch(`../../api/get-homework-data.php?session_name=${encodeURIComponent(sessionName)}&session_date=${sessionDate}&classroom_id=${classroomId}&student_id=${currentStudentId}`, {
                 method: 'GET',
                 credentials: 'same-origin'
             });
         } else {
-            console.log('Fetching Modules homework data...');
+            console.log('جاري جلب بيانات واجبات الوحدات...');
             response = await fetch(`../../api/get-homework-data-module.php?session_name=${encodeURIComponent(sessionName)}&session_date=${sessionDate}&classroom_id=${classroomId}&student_id=${currentStudentId}`, {
                 method: 'GET',
                 credentials: 'same-origin'
@@ -97,20 +97,20 @@ async function loadHomeworkData() {
         }
         
         const data = await response.json();
-        console.log('Homework data response:', data);
+        console.log('استجابة بيانات الواجبات:', data);
         
         if (data.success) {
             homeworkData = data.homework_data || [];
-            console.log('Homework data loaded:', homeworkData);
+            console.log('تم تحميل بيانات الواجبات:', homeworkData);
             renderHomeworkData(homeworkData);
         } else {
-            console.log('Error loading homework data:', data.message);
-            showAlert('Error loading homework data: ' + data.message, 'error');
+            console.log('خطأ في تحميل بيانات الواجبات:', data.message);
+            showAlert('خطأ في تحميل بيانات الواجبات: ' + data.message, 'error');
             showEmptyState();
         }
     } catch (error) {
-        console.error('Error loading homework data:', error);
-        showAlert('Network error loading homework data', 'error');
+        console.error('خطأ في تحميل بيانات الواجبات:', error);
+        showAlert('خطأ في الشبكة أثناء تحميل بيانات الواجبات', 'error');
         showEmptyState();
     } finally {
         hideLoading();
@@ -157,10 +157,10 @@ function renderQuranTable(data) {
                            value="${gradeValue}" 
                            min="0" 
                            max="${homework.max_grade}" 
-                           placeholder="Grade"
+                           placeholder="الدرجة"
                            data-homework-id="${homework.homework_type_id}"
                            onchange="updateGrade(${homework.homework_type_id}, this.value)">
-                    <div class="max-grade-info">Max: ${homework.max_grade}</div>
+                    <div class="max-grade-info">الحد الأقصى: ${homework.max_grade}</div>
                 </td>
                 <td class="created-date">${formatDate(createdDate)}</td>
             </tr>
@@ -204,10 +204,10 @@ function renderModulesList(data) {
                                         <span class="pdf-filename">${module.photo.split('/').pop()}</span>
                                     </div>
                                     <div class="pdf-actions">
-                                        <a href="../../${module.photo}" target="_blank" class="pdf-action-btn" title="Open in New Tab">
+                                        <a href="../../${module.photo}" target="_blank" class="pdf-action-btn" title="فتح في نافذة جديدة">
                                             <i class="fas fa-external-link-alt"></i>
                                         </a>
-                                        <a href="../../${module.photo}" download class="pdf-action-btn" title="Download PDF">
+                                        <a href="../../${module.photo}" download class="pdf-action-btn" title="تحميل PDF">
                                             <i class="fas fa-download"></i>
                                         </a>
                                     </div>
@@ -227,13 +227,13 @@ function renderModulesList(data) {
                                     </iframe>
                                     <div class="pdf-loading">
                                         <div class="loading-spinner-large"></div>
-                                        <p>Loading PDF...</p>
+                                        <p>جاري تحميل PDF...</p>
                                     </div>
                                     <div class="pdf-error" style="display: none;">
                                         <i class="fas fa-exclamation-triangle"></i>
-                                        <p>Unable to display PDF</p>
+                                        <p>تعذر عرض PDF</p>
                                         <a href="../../${module.photo}" target="_blank" class="btn btn-primary">
-                                            <i class="fas fa-external-link-alt"></i> Open in New Tab
+                                            <i class="fas fa-external-link-alt"></i> فتح في نافذة جديدة
                                         </a>
                                     </div>
                                 </div>
@@ -243,32 +243,32 @@ function renderModulesList(data) {
                                  onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                             <div style="display: none; text-align: center; color: #6c757d; padding: 20px;">
                                 <i class="fas fa-image" style="font-size: 48px; margin-bottom: 10px;"></i>
-                                <p>Image not available</p>
+                                <p>الصورة غير متاحة</p>
                             </div>
                         `}
                     ` : `
                         <div style="text-align: center; color: #6c757d; padding: 20px;">
                             <i class="fas fa-image" style="font-size: 48px; margin-bottom: 10px;"></i>
-                            <p>No file uploaded</p>
+                            <p>لم يتم تحميل ملف</p>
                         </div>
                     `}
                 </div>
                 
                 <div class="module-grade-section">
-                    <span class="grade-label">Grade:</span>
+                    <span class="grade-label">الدرجة:</span>
                     <input type="number" 
                            class="module-grade-input" 
                            value="${gradeValue}" 
                            min="0" 
                            max="${module.max_grade}" 
-                           placeholder="Enter grade"
+                           placeholder="أدخل الدرجة"
                            data-module-id="${module.module_id}"
                            data-homework-type-id="${module.homework_type_name}"
                            onchange="updateModuleGrade(${module.module_id}, this.value)">
-                    <span class="max-grade-info">Max: ${module.max_grade}</span>
+                    <span class="max-grade-info">الحد الأقصى: ${module.max_grade}</span>
                 </div>
                 
-                <div class="module-date">Created: ${formatDate(createdDate)}</div>
+                <div class="module-date">تاريخ الإنشاء: ${formatDate(createdDate)}</div>
             </div>
         `;
     }).join('');
@@ -357,7 +357,7 @@ async function submitGrades() {
         }
         
         if (grades.length === 0) {
-            showAlert('Please enter at least one grade before submitting', 'error');
+            showAlert('يرجى إدخال درجة واحدة على الأقل قبل الحفظ', 'error');
             return;
         }
         
@@ -366,20 +366,20 @@ async function submitGrades() {
             ? '../../api/add-grade-homework.php' 
             : '../../api/add-grade-homework-module.php';
         
-        console.log('Submitting grades to:', apiEndpoint);
-        console.log('Grades data:', grades);
+        console.log('جاري إرسال الدرجات إلى:', apiEndpoint);
+        console.log('بيانات الدرجات:', grades);
         
         // Get session_id from homework data
         if (homeworkData.length === 0) {
-            showAlert('No homework data available', 'error');
+            showAlert('لا توجد بيانات واجبات متاحة', 'error');
             return;
         }
         
         const sessionId = homeworkData[0].session_id;
         
         if (!sessionId) {
-            console.error('Missing session_id in homework data:', homeworkData[0]);
-            showAlert('Error: Session ID not found. Please try again.', 'error');
+            console.error('session_id مفقود في بيانات الواجبات:', homeworkData[0]);
+            showAlert('خطأ: لم يتم العثور على معرف الجلسة. يرجى المحاولة مرة أخرى.', 'error');
             return;
         }
         
@@ -398,25 +398,25 @@ async function submitGrades() {
         });
         
         const result = await response.json();
-        console.log('Submit response:', result);
+        console.log('استجابة الحفظ:', result);
         
         if (result.success) {
-            showAlert('Grades submitted successfully!', 'success');
+            showAlert('تم حفظ الدرجات بنجاح!', 'success');
             // Reload data to show updated grades
             setTimeout(() => {
                 loadHomeworkData();
             }, 1500);
         } else {
-            showAlert('Error submitting grades: ' + result.message, 'error');
+            showAlert('خطأ في حفظ الدرجات: ' + result.message, 'error');
         }
         
     } catch (error) {
-        console.error('Error submitting grades:', error);
-        showAlert('Network error submitting grades', 'error');
+        console.error('خطأ في حفظ الدرجات:', error);
+        showAlert('خطأ في الشبكة أثناء حفظ الدرجات', 'error');
     } finally {
         // Reset loading state
         submitBtn.disabled = false;
-        submitText.textContent = 'Submit Grades';
+        submitText.textContent = 'حفظ الدرجات';
         loadingSpinner.style.display = 'none';
     }
 }
@@ -499,7 +499,7 @@ function goBack() {
 
 // Logout function
 async function logout() {
-    if (confirm('Are you sure you want to logout?')) {
+    if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
         try {
             const response = await fetch('../../api/logout.php', {
                 method: 'POST',
@@ -514,11 +514,11 @@ async function logout() {
             if (data.success) {
                 window.location.href = '../../views/auth/login.php';
             } else {
-                showAlert('Logout failed: ' + data.message, 'error');
+                showAlert('فشل تسجيل الخروج: ' + data.message, 'error');
             }
         } catch (error) {
-            console.error('Logout error:', error);
-            showAlert('An error occurred during logout', 'error');
+            console.error('خطأ في تسجيل الخروج:', error);
+            showAlert('حدث خطأ أثناء تسجيل الخروج', 'error');
         }
     }
 }
@@ -526,7 +526,7 @@ async function logout() {
 // Student Management Functions
 async function loadStudents() {
     try {
-        console.log('Loading students for classroom:', classroomId);
+        console.log('جاري تحميل الطلاب للفصل:', classroomId);
         
         const response = await fetch(`../../api/get-students-by-classroom.php?classroom_id=${classroomId}`, {
             method: 'GET',
@@ -534,7 +534,7 @@ async function loadStudents() {
         });
         
         const result = await response.json();
-        console.log('Students response:', result);
+        console.log('استجابة الطلاب:', result);
         
         if (result.success) {
             studentsData = result.students;
@@ -543,12 +543,12 @@ async function loadStudents() {
             renderStudentSelector();
             updateCurrentStudentInfo();
         } else {
-            showAlert('Error loading students: ' + result.message, 'error');
+            showAlert('خطأ في تحميل الطلاب: ' + result.message, 'error');
         }
         
     } catch (error) {
-        console.error('Error loading students:', error);
-        showAlert('Network error loading students', 'error');
+        console.error('خطأ في تحميل الطلاب:', error);
+        showAlert('خطأ في الشبكة أثناء تحميل الطلاب', 'error');
     }
 }
 
@@ -558,7 +558,7 @@ function renderStudentSelector() {
     const studentCount = document.getElementById('studentCount');
     
     // Update student count
-    studentCount.textContent = `${studentsData.length} students`;
+    studentCount.textContent = `${studentsData.length} طالب`;
     
     // Clear existing options
     studentSelector.innerHTML = '';
