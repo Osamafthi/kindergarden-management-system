@@ -62,7 +62,7 @@ class TeacherDashboard {
                 this.hideAutocomplete(inputElement);
             }
         } catch (error) {
-            console.error('Error searching chapters:', error);
+            console.error('خطأ في البحث عن الفصول:', error);
             this.hideAutocomplete(inputElement);
         }
     }
@@ -103,11 +103,26 @@ class TeacherDashboard {
             content.appendChild(englishName);
             
             item.appendChild(content);
-            // Use mousedown instead of click to fire before blur event
+            
+            // Use multiple event handlers for cross-browser/device compatibility
+            // mousedown fires before blur, preventing the dropdown from closing
             item.onmousedown = (e) => {
                 e.preventDefault(); // Prevent blur from firing
                 this.selectChapter(inputElement, chapter);
             };
+            
+            // onclick as backup for some browsers
+            item.onclick = (e) => {
+                e.preventDefault();
+                this.selectChapter(inputElement, chapter);
+            };
+            
+            // ontouchend for mobile devices
+            item.ontouchend = (e) => {
+                e.preventDefault();
+                this.selectChapter(inputElement, chapter);
+            };
+            
             dropdown.appendChild(item);
         });
         
@@ -125,8 +140,15 @@ class TeacherDashboard {
         inputElement.value = chapter.name_ar + ' (' + chapter.name_en + ')';
         inputElement.dataset.chapterId = chapter.id;
         inputElement.setAttribute('data-chapter-id', chapter.id); // Also set as attribute for reliability
+        inputElement.dataset.nameAr = chapter.name_ar;
+        inputElement.dataset.nameEn = chapter.name_en;
         console.log('Chapter selected:', chapter.name_ar, 'ID:', chapter.id);
         console.log('Dataset chapterId set to:', inputElement.dataset.chapterId);
+        
+        // Dispatch change event for better cross-browser compatibility
+        const changeEvent = new Event('change', { bubbles: true });
+        inputElement.dispatchEvent(changeEvent);
+        
         this.hideAutocomplete(inputElement);
     }
     
@@ -172,8 +194,8 @@ class TeacherDashboard {
                 this.loadHomeworkTypes()
             ]);
         } catch (error) {
-            console.error('Error loading dashboard:', error);
-            this.showAlert('Error loading dashboard. Please refresh the page.', 'error');
+            console.error('خطأ في تحميل لوحة التحكم:', error);
+            this.showAlert('خطأ في تحميل لوحة التحكم. يرجى تحديث الصفحة.', 'error');
         }
     }
     
@@ -193,7 +215,7 @@ class TeacherDashboard {
                 window.location.href = '../../views/auth/login.php';
             }
         } catch (error) {
-            console.error('Error loading teacher info:', error);
+            console.error('خطأ في تحميل معلومات المعلم:', error);
         }
     }
     
@@ -243,12 +265,12 @@ class TeacherDashboard {
                 this.updateTeacherInfo();
                 this.populateClassroomSelect();
             } else {
-                this.showAlert('Error loading classrooms: ' + data.message, 'error');
+                this.showAlert('خطأ في تحميل الفصول الدراسية: ' + data.message, 'error');
                 this.showEmptyState();
             }
         } catch (error) {
-            console.error('Error loading classrooms:', error);
-            this.showAlert('Network error loading classrooms', 'error');
+            console.error('خطأ في تحميل الفصول الدراسية:', error);
+            this.showAlert('خطأ في الشبكة أثناء تحميل الفصول الدراسية', 'error');
             this.showEmptyState();
         } finally {
             this.isLoading = false;
@@ -277,31 +299,31 @@ class TeacherDashboard {
                             <div class="classroom-name">${classroom.classroom_name}</div>
                             <div class="classroom-grade">${classroom.grade_level}</div>
                         </div>
-                        <div class="classroom-status">Active</div>
+                        <div class="classroom-status">نشط</div>
                     </div>
                     
                     <div class="classroom-details">
                         <div class="classroom-detail">
                             <i class="fas fa-door-open"></i>
-                            <span>Room ${classroom.room_number}</span>
+                            <span>غرفة ${classroom.room_number}</span>
                         </div>
                         <div class="classroom-detail">
                             <i class="fas fa-users"></i>
-                            <span>${studentCount} students</span>
+                            <span>${studentCount} طالب</span>
                         </div>
                         <div class="classroom-detail">
                             <i class="fas fa-calendar-plus"></i>
-                            <span>Assigned ${this.formatDate(assignedDate)}</span>
+                            <span>تم التعيين ${this.formatDate(assignedDate)}</span>
                         </div>
                         <div class="classroom-detail">
                             <i class="fas fa-clock"></i>
-                            <span>${this.formatTimeAgo(assignedDate)} ago</span>
+                            <span>منذ ${this.formatTimeAgo(assignedDate)}</span>
                         </div>
                     </div>
                     
                     <div class="classroom-actions">
                         <button class="btn btn-view" onclick="event.stopPropagation(); teacherDashboard.viewClassroomDetails(${classroom.classroom_id})">
-                            <i class="fas fa-eye"></i> View Details
+                            <i class="fas fa-eye"></i> عرض التفاصيل
                         </button>
                     </div>
                 </div>
@@ -338,7 +360,7 @@ class TeacherDashboard {
     viewClassroomDetails(classroomId) {
         const classroom = this.classrooms.find(c => c.classroom_id == classroomId);
         if (!classroom) {
-            this.showAlert('Classroom not found', 'error');
+            this.showAlert('لم يتم العثور على الفصل الدراسي', 'error');
             return;
         }
         
@@ -369,7 +391,7 @@ class TeacherDashboard {
                     <div class="detail-row">
                         <div class="detail-label">
                             <i class="fas fa-door-open"></i>
-                            Room Number
+                            رقم الغرفة
                         </div>
                         <div class="detail-value">${classroom.room_number}</div>
                     </div>
@@ -377,15 +399,15 @@ class TeacherDashboard {
                     <div class="detail-row">
                         <div class="detail-label">
                             <i class="fas fa-users"></i>
-                            Student Capacity
+                            سعة الطلاب
                         </div>
-                        <div class="detail-value">${classroom.capacity || 'Not specified'}</div>
+                        <div class="detail-value">${classroom.capacity || 'غير محدد'}</div>
                     </div>
                     
                     <div class="detail-row">
                         <div class="detail-label">
                             <i class="fas fa-calendar-plus"></i>
-                            Assignment Date
+                            تاريخ التعيين
                         </div>
                         <div class="detail-value">${this.formatDate(assignedDate)}</div>
                     </div>
@@ -393,29 +415,29 @@ class TeacherDashboard {
                     <div class="detail-row">
                         <div class="detail-label">
                             <i class="fas fa-clock"></i>
-                            Duration
+                            المدة
                         </div>
-                        <div class="detail-value">${this.formatTimeAgo(assignedDate)} ago</div>
+                        <div class="detail-value">منذ ${this.formatTimeAgo(assignedDate)}</div>
                     </div>
                     
                     <div class="detail-row">
                         <div class="detail-label">
                             <i class="fas fa-info-circle"></i>
-                            Status
+                            الحالة
                         </div>
                         <div class="detail-value">
-                            <span class="status-badge active">Active</span>
+                            <span class="status-badge active">نشط</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="students-section">
                     <div class="students-header">
-                        <h5><i class="fas fa-user-graduate"></i> Students</h5>
-                        <div class="students-meta" id="studentsMeta">Loading...</div>
+                        <h5><i class="fas fa-user-graduate"></i> الطلاب</h5>
+                        <div class="students-meta" id="studentsMeta">جاري التحميل...</div>
                     </div>
                     <div class="student-list" id="studentList">
-                        <div class="student-list-loading"><span class="spinner"></span> Loading students...</div>
+                        <div class="student-list-loading"><span class="spinner"></span> جاري تحميل الطلاب...</div>
                     </div>
                 </div>
             </div>
@@ -442,7 +464,7 @@ class TeacherDashboard {
             const data = await response.json();
 
             if (!data.success) {
-                this.renderStudentList(classroomId, [], 'Failed to load students: ' + data.message);
+                this.renderStudentList(classroomId, [], 'فشل في تحميل الطلاب: ' + data.message);
                 return;
             }
 
@@ -450,8 +472,8 @@ class TeacherDashboard {
             this.classroomIdToStudents[classroomId] = students;
             this.renderStudentList(classroomId, students);
         } catch (error) {
-            console.error('Error loading students:', error);
-            this.renderStudentList(classroomId, [], 'Network error loading students');
+            console.error('خطأ في تحميل الطلاب:', error);
+            this.renderStudentList(classroomId, [], 'خطأ في الشبكة أثناء تحميل الطلاب');
         }
     }
 
@@ -466,10 +488,10 @@ class TeacherDashboard {
             return;
         }
 
-        meta.textContent = `${students.length} student${students.length !== 1 ? 's' : ''}`;
+        meta.textContent = `${students.length} طالب`;
 
         if (students.length === 0) {
-            list.innerHTML = `<div class="student-list-empty"><i class="fas fa-info-circle"></i> No students found for this classroom.</div>`;
+            list.innerHTML = `<div class="student-list-empty"><i class="fas fa-info-circle"></i> لم يتم العثور على طلاب في هذا الفصل.</div>`;
             return;
         }
 
@@ -560,27 +582,27 @@ class TeacherDashboard {
         const diffInSeconds = Math.floor((now - date) / 1000);
         
         if (diffInSeconds < 60) {
-            return 'Just now';
+            return 'الآن';
         } else if (diffInSeconds < 3600) {
             const minutes = Math.floor(diffInSeconds / 60);
-            return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+            return `${minutes} ${minutes > 1 ? 'دقائق' : 'دقيقة'}`;
         } else if (diffInSeconds < 86400) {
             const hours = Math.floor(diffInSeconds / 3600);
-            return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+            return `${hours} ${hours > 1 ? 'ساعات' : 'ساعة'}`;
         } else if (diffInSeconds < 2592000) {
             const days = Math.floor(diffInSeconds / 86400);
-            return `${days} day${days > 1 ? 's' : ''} ago`;
+            return `${days} ${days > 1 ? 'أيام' : 'يوم'}`;
         } else if (diffInSeconds < 31536000) {
             const months = Math.floor(diffInSeconds / 2592000);
-            return `${months} month${months > 1 ? 's' : ''} ago`;
+            return `${months} ${months > 1 ? 'أشهر' : 'شهر'}`;
         } else {
             const years = Math.floor(diffInSeconds / 31536000);
-            return `${years} year${years > 1 ? 's' : ''} ago`;
+            return `${years} ${years > 1 ? 'سنوات' : 'سنة'}`;
         }
     }
     
     async logout() {
-        if (confirm('Are you sure you want to logout?')) {
+        if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
             try {
                 const response = await fetch('../../api/logout.php', {
                     method: 'POST',
@@ -595,11 +617,11 @@ class TeacherDashboard {
                 if (data.success) {
                     window.location.href = '../../views/auth/login.php';
                 } else {
-                    this.showAlert('Logout failed: ' + data.message, 'error');
+                    this.showAlert('فشل تسجيل الخروج: ' + data.message, 'error');
                 }
             } catch (error) {
-                console.error('Logout error:', error);
-                this.showAlert('An error occurred during logout', 'error');
+                console.error('خطأ في تسجيل الخروج:', error);
+                this.showAlert('حدث خطأ أثناء تسجيل الخروج', 'error');
             }
         }
     }
@@ -621,7 +643,7 @@ class TeacherDashboard {
         console.log('Classrooms data:', this.classrooms);
         
         // Clear existing options except the first one
-        classroomSelect.innerHTML = '<option value="">Choose a classroom...</option>';
+        classroomSelect.innerHTML = '<option value="">اختر فصلاً دراسياً...</option>';
         
         // Add classroom options
         if (this.classrooms && this.classrooms.length > 0) {
@@ -649,17 +671,17 @@ class TeacherDashboard {
         console.log('Selected Classroom ID:', classroomId);
         
         if (!sessionName) {
-            this.showAlert('Please enter a session name', 'error');
+            this.showAlert('يرجى إدخال اسم الجلسة', 'error');
             return;
         }
         
         if (!classroomId) {
-            this.showAlert('Please select a classroom', 'error');
+            this.showAlert('يرجى اختيار فصل دراسي', 'error');
             return;
         }
         
         if (sessionName.length < 2) {
-            this.showAlert('Session name must be at least 2 characters long', 'error');
+            this.showAlert('يجب أن يكون اسم الجلسة حرفين على الأقل', 'error');
             return;
         }
         
@@ -674,26 +696,38 @@ class TeacherDashboard {
                 return;
             }
 
-            // Gather strict homework entries (must include quran_suras_id)
+            // Gather homework entries (can include quran_suras_id or quran_chapter_text for fuzzy matching)
             const homeworkData = this.collectHomeworkData();
             if (homeworkData.length > 0) {
                 const validationResults = await Promise.all(
-                    homeworkData.map(hw => fetch('../../api/add-homework-chapter.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        credentials: 'same-origin',
-                        body: JSON.stringify({
+                    homeworkData.map(hw => {
+                        const requestBody = {
                             validate_only: true,
                             homework_type_id: hw.homework_type_id,
                             quran_from: hw.quran_from,
                             quran_to: hw.quran_to,
                             quran_chapter: hw.quran_chapter,
-                            classroom_id: parseInt(classroomId),
-                            quran_suras_id: hw.quran_suras_id
-                        })
-                    }).then(r => r.json()).catch(() => ({ success: false, message: 'Network error validating Quran homework' })))
+                            classroom_id: parseInt(classroomId)
+                        };
+                        
+                        // Include either quran_suras_id or quran_chapter_text for fuzzy matching
+                        if (hw.quran_suras_id) {
+                            requestBody.quran_suras_id = hw.quran_suras_id;
+                        } else if (hw.quran_chapter_text) {
+                            requestBody.quran_chapter_text = hw.quran_chapter_text;
+                        }
+                        
+                        console.log('Validation Request Body:', requestBody);
+                        
+                        return fetch('../../api/add-homework-chapter.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            credentials: 'same-origin',
+                            body: JSON.stringify(requestBody)
+                        }).then(r => r.json()).catch(() => ({ success: false, message: 'Network error validating Quran homework' }));
+                    })
                 );
 
                 const failed = validationResults.find(v => !v.success);
@@ -727,21 +761,31 @@ class TeacherDashboard {
                     const sessionId = sessionData.session_ids[0];
                     
                     for (const homework of homeworkData) {
+                        const requestBody = {
+                            session_homework_id: sessionId,
+                            homework_type_id: homework.homework_type_id,
+                            quran_from: homework.quran_from,
+                            quran_to: homework.quran_to,
+                            quran_chapter: homework.quran_chapter,
+                            classroom_id: parseInt(classroomId)
+                        };
+                        
+                        // Include either quran_suras_id or quran_chapter_text for fuzzy matching
+                        if (homework.quran_suras_id) {
+                            requestBody.quran_suras_id = homework.quran_suras_id;
+                        } else if (homework.quran_chapter_text) {
+                            requestBody.quran_chapter_text = homework.quran_chapter_text;
+                        }
+                        
+                        console.log('Submission Request Body:', requestBody);
+                        
                         const homeworkResponse = await fetch('../../api/add-homework-chapter.php', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
                             credentials: 'same-origin',
-                            body: JSON.stringify({
-                                session_homework_id: sessionId,
-                                homework_type_id: homework.homework_type_id,
-                                quran_from: homework.quran_from,
-                                quran_to: homework.quran_to,
-                                quran_chapter: homework.quran_chapter,
-                                classroom_id: parseInt(classroomId),
-                                quran_suras_id: homework.quran_suras_id
-                            })
+                            body: JSON.stringify(requestBody)
                         });
                         
                         const homeworkResult = await homeworkResponse.json();
@@ -752,16 +796,16 @@ class TeacherDashboard {
                     }
                 }
                 
-                this.showAlert('Session and homework data created successfully!', 'success');
+                this.showAlert('تم إنشاء الجلسة وبيانات الواجبات بنجاح!', 'success');
                 document.getElementById('sessionForm').reset();
                 this.populateClassroomSelect(); // Reset the select
                 this.hideHomeworkTypes(); // Hide homework types section
             } else {
-                this.showAlert('Error: ' + sessionData.message, 'error');
+                this.showAlert('خطأ: ' + sessionData.message, 'error');
             }
         } catch (error) {
-            console.error('Error creating session:', error);
-            this.showAlert('Network error. Please try again.', 'error');
+            console.error('خطأ في إنشاء الجلسة:', error);
+            this.showAlert('خطأ في الشبكة. يرجى المحاولة مرة أخرى.', 'error');
         } finally {
             this.setSessionLoadingState(false);
         }
@@ -778,10 +822,10 @@ class TeacherDashboard {
         submitBtn.disabled = isLoading;
         
         if (isLoading) {
-            submitText.textContent = 'Creating...';
+            submitText.textContent = 'جاري الإنشاء...';
             loadingSpinner.style.display = 'inline-block';
         } else {
-            submitText.textContent = 'Create Session';
+            submitText.textContent = 'إنشاء الجلسة';
             loadingSpinner.style.display = 'none';
         }
     }
@@ -847,19 +891,19 @@ class TeacherDashboard {
                     </div>
                     <div class="homework-inputs">
                         <div class="input-group chapter-input-group">
-                            <label for="chapter_${homeworkType.id}">Chapter Name</label>
+                            <label for="chapter_${homeworkType.id}">اسم السورة</label>
                             <input 
                                 type="text"
                                 id="chapter_${homeworkType.id}"
                                 class="chapter-input" 
-                                placeholder="Type chapter name..."
+                                    placeholder="اكتب اسم السورة..."
                                 data-homework-id="${homeworkType.id}"
                                 autocomplete="off"
                             />
                         </div>
                         <div class="input-row">
                             <div class="input-group">
-                                <label for="from_${homeworkType.id}">From</label>
+                                <label for="from_${homeworkType.id}">من</label>
                                 <input 
                                     type="text" 
                                     id="from_${homeworkType.id}"
@@ -870,7 +914,7 @@ class TeacherDashboard {
                                 />
                             </div>
                             <div class="input-group">
-                                <label for="to_${homeworkType.id}">To</label>
+                                <label for="to_${homeworkType.id}">إلى</label>
                                 <input 
                                     type="text" 
                                     id="to_${homeworkType.id}"
@@ -941,12 +985,17 @@ class TeacherDashboard {
             const chapterId = input.dataset.chapterId || input.getAttribute('data-chapter-id');
             const value = input.value.trim();
             console.log(`Collecting homework ${homeworkId}: value="${value}", chapterId="${chapterId}"`);
-            if (value && chapterId) {
+            if (value) {
                 if (!homeworkMap[homeworkId]) {
                     homeworkMap[homeworkId] = { homework_type_id: homeworkId };
                 }
                 homeworkMap[homeworkId].quran_chapter = value;
-                homeworkMap[homeworkId].quran_suras_id = chapterId;
+                if (chapterId) {
+                    homeworkMap[homeworkId].quran_suras_id = chapterId;
+                } else {
+                    // Store chapter text for fuzzy matching if no ID was selected
+                    homeworkMap[homeworkId].quran_chapter_text = value;
+                }
             }
         });
 
@@ -976,11 +1025,14 @@ class TeacherDashboard {
 
         // Convert map to array and filter out incomplete entries
         Object.values(homeworkMap).forEach(homework => {
-            if (homework.quran_chapter && homework.quran_from && homework.quran_to && homework.quran_suras_id) {
+            // Allow entries with either quran_suras_id OR quran_chapter_text (for fuzzy matching)
+            if (homework.quran_chapter && homework.quran_from && homework.quran_to && 
+                (homework.quran_suras_id || homework.quran_chapter_text)) {
                 homeworkData.push(homework);
             }
         });
 
+        console.log('Collected homework data:', homeworkData);
         return homeworkData;
     }
 
@@ -1040,7 +1092,7 @@ class TeacherDashboard {
         return homeworkData;
     }
 
-    // Quick client-side guardrails to ensure sura id is captured from autocomplete
+    // Quick client-side guardrails to validate homework inputs
     validateHomeworkInputsClientSide() {
         const chapterInputs = document.querySelectorAll('.chapter-input');
         const fromInputs = document.querySelectorAll('.from-input');
@@ -1080,11 +1132,10 @@ class TeacherDashboard {
             if (!hasAny) continue;
 
             console.log(`Checking homework ${id}:`, entry);
-            if (!entry.suraId && entry.chapterText) {
-                return { valid: false, message: 'Please select a chapter from the suggestions to capture its ID.' };
-            }
+            // Allow fuzzy matching - no longer require suraId if chapterText is provided
+            // The API will handle fuzzy matching on the server side
             if (entry.from && entry.to && entry.from > entry.to) {
-                return { valid: false, message: 'Invalid verse range: From cannot be greater than To.' };
+                return { valid: false, message: 'نطاق آيات غير صالح: من لا يمكن أن يكون أكبر من إلى.' };
             }
         }
         return { valid: true };
