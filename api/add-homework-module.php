@@ -7,6 +7,7 @@ header('Access-Control-Allow-Headers: Content-Type');
 // Include necessary files
 require_once '../includes/autoload.php';
 require_once '../includes/SessionManager.php';
+require_once '../config.php';
 
 // Check if request method is POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -133,8 +134,8 @@ try {
     }
     
     // Generate unique filename
-    $upload_dir = '/Applications/XAMPP/xamppfiles/htdocs/kindergarden/assets/uploads/modules/';
-    
+// Get the document root and build path from there
+  $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/kindergarden/assets/uploads/modules/';    
     // Check if directory exists, create if not
     if (!is_dir($upload_dir)) {
         if (!mkdir($upload_dir, 0777, true)) {

@@ -107,17 +107,15 @@ try {
     }
     
     if (isset($data['password'])) {
-        $updateData['password'] = trim($data['password']);
+        $updateData['password'] = $data['password'];
         if (empty($updateData['password'])) {
             throw new Exception('Password cannot be empty');
         }
         if (strlen($updateData['password']) < 6) {
             throw new Exception('Password must be at least 6 characters long');
         }
-        // Hash the password
-        $updateData['password'] = password_hash($updateData['password'], PASSWORD_DEFAULT);
+        // Don't hash here - let updateTeacherUserAccount() handle it
     }
-    
     // If we're updating email, we need to provide all required fields for the updateTeacher method
     // This is because the method validates all required fields
     if (isset($updateData['email']) || isset($updateData['full_name']) || isset($updateData['phone_number']) || 

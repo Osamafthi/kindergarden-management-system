@@ -23,4 +23,7 @@ define('APP_URL', 'http://localhost/kindergarden');
 // Security Settings
 // Generate a secure random key for session encryption
 define('APP_KEY', 'your-secret-app-key-here');
+// Define base paths that work on both systems
+define('BASE_PATH', dirname(__DIR__)); // Project root
+define('UPLOAD_DIR', BASE_PATH . '/assets/uploads/modules/');
 

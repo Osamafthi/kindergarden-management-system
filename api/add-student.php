@@ -67,7 +67,8 @@ if (!empty($_FILES) && isset($_FILES['photo'])) {
         }
         
         // Create uploads directory if it doesn't exist
-        $uploadDir = __DIR__ . '/../assets/uploads/students/';
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/kindergarden/assets/uploads/students/';    
+
         
         // Check if directory exists and is writable
         if (!file_exists($uploadDir)) {
